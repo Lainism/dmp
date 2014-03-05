@@ -1,27 +1,28 @@
 package 
 {
-	import flash.display.Sprite;
-	import flash.events.Event;
+	import net.flashpunk.Engine;
+	import net.flashpunk.FP;
 	
 	/**
 	 * ...
 	 * @author Minttu Mäkinen
 	 */
-	public class Main extends Sprite 
+	[Frame(factoryClass="Preloader")]
+	public class Main extends Engine 
 	{
+		private var _gameWorld:GameWorld;
 		
 		public function Main():void 
 		{
-			if (stage) init();
-			else addEventListener(Event.ADDED_TO_STAGE, init);
+			super(500, 600, 30, false);
+			
+			_gameWorld = new GameWorld();
 		}
 		
-		private function init(e:Event = null):void 
+		override public function init():void
 		{
-			removeEventListener(Event.ADDED_TO_STAGE, init);
-			// entry point
+			FP.world = _gameWorld;
 		}
-		
 	}
 	
 }
