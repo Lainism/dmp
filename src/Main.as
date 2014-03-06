@@ -14,7 +14,7 @@ package
 		
 		public function Main():void 
 		{
-			super(500, 600, 30, false);
+			super(500, 600, 60, false);
 			
 			_gameWorld = new GameWorld();
 		}
