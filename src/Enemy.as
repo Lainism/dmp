@@ -20,7 +20,7 @@ package
          
         private var _currentPoint:uint;
          
-        private var _myWorld:World;
+        private var _myWorld:World;	
         private var _added:Boolean;
 		
 		public function Enemy(timeToAct:uint, pathToFollow:Vector.<Point>, worldToBeAdded:World) 
