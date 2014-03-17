@@ -23,7 +23,7 @@ package
         private var _myWorld:World;	
         private var _added:Boolean;
 		
-		public function Enemy(timeToAct:uint, pathToFollow:Vector.<Point>, worldToBeAdded:World) 
+		public function Enemy(timeToAct:uint, worldToBeAdded:World) 
 		{
 			graphic = new Image(IMAGE);
              
@@ -32,7 +32,7 @@ package
              
             _timeToAct = timeToAct;
              
-            _pathToFollow = pathToFollow;
+            _pathToFollow = generateEnemyPath(1);
              
             _currentPoint = 0;
              
@@ -62,14 +62,26 @@ package
                  
                 if (_currentPoint == _pathToFollow.length)
                 {
-                    _myWorld.remove(this);
-                     
-                    _added = false;
-                     
-                    destroy();
+					_currentPoint = 0;
                 }
             }
         }
+		
+		private function generateEnemyPath(distanceBetweenPoints:Number):Vector.<Point>
+		{
+			var i:Number;
+			 
+			var vec:Vector.<Point> = new Vector.<Point>();
+			 
+			var yPos:Number = 125;
+			 
+			for (i = 1; i*0.01 < 2*Math.PI*1; i += distanceBetweenPoints)
+			{
+				vec.push(new Point((Math.cos(i*0.01)+1)*200+50, yPos));
+			}
+		 
+			return vec;
+		}
          
         public function destroy():void
         {

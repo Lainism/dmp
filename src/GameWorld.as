@@ -19,7 +19,7 @@ package
 			
 			add(_playerShip);
 			
-			_enemy = new Enemy(0, generateEnemyPath(1), this);
+			_enemy = new Enemy(0, this);
 		}
 		
 		override public function update():void
@@ -30,27 +30,11 @@ package
 				_enemy.update();
 		}
 		
-		private function generateEnemyPath(distanceBetweenPoints:Number):Vector.<Point>
-		{
-			var i:Number;
-			 
-			var vec:Vector.<Point> = new Vector.<Point>();
-			 
-			var xPos:Number = Math.random() * 360 + 20;
-			 
-			for (i = -20; i < 520; i += distanceBetweenPoints)
-			{
-				vec.push(new Point(xPos, i));
-			}
-		 
-			return vec;
-		}
-		
 		override public function remove(e:Entity):Entity
 		{
 			if (e is Enemy)
 			{
-				_enemy = new Enemy(0, generateEnemyPath(1), this);
+				_enemy = new Enemy(0, this);
 			}
 			 
 			return super.remove(e);
