@@ -55,6 +55,20 @@ package
 			 
 			return super.remove(e);
 		}
+		
+		public function generateBulletPath(distanceBetweenPoints:Number):Vector.<Point>
+		{
+			var i:Number;
+			 
+			var vec:Vector.<Point> = new Vector.<Point>();
+			 
+			for (i = 0; i > -500; i -= distanceBetweenPoints)
+			{
+				vec.push(new Point(0, i));
+			}
+			 
+			return vec;
+		}
 			
 		}
 

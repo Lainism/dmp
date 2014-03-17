@@ -57,6 +57,11 @@ package
 						y = 600;
 					}
 				}
+				
+				if (Input.pressed(Key.SPACE))
+				{
+					world.add(new PlayerBullet(GameWorld(world).generateBulletPath(3), x, y));
+				}
 		}
 		
 	}
