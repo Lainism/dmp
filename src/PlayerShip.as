@@ -14,6 +14,7 @@ package
 	{
 		[Embed(source = "../graphics/msb.png")]
 		private const IMAGE:Class;
+		private var _timeElapsed:Number;
 		
 		public function PlayerShip() 
 		{
@@ -24,6 +25,8 @@ package
 			
 			x = 250;
 			y = 500;
+			
+			_timeElapsed = 0;
 		}
 		
 		override public function update():void
@@ -58,10 +61,13 @@ package
 					}
 				}
 				
-				if (Input.pressed(Key.SPACE))
+				if (Input.check(Key.SPACE) && _timeElapsed > 1)
 				{
+					_timeElapsed = 0;
 					world.add(new PlayerBullet(GameWorld(world).generateBulletPath(3), x, y));
 				}
+				
+				_timeElapsed += 7 * FP.elapsed;
 		}
 		
 	}
