@@ -47,11 +47,11 @@ package
 				this.reset();
 			}
 			
-			var nx:uint = 150 + 75 * (rotation % (width - 1));
+			var nx:uint = 112.5 + 75 * (rotation % (width - 1));
 			var ny:uint = 437.5 + 75 * int(rotation / (width - 1));
-			trace(nx);
-			trace(ny);
-			trace("---");
+			//trace(nx);
+			//trace(ny);
+			//trace("---");
 			
 			nodes[int(rotation + rotation / (width - 1))].rotate(nx, ny);
 			nodes[int(rotation + rotation / (width - 1) + 1)].rotate(nx, ny);

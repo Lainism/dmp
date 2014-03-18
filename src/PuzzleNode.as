@@ -49,27 +49,51 @@ package
 			var vec:Vector.<Point> = new Vector.<Point>();
 			var xdir:Number;
 			var ydir:Number;
+			var j:Number
 			
-			if (nx < x) {
+			if (nx < x && ny < y) {
 				xdir = 37.5;
-			} else {
-				xdir = -37.5;
-			}
-			
-			if (ny < y) {
 				ydir = 37.5;
-			} else {
+				j = - Math.PI / 4;
+			} else if (nx >= x && ny < y) {
+				xdir = -37.5;
+				ydir = 37.5;
+				j = - 3* Math.PI / 4;
+			} else if (nx > x && ny > y) {
+				xdir = -37.5;
 				ydir = -37.5;
+				j = 3* Math.PI / 4;
+			} else {
+				xdir = 37.5;
+				ydir = -37.5;
+				j = Math.PI / 4;
 			}
 			
-			for (var i:Number = Math.PI*2; i >= 0; i = i - 0.05)
+			for (var i:Number = j; i >= j - 2 * Math.PI; i = i - 0.05)
 			{
-				vec.push(new Point( (nx + xdir + 37.5 * Math.cos(i)) , (ny + ydir + 37.5 * Math.sin(i)) ));
+				//trace(xdir);
+				//vec.push(new Point( (nx + xdir + 37.5 * Math.cos(i)) , (ny + ydir + 37.5 * Math.sin(i)) ));
+				vec.push(rot(nx, ny, i));
 			}
-			trace(nx);
-			trace(ny);
+			//trace(nx);
+			//trace(ny);
 			
 			_pathToFollow = vec;
+		}
+		
+		private function rot(rx:Number,ry:Number,P:Number):Point
+		{	
+			//var toDeg:Number = 180/Math.PI;
+			var dx:Number = x-rx;
+			var dy:Number = y-ry;
+			var cos:Number = Math.cos(P);
+			var sin:Number = Math.sin(P);
+
+			//m.rotation += P*toDeg;
+			//m.x = rx+dx*cos-dy*sin;
+			//m.y = ry + dy * cos + dx * sin;
+			
+			return new Point(rx+dx*cos-dy*sin, ry + dy * cos + dx * sin);
 		}
 		
 		override public function update():void
@@ -78,6 +102,7 @@ package
 				var tmp:Point = _pathToFollow.pop();
 				x = tmp.x;
 				y = tmp.y;
+				//trace(tmp.x);
 			}
 		}
 		
