@@ -75,9 +75,9 @@ package
 			 
 			var yPos:Number = 125;
 			 
-			for (i = 1; i*0.01 < 2*Math.PI*1; i += distanceBetweenPoints)
+			for (i = 0; i*0.01 < 2*Math.PI; i += distanceBetweenPoints)
 			{
-				vec.push(new Point((Math.cos(i*0.01)+1)*200+50, yPos));
+				vec.push(new Point((Math.cos(i*0.01 + Math.PI / 2)+1)*200+50, yPos));
 			}
 		 
 			return vec;

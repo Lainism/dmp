@@ -12,9 +12,13 @@ package
 	{
 		private var _playerShip:PlayerShip;
 		private var _enemy:Enemy;
+		private var _puzzle:PuzzleNode;
 		
 		public function GameWorld() 
 		{
+			_puzzle = new PuzzleNode(0, 100, 400);
+			add(_puzzle);			
+			
 			_playerShip = new PlayerShip();
 			
 			add(_playerShip);
