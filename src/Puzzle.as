@@ -6,19 +6,30 @@ package
 	 */
 	public class Puzzle 
 	{
-		private var width;
-		private var height;
-		private var moves;
-		private var solution;
-		private var answer;
+		private var width:uint;
+		private var height:uint;
+		private var moves:uint;
+		private var solution:Array;
+		private var answer:Array;
+		public var nodes:Array;
 		
-		public function Puzzle(width:Number, height:Number, moves:Number) 
+		public function Puzzle(width:uint, height:uint, moves:uint) 
 		{
 			this.width = width;
 			this.height = height;
 			this.moves = moves;
 			this.answer = new Array();
 			this.shuffle();
+			this.nodes = new Array();
+			for (var i:uint = 0; i < width * height; i++) {
+				if (i < width) {
+					nodes.push(new PuzzleNode(0, 150+(i%width)*75, 400));
+				} else if (i < width * 2) {
+					nodes.push(new PuzzleNode(1, 150+(i%width)*75, 475));
+				} else {
+					nodes.push(new PuzzleNode(2, 150+(i%width)*75, 550));
+				}
+			}
 		}
 		
 		public function shuffle():void
@@ -30,11 +41,22 @@ package
 			}
 		}
 		
-		public function rotate(rotation:Number)
+		public function rotate(rotation:Number):void
 		{
 			if (answer.length == moves) {
 				this.reset();
 			}
+			
+			var nx:uint = 187.5 + 75 * (rotation % (width - 1));
+			var ny:uint = 400 + 75 * (rotation / (width - 1));
+			trace(nx);
+			trace(ny);
+			trace("---");
+			
+			nodes[int(rotation + rotation / (width - 1))].rotate(nx, ny);
+			nodes[int(rotation + rotation / (width - 1) + 1)].rotate(nx, ny);
+			nodes[int(width + (rotation + rotation / (width - 1)))].rotate(nx, ny);
+			nodes[int(width + (rotation + rotation / (width - 1) + 1))].rotate(nx, ny);
 			
 			answer.push(rotation);
 		}
@@ -54,12 +76,12 @@ package
 			return true;
 		}
 		
-		public function reset()
+		public function reset():void
 		{
 			this.answer = new Array();
 		}
 		
-		function randomRange(minNum:Number, maxNum:Number):Number
+		private function randomRange(minNum:Number, maxNum:Number):Number
 		{
 			return (Math.floor(Math.random() * (maxNum - minNum + 1)) + minNum);
 		}

@@ -1,5 +1,6 @@
 package  
 {
+	import flash.geom.Point;
 	import net.flashpunk.Entity;
 	import net.flashpunk.graphics.Image;
 	import net.flashpunk.FP;
@@ -18,6 +19,7 @@ package
 		private const RED:Class;
 		[Embed(source = "../graphics/png.png")]
 		private const GREEN:Class;
+		private var _pathToFollow:Vector.<Point>;
 		
 		public function PuzzleNode(color:uint, nx:uint, ny:uint) 
 		{
@@ -36,12 +38,34 @@ package
 			graphic.x = -37.5;
 			graphic.y = -37.5;
 			
+			_pathToFollow = new Vector.<Point>();
+			
 			x = nx;
 			y = ny;
 		}
 		
+		public function rotate(nx:uint, ny:uint):void
+		{
+			var vec:Vector.<Point> = new Vector.<Point>();
+			var xdir:int = 1;
+			var ydir:int = 1;
+			
+			for (var i:Number = Math.PI*2; i >= 0; i = i - 0.05)
+			{
+				vec.push(new Point( (nx + xdir * 37.5 * Math.cos(i)) , (ny + ydir * 37.5 * Math.sin(i)) ));
+			}
+			
+			_pathToFollow = vec;
+		}
+		
 		override public function update():void
-		{}
+		{
+			if (_pathToFollow.length > 0) {
+				var tmp:Point = _pathToFollow.pop();
+				x = tmp.x;
+				y = tmp.y;
+			}
+		}
 		
 	}
 

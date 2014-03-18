@@ -15,9 +15,11 @@ package
 		[Embed(source = "../graphics/msb.png")]
 		private const IMAGE:Class;
 		private var _timeElapsed:Number;
+		private var _puzzle:Puzzle;
 		
-		public function PlayerShip() 
+		public function PlayerShip(puzzle:Puzzle) 
 		{
+			this._puzzle = puzzle;
 			graphic = new Image(IMAGE);
 			
 			graphic.x = -28.5;
@@ -65,6 +67,23 @@ package
 				{
 					_timeElapsed = 0;
 					world.add(new PlayerBullet(GameWorld(world).generateBulletPath(3), x, y));
+				}
+				
+				if (Input.pressed(Key.ENTER))
+				{
+					if (x > 150 && y > 300 && x <= 225 && y <= 475) {
+						_puzzle.rotate(0);
+					} else if (x > 225 && y > 300 && x <= 300 && y <= 475) {
+						_puzzle.rotate(1);
+					} else if (x > 300 && y > 300 && x <= 375 && y <= 475) {
+						_puzzle.rotate(2);
+					} else if (x > 150 && y > 475 && x <= 225 && y <= 550) {
+						_puzzle.rotate(3);
+					} else if (x > 225 && y > 475 && x <= 300 && y <= 550) {
+						_puzzle.rotate(4);
+					} else if (x > 300 && y > 475 && x <= 375 && y <= 550) {
+						_puzzle.rotate(5);
+					}
 				}
 				
 				_timeElapsed += 7 * FP.elapsed;

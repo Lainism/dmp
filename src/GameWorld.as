@@ -12,18 +12,20 @@ package
 	{
 		private var _playerShip:PlayerShip;
 		private var _enemy:Enemy;
-		private var _puzzle:PuzzleNode;
+		private var _puzzle:Puzzle;
 		
 		public function GameWorld() 
 		{
-			_puzzle = new PuzzleNode(0, 100, 400);
-			add(_puzzle);			
-			
-			_playerShip = new PlayerShip();
-			
-			add(_playerShip);
-			
+			//initializing...
+			_puzzle = new Puzzle(4, 3, 3);
+			_playerShip = new PlayerShip(_puzzle);
 			_enemy = new Enemy(0, this);
+			
+			//adding the sprites
+			for each (var a:PuzzleNode in _puzzle.nodes) {
+				add(a);
+			}
+			add(_playerShip);
 		}
 		
 		override public function update():void
