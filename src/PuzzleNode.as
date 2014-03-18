@@ -47,13 +47,27 @@ package
 		public function rotate(nx:uint, ny:uint):void
 		{
 			var vec:Vector.<Point> = new Vector.<Point>();
-			var xdir:int = 1;
-			var ydir:int = 1;
+			var xdir:Number;
+			var ydir:Number;
+			
+			if (nx < x) {
+				xdir = 37.5;
+			} else {
+				xdir = -37.5;
+			}
+			
+			if (ny < y) {
+				ydir = 37.5;
+			} else {
+				ydir = -37.5;
+			}
 			
 			for (var i:Number = Math.PI*2; i >= 0; i = i - 0.05)
 			{
-				vec.push(new Point( (nx + xdir * 37.5 * Math.cos(i)) , (ny + ydir * 37.5 * Math.sin(i)) ));
+				vec.push(new Point( (nx + xdir + 37.5 * Math.cos(i)) , (ny + ydir + 37.5 * Math.sin(i)) ));
 			}
+			trace(nx);
+			trace(ny);
 			
 			_pathToFollow = vec;
 		}
