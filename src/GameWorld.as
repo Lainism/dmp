@@ -1,5 +1,6 @@
 package  
 {
+	import net.EnemyBullet;
 	import net.flashpunk.World;
 	import flash.geom.Point;
     import net.flashpunk.Entity;
@@ -13,6 +14,9 @@ package
 		private var _playerShip:PlayerShip;
 		private var _enemy:Enemy;
 		private var _puzzle:Puzzle;
+		
+		private var _bulletList:Vector.<PlayerBullet>;
+		private var _enemyBulletList:Vector.<EnemyBullet>;
 		
 		public function GameWorld() 
 		{
@@ -34,6 +38,27 @@ package
 			
 			if (_enemy)
 				_enemy.update();
+				
+			_bulletList = new Vector.<PlayerBullet>();
+			getType("PlayerBullet", _bulletList);
+			
+			for each (var bullet:PlayerBullet in _bulletList) {
+				if (bullet.collideWith(_enemy, bullet.x, bullet.y)) {
+					_enemy.takeDamage();
+					remove(bullet);
+					bullet.destroy();
+				}
+			}
+			
+			_enemyBulletList = new Vector.<EnemyBullet>();
+			getType("EnemyBullet", _enemyBulletList);
+			
+			for each (var Ebullet:EnemyBullet in _enemyBulletList) {
+				if (Ebullet.collideWith(_playerShip, Ebullet.x, Ebullet.y)) {
+					remove(Ebullet);
+					Ebullet.destroy();
+				}
+			}
 		}
 		
 		override public function remove(e:Entity):Entity
@@ -46,13 +71,15 @@ package
 			return super.remove(e);
 		}
 		
-		public function generateBulletPath(distanceBetweenPoints:Number):Vector.<Point>
+		public function generatePlayerBulletPath(distanceBetweenPoints:Number):Vector.<Point>
 		{
 			var i:Number;
 			 
 			var vec:Vector.<Point> = new Vector.<Point>();
+			
+			var edge_dist:Number = -_playerShip.y - 20;
 			 
-			for (i = 0; i > -500; i -= distanceBetweenPoints)
+			for (i = 0; i > edge_dist; i -= distanceBetweenPoints)
 			{
 				vec.push(new Point(0, i));
 			}
@@ -60,6 +87,19 @@ package
 			return vec;
 		}
 			
+		public function generateEnemyBulletPath(distanceBetweenPoints:Number):Vector.<Point>
+		{
+			var i:Number;
+			
+			var vec:Vector.<Point> = new Vector.<Point>();
+			
+			for (i = 0; i < 490; i += distanceBetweenPoints)
+			{
+				vec.push(new Point(0, i));
+			}
+			
+			return vec;
 		}
+	}
 
 }

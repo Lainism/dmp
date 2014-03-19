@@ -3,6 +3,7 @@ package
 	import flash.geom.Point;
     import net.flashpunk.Entity;
     import net.flashpunk.graphics.Image;
+	import net.flashpunk.masks.Pixelmask;
 	/**
 	 * ...
 	 * @author Minttu Mäkinen
@@ -23,10 +24,14 @@ public class PlayerBullet extends Entity
              
             graphic.x = graphic.y = -8.5;
              
+			mask = new Pixelmask(IMAGE, -8.5, -8.5);
+			
             _pathToFollow = pathToFollow;
              
             _xPos = xPos;
             _yPos = yPos;
+			
+			type = "PlayerBullet";
         }
          
         override public function update():void
