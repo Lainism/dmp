@@ -1,8 +1,12 @@
 package 
 {
+	import net.EnemyBullet;
 	import net.flashpunk.Entity;
 	import net.flashpunk.graphics.Image;
 	import net.flashpunk.FP;
+	import net.flashpunk.Mask;
+	import net.flashpunk.masks.Masklist;
+	import net.flashpunk.masks.Pixelmask;
 	import net.flashpunk.utils.Input;
 	import net.flashpunk.utils.Key;
 	
@@ -25,10 +29,14 @@ package
 			graphic.x = -28.5;
 			graphic.y = -31.5;
 			
+			mask = new Pixelmask(IMAGE, -28.5, -31.5);
+			this.setHitbox(15, 15, 0, 0);
 			x = 250;
 			y = 500;
 			
 			_timeElapsed = 0;
+			
+			type = "Player";
 		}
 		
 		override public function update():void
@@ -66,7 +74,7 @@ package
 				if (Input.check(Key.SPACE) && _timeElapsed > 1)
 				{
 					_timeElapsed = 0;
-					world.add(new PlayerBullet(GameWorld(world).generateBulletPath(3), x, y));
+					world.add(new PlayerBullet(GameWorld(world).generatePlayerBulletPath(3), x, y));
 				}
 				
 				if (Input.pressed(Key.ENTER))
