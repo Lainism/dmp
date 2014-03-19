@@ -47,7 +47,7 @@ package
 				this.reset();
 			}
 			
-			var nx:uint = 112.5 + 75 * (rotation % (width - 1));
+			var nx:uint = 187.5 + 75 * (rotation % (width - 1));
 			var ny:uint = 437.5 + 75 * int(rotation / (width - 1));
 			//trace(nx);
 			//trace(ny);

@@ -47,33 +47,29 @@ package
 		public function rotate(nx:uint, ny:uint):void
 		{
 			var vec:Vector.<Point> = new Vector.<Point>();
-			var xdir:Number;
-			var ydir:Number;
 			var j:Number
+			var r:Number = 53.0330085;
 			
 			if (nx < x && ny < y) {
-				xdir = 37.5;
-				ydir = 37.5;
-				j = - Math.PI / 4;
-			} else if (nx >= x && ny < y) {
-				xdir = -37.5;
-				ydir = 37.5;
-				j = - 3* Math.PI / 4;
-			} else if (nx > x && ny > y) {
-				xdir = -37.5;
-				ydir = -37.5;
-				j = 3* Math.PI / 4;
-			} else {
-				xdir = 37.5;
-				ydir = -37.5;
 				j = Math.PI / 4;
+			} else if (nx >= x && ny < y) {
+				j = 3* Math.PI / 4;
+			} else if (nx > x && ny > y) {
+				j = - 3* Math.PI / 4;
+			} else {
+				j = - Math.PI / 4;
 			}
 			
-			for (var i:Number = j; i >= j - 2 * Math.PI; i = i - 0.05)
+			//trace(x);
+			//trace(y);
+			trace(j);
+			trace(rot(nx, ny, j));
+			
+			for (var i:Number = j - Math.PI / 2; i <= j; i = i + 0.05)
 			{
 				//trace(xdir);
-				//vec.push(new Point( (nx + xdir + 37.5 * Math.cos(i)) , (ny + ydir + 37.5 * Math.sin(i)) ));
-				vec.push(rot(nx, ny, i));
+				vec.push(new Point( nx - (r * Math.cos(i)) , ny + (r * Math.sin(i)) ));
+				//vec.push(rot(nx, ny, i));
 			}
 			//trace(nx);
 			//trace(ny);
@@ -92,7 +88,7 @@ package
 			//m.rotation += P*toDeg;
 			//m.x = rx+dx*cos-dy*sin;
 			//m.y = ry + dy * cos + dx * sin;
-			
+			//trace(P);
 			return new Point(rx+dx*cos-dy*sin, ry + dy * cos + dx * sin);
 		}
 		
