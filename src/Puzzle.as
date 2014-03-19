@@ -47,17 +47,37 @@ package
 				this.reset();
 			}
 			
+			trace("---");
+			
 			var nx:uint = 187.5 + 75 * (rotation % (width - 1));
 			var ny:uint = 437.5 + 75 * int(rotation / (width - 1));
-			//trace(nx);
-			//trace(ny);
-			//trace("---");
+			var j:Number = Math.PI / 4;
 			
-			nodes[int(rotation + rotation / (width - 1))].rotate(nx, ny);
-			nodes[int(rotation + rotation / (width - 1) + 1)].rotate(nx, ny);
-			nodes[int(width + (rotation + rotation / (width - 1)))].rotate(nx, ny);
-			nodes[int(width + (rotation + rotation / (width - 1) + 1))].rotate(nx, ny);
+			var topleft:int = int(rotation + rotation / (width - 1));
+			var topright:int = int(rotation + rotation / (width - 1) + 1);
+			var bottomleft:int = int(width + (rotation + rotation / (width - 1)));
+			var bottomright:int = int(width + (rotation + rotation / (width - 1) + 1));
 			
+			trace(topleft);
+			trace(topright);
+			trace(bottomleft);
+			trace(bottomright);
+			
+			nodes[topleft].rotate(nx, ny, -3*j);
+			nodes[topright].rotate(nx, ny, -j);
+			nodes[bottomleft].rotate(nx, ny, 3*j);
+			nodes[bottomright].rotate(nx, ny, j);
+			
+			var tmp1:PuzzleNode = nodes[topleft];
+			var tmp2:PuzzleNode = nodes[topright];
+			var tmp3:PuzzleNode = nodes[bottomleft];
+			var tmp4:PuzzleNode = nodes[bottomright];
+			
+			nodes[topleft] = 		tmp2;
+			nodes[topright] = 		tmp4;
+			nodes[bottomleft] = 	tmp1;
+			nodes[bottomright] = 	tmp3;
+
 			answer.push(rotation);
 		}
 		

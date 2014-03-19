@@ -19,20 +19,24 @@ package
 		private const RED:Class;
 		[Embed(source = "../graphics/png.png")]
 		private const GREEN:Class;
+		private var currentColor:String;
 		private var _pathToFollow:Vector.<Point>;
 		
 		public function PuzzleNode(color:uint, nx:uint, ny:uint) 
 		{
 			if (color == 0) {
 				graphic = new Image(BLUE);
+				currentColor = "Blue";
 			}
 			
 			if (color == 1) {
 				graphic = new Image(RED);
+				currentColor = "Red";
 			}
 			
 			if (color == 2) {
 				graphic = new Image(GREEN);
+				currentColor = "Green";
 			}
 			
 			graphic.x = -37.5;
@@ -44,12 +48,12 @@ package
 			y = ny;
 		}
 		
-		public function rotate(nx:uint, ny:uint):void
+		public function rotate(nx:uint, ny:uint, j:Number):void
 		{
 			var vec:Vector.<Point> = new Vector.<Point>();
-			var j:Number
+			//var j:Number
 			var r:Number = 53.0330085;
-			
+			/*
 			if (nx < x && ny < y) {
 				j = Math.PI / 4;
 			} else if (nx >= x && ny < y) {
@@ -59,45 +63,26 @@ package
 			} else {
 				j = - Math.PI / 4;
 			}
-			
-			//trace(x);
-			//trace(y);
+			/
 			trace(j);
-			trace(rot(nx, ny, j));
-			
+			trace(x);
+			trace(y);
+			trace("~");
+			*/
 			for (var i:Number = j - Math.PI / 2; i <= j; i = i + 0.05)
 			{
-				//trace(xdir);
 				vec.push(new Point( nx - (r * Math.cos(i)) , ny + (r * Math.sin(i)) ));
-				//vec.push(rot(nx, ny, i));
 			}
-			//trace(nx);
-			//trace(ny);
 			
 			_pathToFollow = vec;
-		}
-		
-		private function rot(rx:Number,ry:Number,P:Number):Point
-		{	
-			//var toDeg:Number = 180/Math.PI;
-			var dx:Number = x-rx;
-			var dy:Number = y-ry;
-			var cos:Number = Math.cos(P);
-			var sin:Number = Math.sin(P);
-
-			//m.rotation += P*toDeg;
-			//m.x = rx+dx*cos-dy*sin;
-			//m.y = ry + dy * cos + dx * sin;
-			//trace(P);
-			return new Point(rx+dx*cos-dy*sin, ry + dy * cos + dx * sin);
 		}
 		
 		override public function update():void
 		{
 			if (_pathToFollow.length > 0) {
 				var tmp:Point = _pathToFollow.pop();
-				x = tmp.x;
-				y = tmp.y;
+				x = int(tmp.x);
+				y = int(tmp.y);
 				//trace(tmp.x);
 			}
 		}
