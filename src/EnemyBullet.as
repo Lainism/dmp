@@ -1,4 +1,8 @@
+<<<<<<< HEAD:src/EnemyBullet.as
 package
+=======
+package  
+>>>>>>> 040a99ca292698604548dd7a3ca97785060c983f:src/EnemyBullet.as
 {
 	import flash.geom.Point;
     import net.flashpunk.Entity;
@@ -18,7 +22,13 @@ package
 		private var _xPos:Number;
         private var _yPos:Number;
 		
+<<<<<<< HEAD:src/EnemyBullet.as
 		public function EnemyBullet() 
+=======
+		public var DAMAGE:int = 1;
+		
+		public function EnemyBullet(pathToFollow:Vector.<Point>, xPos:Number, yPos:Number) 
+>>>>>>> 040a99ca292698604548dd7a3ca97785060c983f:src/EnemyBullet.as
 		{
 			super();
 			/*graphic = new Image(IMAGE);

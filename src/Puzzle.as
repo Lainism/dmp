@@ -11,15 +11,16 @@ package
 		private var height:uint;
 		private var moves:uint;
 		private var solution:Array;
-		private var answer:Array;
+		private var solved:Array;
 		public var nodes:Array;
+		private var counter:int;
 		
 		public function Puzzle(width:uint, height:uint, moves:uint) 
 		{
 			this.width = width;
 			this.height = height;
 			this.moves = moves;
-			this.answer = new Array();
+			this.solved = new Array(0, 0, 0, 0, 1, 1, 1, 1, 2, 2, 2, 2);
 			this.shuffle();
 			this.nodes = new Array();
 			for (var i:uint = 0; i < width * height; i++) {
@@ -31,6 +32,7 @@ package
 					nodes.push(new PuzzleNode(2, 150+(i%width)*75, 550));
 				}
 			}
+			this.reset();
 		}
 		
 		public function shuffle():void
@@ -38,17 +40,21 @@ package
 			this.solution = new Array();
 			var size:Number = (width - 1) * (height - 1);
 			for (var i:Number = 0; i < moves; i++) {
-				this.solution.push(this.randomRange(1, size));
+				this.solution.push(this.randomRange(0, size - 1));
 			}
 		}
 		
 		public function rotate(rotation:Number):void
 		{
+<<<<<<< HEAD
 			if (answer.length == moves) {
 				this.reset();
 			}
 			
 			//trace("---");
+=======
+			trace("---");
+>>>>>>> 040a99ca292698604548dd7a3ca97785060c983f
 			
 			var nx:uint = 187.5 + 75 * (rotation % (width - 1));
 			var ny:uint = 437.5 + 75 * int(rotation / (width - 1));
@@ -81,12 +87,15 @@ package
 			nodes[bottomleft].change_color(nodes[bottomright].return_color());
 			nodes[bottomright].change_color(tmp_color);
 			
-			
+			/*
 			var tmp1:PuzzleNode = nodes[topleft];
 			var tmp2:PuzzleNode = nodes[topright];
 			var tmp3:PuzzleNode = nodes[bottomleft];
 			var tmp4:PuzzleNode = nodes[bottomright];
+<<<<<<< HEAD
 			
+=======
+>>>>>>> 040a99ca292698604548dd7a3ca97785060c983f
 			/*trace("!!!")
 			trace(nodes[topleft].x);
 			trace(nodes[topleft].y);
@@ -97,6 +106,16 @@ package
 			trace(nodes[bottomleft].x);
 			trace(nodes[bottomleft].y);
 			
+<<<<<<< HEAD
+=======
+			/*
+			nodes[topleft] = 		tmp3;
+			nodes[topright] = 		tmp1;
+			nodes[bottomleft] = 	tmp4;
+			nodes[bottomright] = 	tmp2;
+			/
+			
+>>>>>>> 040a99ca292698604548dd7a3ca97785060c983f
 			trace("!!!")
 			trace(nodes[topleft].x);
 			trace(nodes[topleft].y);
@@ -105,31 +124,74 @@ package
 			trace(nodes[bottomright].x);
 			trace(nodes[bottomright].y);
 			trace(nodes[bottomleft].x);
+<<<<<<< HEAD
 			trace(nodes[bottomleft].y);
 			*/
+=======
+			trace(nodes[bottomleft].y);*/
+>>>>>>> 040a99ca292698604548dd7a3ca97785060c983f
 			
-			answer.push(rotation);
+			counter++;
 			
 		}
 		
 		public function compareSolution():Boolean
 		{
-			if (answer.length != solution.length) {
+			if (counter != solution.length) {
 				return false;
 			}
 			
-			for (var i:Number = 0; i < moves; i++) {
+			/*for (var i:Number = 0; i < moves; i++) {
 				if (answer[i] != solution[moves - i]) {
+					return false;
+				}
+			}*/
+			for (var i:uint = 0; i < nodes.length; i++) {
+				if (nodes[i].return_color() != solved[i])
+				{
+					reset();
 					return false;
 				}
 			}
 			
+			trace("puzzle completed!");
+			shuffle();
+			reset();
 			return true;
 		}
 		
 		public function reset():void
 		{
-			this.answer = new Array();
+			trace("reset");
+			this.counter = 0;
+			
+			//initialize all nodes to default places
+			for (var i:int = 0; i < nodes.length; i++) {
+				if (i < width) {
+					nodes[i].change_color(0);
+				} else if (i < 2 * width) {
+					nodes[i].change_color(1);
+				} else {
+					nodes[i].change_color(2);
+				}
+			}
+			
+			var rotation:int, topleft:int, topright:int, bottomleft:int, bottomright:int, tmp_color:int;
+			
+			//rotate nodes without animation
+			for (var j:int = 0; j < solution.length; j++) {
+				rotation = solution[j];
+				topleft = int(rotation + rotation / (width - 1));
+				topright = int(rotation + rotation / (width - 1) + 1);
+				bottomleft = int(width + (rotation + rotation / (width - 1)));
+				bottomright = int(width + (rotation + rotation / (width - 1) + 1));
+				
+				tmp_color = nodes[topright].return_color();
+				nodes[topright].change_color(nodes[bottomright].return_color());
+				nodes[bottomright].change_color(nodes[bottomleft].return_color());
+				nodes[bottomleft].change_color(nodes[topleft].return_color());
+				nodes[topleft].change_color(tmp_color);
+			}
 		}
 		
 		private function randomRange(minNum:Number, maxNum:Number):Number

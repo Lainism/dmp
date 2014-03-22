@@ -1,10 +1,17 @@
 package  
 {
+<<<<<<< HEAD
 	import EnemyBullet;
 	import net.flashpunk.World;
 	import flash.geom.Point;
     import net.flashpunk.Entity;
 	import flash.display.DisplayObject;
+=======
+	import net.flashpunk.World;
+	import flash.geom.Point;
+    import net.flashpunk.Entity;
+	import net.flashpunk.Sfx;
+>>>>>>> 040a99ca292698604548dd7a3ca97785060c983f
 	
 	/**
 	 * ...
@@ -12,6 +19,10 @@ package
 	 */
 	public class GameWorld extends World
 	{
+		[Embed(source = '../sounds/Waves.mp3')]
+		private const BGM1:Class;
+		public var bgm1:Sfx = new Sfx(BGM1);
+		
 		private var _playerShip:PlayerShip;
 		private var _enemy:Enemy;
 		private var _puzzle:Puzzle;
@@ -36,6 +47,7 @@ package
 				add(a);
 			}
 			add(_playerShip);
+			bgm1.loop();
 		}
 		
 		override public function update():void
@@ -45,6 +57,7 @@ package
 			if (_enemy)
 				_enemy.update();
 			
+<<<<<<< HEAD
 			if (_playerShip.bul_onscreen.length > 0) {
 				for (var a:int = 0; a < _playerShip.bul_onscreen.length; a++) {
 					var bul:PlayerBullet = _playerShip.bul_onscreen[a];
@@ -55,6 +68,13 @@ package
 						playerPool.deactivate(bul);
 						trace("Bullet deactivated");
 					}
+=======
+			for each (var bullet:PlayerBullet in _bulletList) {
+				if (bullet.collideWith(_enemy, bullet.x, bullet.y)) {
+					_enemy.decreaseLives(bullet.DAMAGE);
+					remove(bullet);
+					bullet.destroy();
+>>>>>>> 040a99ca292698604548dd7a3ca97785060c983f
 				}
 			}
 				
@@ -63,6 +83,7 @@ package
 			
 			for each (var Ebullet:EnemyBullet in _enemyBulletList) {
 				if (Ebullet.collideWith(_playerShip, Ebullet.x, Ebullet.y)) {
+					_playerShip.decreaseLives(Ebullet.DAMAGE);
 					remove(Ebullet);
 					Ebullet.destroy();
 				}
