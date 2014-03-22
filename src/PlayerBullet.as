@@ -17,6 +17,8 @@ public class PlayerBullet extends Entity
          
         private var _xPos:Number;
         private var _yPos:Number;
+		
+		public var DAMAGE:int = 1;
          
         public function PlayerBullet(pathToFollow:Vector.<Point>, xPos:Number, yPos:Number)
         {

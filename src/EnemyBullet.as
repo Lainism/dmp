@@ -1,4 +1,4 @@
-package net 
+package  
 {
 	import flash.geom.Point;
     import net.flashpunk.Entity;
@@ -17,6 +17,8 @@ package net
 		
 		private var _xPos:Number;
         private var _yPos:Number;
+		
+		public var DAMAGE:int = 1;
 		
 		public function EnemyBullet(pathToFollow:Vector.<Point>, xPos:Number, yPos:Number) 
 		{

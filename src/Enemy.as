@@ -1,7 +1,6 @@
 package  
 {
 	import flash.geom.Point;
-	import net.EnemyBullet;
     import net.flashpunk.Entity;
     import net.flashpunk.FP;
     import net.flashpunk.graphics.Image;
@@ -24,6 +23,7 @@ package
          
         private var _myWorld:World;	
         private var _added:Boolean;
+		private var lives:int;
 		
 		private var _timeElapsed:Number;
 		
@@ -44,6 +44,7 @@ package
              
             _myWorld = worldToBeAdded;
             _added = false;
+			lives = 100;
 			
 			_timeElapsed = 0;
 			
@@ -99,17 +100,19 @@ package
 		 
 			return vec;
 		}
-		
-		public function takeDamage():void
-		{
-			
-			
-		}
          
         public function destroy():void
         {
             graphic = null;
         }
+		
+		public function decreaseLives(damage:int):void
+		{
+			lives -= damage;
+			if (lives < 0) {
+				trace("This enemy is dead.");
+			}
+		}
 	}
 
 }

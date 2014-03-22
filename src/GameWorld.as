@@ -1,6 +1,5 @@
 package  
 {
-	import net.EnemyBullet;
 	import net.flashpunk.World;
 	import flash.geom.Point;
     import net.flashpunk.Entity;
@@ -44,7 +43,7 @@ package
 			
 			for each (var bullet:PlayerBullet in _bulletList) {
 				if (bullet.collideWith(_enemy, bullet.x, bullet.y)) {
-					_enemy.takeDamage();
+					_enemy.decreaseLives(bullet.DAMAGE);
 					remove(bullet);
 					bullet.destroy();
 				}
@@ -55,6 +54,7 @@ package
 			
 			for each (var Ebullet:EnemyBullet in _enemyBulletList) {
 				if (Ebullet.collideWith(_playerShip, Ebullet.x, Ebullet.y)) {
+					_playerShip.decreaseLives(Ebullet.DAMAGE);
 					remove(Ebullet);
 					Ebullet.destroy();
 				}
