@@ -1,6 +1,6 @@
 package 
 {
-	import net.EnemyBullet;
+	import EnemyBullet;
 	import net.flashpunk.Entity;
 	import net.flashpunk.graphics.Image;
 	import net.flashpunk.FP;
@@ -9,6 +9,7 @@ package
 	import net.flashpunk.masks.Pixelmask;
 	import net.flashpunk.utils.Input;
 	import net.flashpunk.utils.Key;
+	import net.flashpunk.World;
 	
 	/**
 	 * ...
@@ -20,6 +21,9 @@ package
 		private const IMAGE:Class;
 		private var _timeElapsed:Number;
 		private var _puzzle:Puzzle;
+		private var _playerWorld:World;
+		
+		public var bul_onscreen:Vector.<PlayerBullet>;
 		
 		public function PlayerShip(puzzle:Puzzle) 
 		{
@@ -35,7 +39,7 @@ package
 			y = 500;
 			
 			_timeElapsed = 0;
-			
+			bul_onscreen = new Vector.<PlayerBullet>();
 			type = "Player";
 		}
 		
@@ -71,10 +75,15 @@ package
 					}
 				}
 				
-				if (Input.check(Key.SPACE) && _timeElapsed > 1)
+				if (Input.check(Key.SPACE) && _timeElapsed > 3)
 				{
 					_timeElapsed = 0;
-					world.add(new PlayerBullet(GameWorld(world).generatePlayerBulletPath(3), x, y));
+					var bull:PlayerBullet = PlayerBullet(GameWorld(world).playerPool.activate());
+					bull.xPos = this.x;
+					bull.yPos = this.y - 5;
+					world.add(bull);
+					bul_onscreen.push(bull);
+					trace("Fired!");
 				}
 				
 				if (Input.pressed(Key.ENTER))

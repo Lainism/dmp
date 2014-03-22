@@ -48,7 +48,7 @@ package
 				this.reset();
 			}
 			
-			trace("---");
+			//trace("---");
 			
 			var nx:uint = 187.5 + 75 * (rotation % (width - 1));
 			var ny:uint = 437.5 + 75 * int(rotation / (width - 1));
@@ -67,7 +67,8 @@ package
 			trace(nodes[topleft].currentColor); 		
 			trace(nodes[topright].currentColor);
 			trace(nodes[bottomleft].currentColor);
-			trace(nodes[bottomright].currentColor);*/
+			trace(nodes[bottomright].currentColor);
+			*/
 			
 			nodes[topleft].rotate(nx, ny, 3*j);
 			nodes[topright].rotate(nx, ny, j);
@@ -85,7 +86,8 @@ package
 			var tmp2:PuzzleNode = nodes[topright];
 			var tmp3:PuzzleNode = nodes[bottomleft];
 			var tmp4:PuzzleNode = nodes[bottomright];
-			trace("!!!")
+			
+			/*trace("!!!")
 			trace(nodes[topleft].x);
 			trace(nodes[topleft].y);
 			trace(nodes[topright].x);
@@ -95,22 +97,16 @@ package
 			trace(nodes[bottomleft].x);
 			trace(nodes[bottomleft].y);
 			
-			/*
-			nodes[topleft] = 		tmp3;
-			nodes[topright] = 		tmp1;
-			nodes[bottomleft] = 	tmp4;
-			nodes[bottomright] = 	tmp2;
+			trace("!!!")
+			trace(nodes[topleft].x);
+			trace(nodes[topleft].y);
+			trace(nodes[topright].x);
+			trace(nodes[topright].y);
+			trace(nodes[bottomright].x);
+			trace(nodes[bottomright].y);
+			trace(nodes[bottomleft].x);
+			trace(nodes[bottomleft].y);
 			*/
-			
-			trace("!!!")
-			trace(nodes[topleft].x);
-			trace(nodes[topleft].y);
-			trace(nodes[topright].x);
-			trace(nodes[topright].y);
-			trace(nodes[bottomright].x);
-			trace(nodes[bottomright].y);
-			trace(nodes[bottomleft].x);
-			trace(nodes[bottomleft].y);
 			
 			answer.push(rotation);
 			

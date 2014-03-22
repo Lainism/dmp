@@ -1,7 +1,7 @@
 package  
 {
 	import flash.geom.Point;
-	import net.EnemyBullet;
+	import EnemyBullet;
     import net.flashpunk.Entity;
     import net.flashpunk.FP;
     import net.flashpunk.graphics.Image;
@@ -78,7 +78,7 @@ package
 				if (_timeElapsed > 5)
 				{	
 					_timeElapsed = 0;
-					world.add(new EnemyBullet(GameWorld(world).generateEnemyBulletPath(3), x, y));
+					//world.add(new EnemyBullet(GameWorld(world).generateEnemyBulletPath(3), x, y));
 				}
             }
 			_timeElapsed += 7 * FP.elapsed;

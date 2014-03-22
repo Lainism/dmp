@@ -1,12 +1,12 @@
-package net 
+package
 {
 	import flash.geom.Point;
     import net.flashpunk.Entity;
     import net.flashpunk.graphics.Image;
 	import net.flashpunk.masks.Pixelmask;
 	/**
-	 * ...
-	 * @author ...
+	 * A common class for different kinds of enemy bullets
+	 * @author A.V.
 	 */
 	public class EnemyBullet extends Entity
 	{
@@ -18,9 +18,10 @@ package net
 		private var _xPos:Number;
         private var _yPos:Number;
 		
-		public function EnemyBullet(pathToFollow:Vector.<Point>, xPos:Number, yPos:Number) 
+		public function EnemyBullet() 
 		{
-			graphic = new Image(IMAGE);
+			super();
+			/*graphic = new Image(IMAGE);
              
             graphic.x = graphic.y = -12.5;
             
@@ -32,12 +33,13 @@ package net
             _yPos = yPos;
 			
 			type = "EnemyBullet";
+			*/
 			
 		}
 		
 		override public function update():void
         {
-            x = _xPos + _pathToFollow[0].x;
+            /*x = _xPos + _pathToFollow[0].x;
             y = _yPos + _pathToFollow[0].y;
              
             _pathToFollow.shift();
@@ -47,14 +49,15 @@ package net
                 world.remove(this);
                  
                 destroy();
-            }
+            }*/
         }
 		
 		public function destroy():void
         {
-            _pathToFollow = null;
+            /*_pathToFollow = null;
              
             graphic = null;
+			*/
         }
 		
 	}

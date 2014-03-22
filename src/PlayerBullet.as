@@ -1,5 +1,6 @@
 package  
 {
+	import flash.events.Event;
 	import flash.geom.Point;
     import net.flashpunk.Entity;
     import net.flashpunk.graphics.Image;
@@ -15,38 +16,46 @@ public class PlayerBullet extends Entity
          
         private var _pathToFollow:Vector.<Point>;
          
-        private var _xPos:Number;
-        private var _yPos:Number;
+        public var xPos:Number;
+        public var yPos:Number;
          
-        public function PlayerBullet(pathToFollow:Vector.<Point>, xPos:Number, yPos:Number)
+        public function PlayerBullet()
         {
-            graphic = new Image(IMAGE);
-             
+			super()
+            
+			/*
             graphic.x = graphic.y = -8.5;
              
 			mask = new Pixelmask(IMAGE, -8.5, -8.5);
 			
             _pathToFollow = pathToFollow;
-             
-            _xPos = xPos;
-            _yPos = yPos;
-			
-			type = "PlayerBullet";
+            
+			*/
         }
+		
+		private function init(event:Event):void 
+		{
+			graphic = GraphicAssets.Pbullet_graph1;
+			mask = new Pixelmask(GraphicAssets.Pbullet_graph1, -8.5, -8.5);
+			_pathToFollow = GameWorld(world).generatePlayerBulletPath(3);
+			
+		}
          
         override public function update():void
         {
-            x = _xPos + _pathToFollow[0].x;
-            y = _yPos + _pathToFollow[0].y;
+            x = xPos + _pathToFollow[0].x;
+            y = yPos + _pathToFollow[0].y;
              
             _pathToFollow.shift();
-             
+            
+			/* 
             if (_pathToFollow.length == 0)
             {
                 world.remove(this);
                  
                 destroy();
             }
+			*/
         }
          
         public function destroy():void

@@ -1,9 +1,10 @@
 package  
 {
-	import net.EnemyBullet;
+	import EnemyBullet;
 	import net.flashpunk.World;
 	import flash.geom.Point;
     import net.flashpunk.Entity;
+	import flash.display.DisplayObject;
 	
 	/**
 	 * ...
@@ -15,17 +16,22 @@ package
 		private var _enemy:Enemy;
 		private var _puzzle:Puzzle;
 		
-		private var _bulletList:Vector.<PlayerBullet>;
 		private var _enemyBulletList:Vector.<EnemyBullet>;
+		
+		public var playerPool:BulletPool;
 		
 		public function GameWorld() 
 		{
-			//initializing...
+			// Loading bullet graphics
+			new GraphicAssets();
+			
+			// Initializing rest...
 			_puzzle = new Puzzle(4, 3, 3);
 			_playerShip = new PlayerShip(_puzzle);
 			_enemy = new Enemy(0, this);
+			playerPool = new BulletPool(PlayerBullet, 50);
 			
-			//adding the sprites
+			// Adding the sprites for puzzle nodes
 			for each (var a:PuzzleNode in _puzzle.nodes) {
 				add(a);
 			}
@@ -38,18 +44,20 @@ package
 			
 			if (_enemy)
 				_enemy.update();
-				
-			_bulletList = new Vector.<PlayerBullet>();
-			getType("PlayerBullet", _bulletList);
 			
-			for each (var bullet:PlayerBullet in _bulletList) {
-				if (bullet.collideWith(_enemy, bullet.x, bullet.y)) {
-					_enemy.takeDamage();
-					remove(bullet);
-					bullet.destroy();
+			if (_playerShip.bul_onscreen.length > 0) {
+				for (var a:int = 0; a < _playerShip.bul_onscreen.length; a++) {
+					var bul:PlayerBullet = _playerShip.bul_onscreen[a];
+					if (bul.collideWith(_enemy, bul.x, bul.y) || bul.y < 0) {
+						_enemy.takeDamage();
+						remove(bul);
+						_playerShip.bul_onscreen.splice(a, 1);
+						playerPool.deactivate(bul);
+						trace("Bullet deactivated");
+					}
 				}
 			}
-			
+				
 			_enemyBulletList = new Vector.<EnemyBullet>();
 			getType("EnemyBullet", _enemyBulletList);
 			
