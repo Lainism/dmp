@@ -71,6 +71,11 @@ package
 					}
 				}
 				
+				if (Input.pressed(Key.R))
+				{
+					_puzzle.reset();
+				}
+				
 				if (Input.check(Key.SPACE) && _timeElapsed > 1)
 				{
 					_timeElapsed = 0;
