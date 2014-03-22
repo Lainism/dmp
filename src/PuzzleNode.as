@@ -83,8 +83,8 @@ package
 				var tmp:Point = _pathToFollow.pop();
 				x = int(tmp.x);
 				y = int(tmp.y);
-				trace(currentColor);
-				trace(tmp.y);
+				//trace(currentColor);
+				//trace(tmp.y);
 			}
 		}
 		

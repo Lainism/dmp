@@ -92,6 +92,7 @@ package
 					} else if (x > 300 && y > 475 && x <= 375 && y <= 550) {
 						_puzzle.rotate(5);
 					}
+					_puzzle.compareSolution();
 				}
 				
 				_timeElapsed += 7 * FP.elapsed;
