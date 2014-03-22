@@ -3,6 +3,7 @@ package
 	import net.flashpunk.World;
 	import flash.geom.Point;
     import net.flashpunk.Entity;
+	import net.flashpunk.Sfx;
 	
 	/**
 	 * ...
@@ -10,6 +11,10 @@ package
 	 */
 	public class GameWorld extends World
 	{
+		[Embed(source = '../sounds/Waves.mp3')]
+		private const BGM1:Class;
+		public var bgm1:Sfx = new Sfx(BGM1);
+		
 		private var _playerShip:PlayerShip;
 		private var _enemy:Enemy;
 		private var _puzzle:Puzzle;
@@ -29,6 +34,7 @@ package
 				add(a);
 			}
 			add(_playerShip);
+			bgm1.loop();
 		}
 		
 		override public function update():void
