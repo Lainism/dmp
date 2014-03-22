@@ -46,15 +46,7 @@ package
 		
 		public function rotate(rotation:Number):void
 		{
-<<<<<<< HEAD
-			if (answer.length == moves) {
-				this.reset();
-			}
-			
 			//trace("---");
-=======
-			trace("---");
->>>>>>> 040a99ca292698604548dd7a3ca97785060c983f
 			
 			var nx:uint = 187.5 + 75 * (rotation % (width - 1));
 			var ny:uint = 437.5 + 75 * int(rotation / (width - 1));
@@ -92,10 +84,7 @@ package
 			var tmp2:PuzzleNode = nodes[topright];
 			var tmp3:PuzzleNode = nodes[bottomleft];
 			var tmp4:PuzzleNode = nodes[bottomright];
-<<<<<<< HEAD
-			
-=======
->>>>>>> 040a99ca292698604548dd7a3ca97785060c983f
+
 			/*trace("!!!")
 			trace(nodes[topleft].x);
 			trace(nodes[topleft].y);
@@ -106,8 +95,6 @@ package
 			trace(nodes[bottomleft].x);
 			trace(nodes[bottomleft].y);
 			
-<<<<<<< HEAD
-=======
 			/*
 			nodes[topleft] = 		tmp3;
 			nodes[topright] = 		tmp1;
@@ -115,7 +102,6 @@ package
 			nodes[bottomright] = 	tmp2;
 			/
 			
->>>>>>> 040a99ca292698604548dd7a3ca97785060c983f
 			trace("!!!")
 			trace(nodes[topleft].x);
 			trace(nodes[topleft].y);
@@ -124,12 +110,8 @@ package
 			trace(nodes[bottomright].x);
 			trace(nodes[bottomright].y);
 			trace(nodes[bottomleft].x);
-<<<<<<< HEAD
 			trace(nodes[bottomleft].y);
 			*/
-=======
-			trace(nodes[bottomleft].y);*/
->>>>>>> 040a99ca292698604548dd7a3ca97785060c983f
 			
 			counter++;
 			

@@ -1,9 +1,6 @@
 package 
 {
-<<<<<<< HEAD
 	import EnemyBullet;
-=======
->>>>>>> 040a99ca292698604548dd7a3ca97785060c983f
 	import net.flashpunk.Entity;
 	import net.flashpunk.graphics.Image;
 	import net.flashpunk.FP;
@@ -24,13 +21,10 @@ package
 		private const IMAGE:Class;
 		private var _timeElapsed:Number;
 		private var _puzzle:Puzzle;
-<<<<<<< HEAD
-		private var _playerWorld:World;
+		//private var _playerWorld:World;
 		
-		public var bul_onscreen:Vector.<PlayerBullet>;
-=======
+		public var bul_onscreen:Vector.<Bullet>;
 		private var lives:int;
->>>>>>> 040a99ca292698604548dd7a3ca97785060c983f
 		
 		public function PlayerShip(puzzle:Puzzle) 
 		{
@@ -48,7 +42,7 @@ package
 			y = 500;
 			
 			_timeElapsed = 0;
-			bul_onscreen = new Vector.<PlayerBullet>();
+			bul_onscreen = new Vector.<Bullet>();
 			type = "Player";
 		}
 		
@@ -76,25 +70,25 @@ package
 				if (y < 0) {
 					y = 0;
 				}
-<<<<<<< HEAD
-				
-				if (Input.check(Key.SPACE) && _timeElapsed > 3)
-				{
-					_timeElapsed = 0;
-					var bull:PlayerBullet = PlayerBullet(GameWorld(world).playerPool.activate());
-					bull.xPos = this.x;
-					bull.yPos = this.y - 5;
-					world.add(bull);
-					bul_onscreen.push(bull);
-					trace("Fired!");
-=======
 			}
+		
+			if (Input.check(Key.SPACE) && _timeElapsed > 2)
+			{
+				_timeElapsed = 0;
+				var bull:Bullet = GameWorld(world).playerPool.activate();
+				bull.xPos = bull.x = this.x;
+				bull.yPos = bull.y = this.y;
+				bull._pathToFollow = GameWorld(world).generatePlayerBulletPath(3);
+				world.add(bull);
+				bul_onscreen.push(bull);
+				trace("Fired!");
+			}
+			
 			else if (Input.check(Key.S) || Input.check(Key.DOWN))
 			{
 				y += 150 * FP.elapsed;
 				if (y > 600) {
 					y = 600;
->>>>>>> 040a99ca292698604548dd7a3ca97785060c983f
 				}
 			}
 			
@@ -103,11 +97,13 @@ package
 				_puzzle.reset();
 			}
 			
+			/*
 			if (Input.check(Key.SPACE) && _timeElapsed > 1)
 			{
 				_timeElapsed = 0;
 				world.add(new PlayerBullet(GameWorld(world).generatePlayerBulletPath(3), x, y));
 			}
+			*/
 			
 			if (Input.pressed(Key.ENTER))
 			{

@@ -1,8 +1,4 @@
-<<<<<<< HEAD:src/EnemyBullet.as
-package
-=======
 package  
->>>>>>> 040a99ca292698604548dd7a3ca97785060c983f:src/EnemyBullet.as
 {
 	import flash.geom.Point;
     import net.flashpunk.Entity;
@@ -12,24 +8,19 @@ package
 	 * A common class for different kinds of enemy bullets
 	 * @author A.V.
 	 */
-	public class EnemyBullet extends Entity
+	public class EnemyBullet extends Bullet
 	{
 		[Embed(source = '/../graphics/Dummy_ammus.png')]	
 		private const IMAGE:Class;
 		
-		private var _pathToFollow:Vector.<Point>;
+		//private var _pathToFollow:Vector.<Point>;
 		
 		private var _xPos:Number;
         private var _yPos:Number;
 		
-<<<<<<< HEAD:src/EnemyBullet.as
-		public function EnemyBullet() 
-=======
-		public var DAMAGE:int = 1;
+		//public var DAMAGE:int = 1;
 		
-		public function EnemyBullet(pathToFollow:Vector.<Point>, xPos:Number, yPos:Number) 
->>>>>>> 040a99ca292698604548dd7a3ca97785060c983f:src/EnemyBullet.as
-		{
+		public function EnemyBullet() {
 			super();
 			/*graphic = new Image(IMAGE);
              
@@ -62,13 +53,13 @@ package
             }*/
         }
 		
-		public function destroy():void
+		/*public function destroy():void
         {
-            /*_pathToFollow = null;
+            _pathToFollow = null;
              
             graphic = null;
-			*/
-        }
+			
+        }*/
 		
 	}
 

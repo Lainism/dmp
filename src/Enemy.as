@@ -1,10 +1,7 @@
 package  
 {
 	import flash.geom.Point;
-<<<<<<< HEAD
 	import EnemyBullet;
-=======
->>>>>>> 040a99ca292698604548dd7a3ca97785060c983f
     import net.flashpunk.Entity;
     import net.flashpunk.FP;
     import net.flashpunk.graphics.Image;

@@ -1,17 +1,12 @@
 package  
 {
-<<<<<<< HEAD
 	import EnemyBullet;
 	import net.flashpunk.World;
 	import flash.geom.Point;
     import net.flashpunk.Entity;
 	import flash.display.DisplayObject;
-=======
-	import net.flashpunk.World;
-	import flash.geom.Point;
-    import net.flashpunk.Entity;
 	import net.flashpunk.Sfx;
->>>>>>> 040a99ca292698604548dd7a3ca97785060c983f
+
 	
 	/**
 	 * ...
@@ -38,9 +33,9 @@ package
 			
 			// Initializing rest...
 			_puzzle = new Puzzle(4, 3, 3);
+			playerPool = new BulletPool(PlayerBullet, 20);
 			_playerShip = new PlayerShip(_puzzle);
 			_enemy = new Enemy(0, this);
-			playerPool = new BulletPool(PlayerBullet, 50);
 			
 			// Adding the sprites for puzzle nodes
 			for each (var a:PuzzleNode in _puzzle.nodes) {
@@ -57,26 +52,29 @@ package
 			if (_enemy)
 				_enemy.update();
 			
-<<<<<<< HEAD
+				
 			if (_playerShip.bul_onscreen.length > 0) {
 				for (var a:int = 0; a < _playerShip.bul_onscreen.length; a++) {
-					var bul:PlayerBullet = _playerShip.bul_onscreen[a];
+					var bul:Bullet = _playerShip.bul_onscreen[a];
+					trace(bul.y);
 					if (bul.collideWith(_enemy, bul.x, bul.y) || bul.y < 0) {
-						_enemy.takeDamage();
+						if (bul.y >= 0)
+							_enemy.decreaseLives(bul.DAMAGE);
 						remove(bul);
 						_playerShip.bul_onscreen.splice(a, 1);
 						playerPool.deactivate(bul);
 						trace("Bullet deactivated");
 					}
-=======
+				}
+			}
+			/*
 			for each (var bullet:PlayerBullet in _bulletList) {
 				if (bullet.collideWith(_enemy, bullet.x, bullet.y)) {
 					_enemy.decreaseLives(bullet.DAMAGE);
 					remove(bullet);
 					bullet.destroy();
->>>>>>> 040a99ca292698604548dd7a3ca97785060c983f
 				}
-			}
+			}*/
 				
 			_enemyBulletList = new Vector.<EnemyBullet>();
 			getType("EnemyBullet", _enemyBulletList);
@@ -107,7 +105,7 @@ package
 			var vec:Vector.<Point> = new Vector.<Point>();
 			
 			var edge_dist:Number = -_playerShip.y - 20;
-			 
+			trace(_playerShip);
 			for (i = 0; i > edge_dist; i -= distanceBetweenPoints)
 			{
 				vec.push(new Point(0, i));

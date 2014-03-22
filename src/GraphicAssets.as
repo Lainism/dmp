@@ -1,10 +1,11 @@
 package  
 {
+	import flash.display.Bitmap;
 	import net.flashpunk.Graphic;
 	import net.flashpunk.graphics.Image;
 	/**
 	 * A class for optimizing performance by loading different bullet graphics only once
-	 * Idea gotten from this tutorial http://www.gotoandlearn.com/play.php?id=160
+	 * Got idea from this tutorial http://www.gotoandlearn.com/play.php?id=160
 	 * @author A.V.
 	 */
 	public class GraphicAssets 
@@ -12,14 +13,14 @@ package
 		
 		// Graphics and variables for player bullets
 		[Embed(source = '../graphics/br1.png')]
-		private const Player_bullet1:Class;
-		public static var Pbullet_graph1:Graphic;
+		public static var Player_bullet1:Class;
+		public static var Pbullet_graph1:Image;
 		
 		
 		// Graphics and variables for enemy bullets
 		[Embed(source = '/../graphics/Dummy_ammus.png')]	
-		private const Enemy_bullet1:Class;
-		public static var Ebullet_graph1:Graphic;
+		public static var Enemy_bullet1:Class;
+		public static var Ebullet_graph1:Image;
 		
 		public function GraphicAssets() 
 		{

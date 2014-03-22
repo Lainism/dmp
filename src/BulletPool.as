@@ -22,15 +22,16 @@ package
 			
 		}
 		
-		public function activate():*
+		public function activate():Bullet
 		{
-			if (iterator > 0)
+			if (iterator > 0) {
 				return pool[--iterator];
+			}
 			else
 				throw new Error("Pool has run out of objects!");
 		}
 		
-		public function deactivate(o:*):void
+		public function deactivate(o:Bullet):void
 		{
 			pool[iterator++] = o;
 		}
