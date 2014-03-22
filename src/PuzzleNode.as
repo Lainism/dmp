@@ -1,6 +1,7 @@
 package  
 {
 	import flash.geom.Point;
+	import flash.net.drm.VoucherAccessInfo;
 	import net.flashpunk.Entity;
 	import net.flashpunk.graphics.Image;
 	import net.flashpunk.FP;
@@ -19,25 +20,23 @@ package
 		private const RED:Class;
 		[Embed(source = "../graphics/png.png")]
 		private const GREEN:Class;
-		private var currentColor:String;
+		private var currentColor:int;
 		private var _pathToFollow:Vector.<Point>;
 		
 		public function PuzzleNode(color:uint, nx:uint, ny:uint) 
 		{
 			if (color == 0) {
 				graphic = new Image(BLUE);
-				currentColor = "Blue";
 			}
 			
 			if (color == 1) {
 				graphic = new Image(RED);
-				currentColor = "Red";
 			}
 			
 			if (color == 2) {
 				graphic = new Image(GREEN);
-				currentColor = "Green";
 			}
+			currentColor = color;
 			
 			graphic.x = -37.5;
 			graphic.y = -37.5;
@@ -52,7 +51,7 @@ package
 		{
 			var vec:Vector.<Point> = new Vector.<Point>();
 			//var j:Number
-			var r:Number = 53.0330085;
+			var r:Number = 53.0330085;  
 			/*
 			if (nx < x && ny < y) {
 				j = Math.PI / 4;
@@ -65,15 +64,16 @@ package
 			}
 			/
 			trace(j);
+			trace("~");
 			trace(x);
 			trace(y);
-			trace("~");
 			*/
-			for (var i:Number = j - Math.PI / 2; i <= j; i = i + 0.05)
-			{
-				vec.push(new Point( nx - (r * Math.cos(i)) , ny + (r * Math.sin(i)) ));
-			}
 			
+			for (var i:Number = j; i <= j + Math.PI / 2; i = i + 0.05)
+			{
+				//trace(ny - (r * Math.sin(i)));
+				vec.push(new Point( nx + (r * Math.cos(i)) , ny - (r * Math.sin(i)) ));
+			}
 			_pathToFollow = vec;
 		}
 		
@@ -83,10 +83,35 @@ package
 				var tmp:Point = _pathToFollow.pop();
 				x = int(tmp.x);
 				y = int(tmp.y);
-				//trace(tmp.x);
+				trace(currentColor);
+				trace(tmp.y);
 			}
 		}
 		
+		public function change_color(color:int):void {
+			
+			if (color == 0) {
+				graphic = new Image(BLUE);
+			}
+			
+			if (color == 1) {
+				graphic = new Image(RED);
+			}
+			
+			if (color == 2) {
+				graphic = new Image(GREEN);
+			}
+			
+			graphic.x = -37.5;
+			graphic.y = -37.5;
+			
+			currentColor = color;
+		}
+		
+		public function return_color():int {
+			
+			return currentColor;
+		}
 	}
 
 }

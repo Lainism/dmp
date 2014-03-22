@@ -1,5 +1,6 @@
 package  
 {
+	import flash.geom.Point;
 	/**
 	 * ...
 	 * @author Minttu Mäkinen
@@ -57,28 +58,62 @@ package
 			var topright:int = int(rotation + rotation / (width - 1) + 1);
 			var bottomleft:int = int(width + (rotation + rotation / (width - 1)));
 			var bottomright:int = int(width + (rotation + rotation / (width - 1) + 1));
-			
+			/*
 			trace(topleft);
 			trace(topright);
 			trace(bottomleft);
 			trace(bottomright);
 			
-			nodes[topleft].rotate(nx, ny, -3*j);
-			nodes[topright].rotate(nx, ny, -j);
-			nodes[bottomleft].rotate(nx, ny, 3*j);
-			nodes[bottomright].rotate(nx, ny, j);
+			trace(nodes[topleft].currentColor); 		
+			trace(nodes[topright].currentColor);
+			trace(nodes[bottomleft].currentColor);
+			trace(nodes[bottomright].currentColor);*/
+			
+			nodes[topleft].rotate(nx, ny, 3*j);
+			nodes[topright].rotate(nx, ny, j);
+			nodes[bottomleft].rotate(nx, ny, 5*j);
+			nodes[bottomright].rotate(nx, ny, 7*j);
+			
+			var tmp_color:int = nodes[topright].return_color();
+			nodes[topright].change_color(nodes[topleft].return_color());
+			nodes[topleft].change_color(nodes[bottomleft].return_color());
+			nodes[bottomleft].change_color(nodes[bottomright].return_color());
+			nodes[bottomright].change_color(tmp_color);
+			
 			
 			var tmp1:PuzzleNode = nodes[topleft];
 			var tmp2:PuzzleNode = nodes[topright];
 			var tmp3:PuzzleNode = nodes[bottomleft];
 			var tmp4:PuzzleNode = nodes[bottomright];
+			trace("!!!")
+			trace(nodes[topleft].x);
+			trace(nodes[topleft].y);
+			trace(nodes[topright].x);
+			trace(nodes[topright].y);
+			trace(nodes[bottomright].x);
+			trace(nodes[bottomright].y);
+			trace(nodes[bottomleft].x);
+			trace(nodes[bottomleft].y);
 			
-			nodes[topleft] = 		tmp2;
-			nodes[topright] = 		tmp4;
-			nodes[bottomleft] = 	tmp1;
-			nodes[bottomright] = 	tmp3;
-
+			/*
+			nodes[topleft] = 		tmp3;
+			nodes[topright] = 		tmp1;
+			nodes[bottomleft] = 	tmp4;
+			nodes[bottomright] = 	tmp2;
+			*/
+			
+			trace("!!!")
+			trace(nodes[topleft].x);
+			trace(nodes[topleft].y);
+			trace(nodes[topright].x);
+			trace(nodes[topright].y);
+			trace(nodes[bottomright].x);
+			trace(nodes[bottomright].y);
+			trace(nodes[bottomleft].x);
+			trace(nodes[bottomleft].y);
+			
 			answer.push(rotation);
+			
 		}
 		
 		public function compareSolution():Boolean

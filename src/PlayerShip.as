@@ -79,11 +79,11 @@ package
 				
 				if (Input.pressed(Key.ENTER))
 				{
-					if (x > 150 && y > 300 && x <= 225 && y <= 475) {
+					if (x > 150 && y > 400 && x <= 225 && y <= 475) {
 						_puzzle.rotate(0);
-					} else if (x > 225 && y > 300 && x <= 300 && y <= 475) {
+					} else if (x > 225 && y > 400 && x <= 300 && y <= 475) {
 						_puzzle.rotate(1);
-					} else if (x > 300 && y > 300 && x <= 375 && y <= 475) {
+					} else if (x > 300 && y > 400 && x <= 375 && y <= 475) {
 						_puzzle.rotate(2);
 					} else if (x > 150 && y > 475 && x <= 225 && y <= 550) {
 						_puzzle.rotate(3);
