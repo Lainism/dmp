@@ -25,10 +25,11 @@ package
         private var _myWorld:World;	
         private var _added:Boolean;
 		private var lives:int;
-		
+		private var _pattern:BossPattern;
+		private var _patternStart:uint;
 		private var _timeElapsed:Number;
 		
-		public function Enemy(timeToAct:uint, worldToBeAdded:World) 
+		public function Enemy(timeToAct:uint, startPattern:uint, worldToBeAdded:World) 
 		{
 			graphic = new Image(IMAGE);
              
@@ -39,13 +40,15 @@ package
 			
             _timeToAct = timeToAct;
              
+			_patternStart = startPattern;
+			
             _pathToFollow = generateEnemyPath(1);
              
             _currentPoint = 0;
              
             _myWorld = worldToBeAdded;
             _added = false;
-			lives = 100;
+			lives = 10;
 			
 			_timeElapsed = 0;
 			
@@ -54,6 +57,11 @@ package
 		
 		override public function update():void
         {
+			if (_patternStart > 0)
+			{
+				_patternStart--;
+			}
+			
             if (_timeToAct > 0)
             {
                 _timeToAct--;
@@ -66,7 +74,7 @@ package
                      
                     _added = true;
                 }
-                 
+				
                 x = _pathToFollow[_currentPoint].x;
                 y = _pathToFollow[_currentPoint].y;
                  
@@ -81,6 +89,12 @@ package
 				{	
 					_timeElapsed = 0;
 					//world.add(new EnemyBullet(GameWorld(world).generateEnemyBulletPath(3), x, y));
+				}
+				
+				if (_patternStart == 0)
+				{
+					_pattern.run();
+					_patternStart = 500;
 				}
             }
 			_timeElapsed += 7 * FP.elapsed;
@@ -113,6 +127,11 @@ package
 			if (lives < 0) {
 				trace("This enemy is dead.");
 			}
+		}
+		
+		public function add_pattern(pattern:BossPattern):void
+		{	
+			_pattern = pattern;
 		}
 	}
 

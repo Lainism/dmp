@@ -11,33 +11,19 @@ package
 	 */
 public class PlayerBullet extends Bullet
     {
-        [Embed(source = '../graphics/br1.png')]
-        private const IMAGE:Class;
-         
+		
         //public var _pathToFollow:Vector.<Point>;
          
         //public var xPos:Number;
         //public var yPos:Number;
-		
-		//public var DAMAGE:int = 1;
-         
+		 
         public function PlayerBullet()
         {
 			super()
             graphic = GraphicAssets.Pbullet_graph1;
 			mask = new Pixelmask(GraphicAssets.Player_bullet1, -8.5, -8.5);
-			
-			/*
-            graphic.x = graphic.y = -8.5;
-             
-			mask = new Pixelmask(IMAGE, -8.5, -8.5);
-			
-            _pathToFollow = pathToFollow;
-            
-			*/
+			this.DAMAGE = 1;
         }
-		
-			
 		
          
         override public function update():void

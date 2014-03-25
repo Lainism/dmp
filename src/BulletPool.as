@@ -8,8 +8,9 @@ package
 	 */
 	public class BulletPool 
 	{
-		private var pool:Array;				// Pool itself
-		private var iterator:int;			// Size of the pool
+		public var pool:Array;				// Pool itself
+		private var iterator:int;			// Iterator that manages the pool
+		private var size:int;				// Size of the pool
 		
 		public function BulletPool(type:Class, size:int) 
 		{
@@ -34,6 +35,11 @@ package
 		public function deactivate(o:Bullet):void
 		{
 			pool[iterator++] = o;
+		}
+		
+		public function get_pool():Array
+		{
+			return pool;
 		}
 		
 	}

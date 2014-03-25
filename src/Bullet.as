@@ -16,7 +16,7 @@ package
         public var xPos:Number;
         public var yPos:Number;
 		
-		public var DAMAGE:int = 1;
+		public var DAMAGE:int;
 		
 		public function Bullet() 
 		{
@@ -39,15 +39,8 @@ package
 				y = yPos + _pathToFollow[0].y;
 				 
 				_pathToFollow.shift();
-			}
-			/* 
-            if (_pathToFollow.length == 0)
-            {
-                world.remove(this);
-                 
-                destroy();
-            }
-			*/
+			} 
+            
         }
 		
 		public function destroy():void

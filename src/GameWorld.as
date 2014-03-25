@@ -21,6 +21,7 @@ package
 		private var _playerShip:PlayerShip;
 		private var _enemy:Enemy;
 		private var _puzzle:Puzzle;
+		private var _pattern:BossPattern;
 		
 		private var _enemyBulletList:Vector.<EnemyBullet>;
 		
@@ -35,7 +36,10 @@ package
 			_puzzle = new Puzzle(4, 3, 3);
 			playerPool = new BulletPool(PlayerBullet, 20);
 			_playerShip = new PlayerShip(_puzzle);
-			_enemy = new Enemy(0, this);
+			_enemy = new Enemy(0, 10, this);
+			_pattern = new BossPattern(_enemy, this);
+			_enemy.add_pattern(_pattern);
+			
 			
 			// Adding the sprites for puzzle nodes
 			for each (var a:PuzzleNode in _puzzle.nodes) {
@@ -56,14 +60,12 @@ package
 			if (_playerShip.bul_onscreen.length > 0) {
 				for (var a:int = 0; a < _playerShip.bul_onscreen.length; a++) {
 					var bul:Bullet = _playerShip.bul_onscreen[a];
-					trace(bul.y);
 					if (bul.collideWith(_enemy, bul.x, bul.y) || bul.y < 0) {
 						if (bul.y >= 0)
 							_enemy.decreaseLives(bul.DAMAGE);
 						remove(bul);
 						_playerShip.bul_onscreen.splice(a, 1);
 						playerPool.deactivate(bul);
-						trace("Bullet deactivated");
 					}
 				}
 			}
@@ -92,7 +94,7 @@ package
 		{
 			if (e is Enemy)
 			{
-				_enemy = new Enemy(0, this);
+				_enemy = new Enemy(0, 10, this);
 			}
 			 
 			return super.remove(e);

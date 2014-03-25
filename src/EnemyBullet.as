@@ -3,6 +3,7 @@ package
 	import flash.geom.Point;
     import net.flashpunk.Entity;
     import net.flashpunk.graphics.Image;
+	import net.flashpunk.Mask;
 	import net.flashpunk.masks.Pixelmask;
 	/**
 	 * A common class for different kinds of enemy bullets
@@ -10,22 +11,20 @@ package
 	 */
 	public class EnemyBullet extends Bullet
 	{
-		[Embed(source = '/../graphics/Dummy_ammus.png')]	
-		private const IMAGE:Class;
 		
 		//private var _pathToFollow:Vector.<Point>;
 		
-		private var _xPos:Number;
-        private var _yPos:Number;
+		//private var _xPos:Number;
+        //private var _yPos:Number;
 		
-		//public var DAMAGE:int = 1;
+		private var speed:Number;
+		private var accel:Number;
 		
 		public function EnemyBullet() {
+			
 			super();
-			/*graphic = new Image(IMAGE);
-             
-            graphic.x = graphic.y = -12.5;
-            
+			this.DAMAGE = 1;
+			/*
 			mask = new Pixelmask(IMAGE, -12.5, -12.5);
 			
 			_pathToFollow = pathToFollow;
@@ -33,15 +32,21 @@ package
             _xPos = xPos;
             _yPos = yPos;
 			
-			type = "EnemyBullet";
 			*/
 			
+		}
+			
+		public function init_bul(img:Image, source:Class, mask_x:Number, mask_y:Number):void
+		{
+			graphic = img;
+			mask = new Pixelmask(source, mask_x, mask_y);
 		}
 		
 		override public function update():void
         {
-            /*x = _xPos + _pathToFollow[0].x;
-            y = _yPos + _pathToFollow[0].y;
+            
+			x = xPos + _pathToFollow[0].x;
+            y = yPos + _pathToFollow[0].y;
              
             _pathToFollow.shift();
              
@@ -50,16 +55,9 @@ package
                 world.remove(this);
                  
                 destroy();
-            }*/
+            }
         }
 		
-		/*public function destroy():void
-        {
-            _pathToFollow = null;
-             
-            graphic = null;
-			
-        }*/
 		
 	}
 
