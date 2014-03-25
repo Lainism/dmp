@@ -1,11 +1,13 @@
 package  
 {
 	import EnemyBullet;
+	import net.flashpunk.graphics.Backdrop;
 	import net.flashpunk.World;
 	import flash.geom.Point;
     import net.flashpunk.Entity;
 	import flash.display.DisplayObject;
 	import net.flashpunk.Sfx;
+	import net.flashpunk.FP;
 
 	
 	/**
@@ -17,6 +19,7 @@ package
 		[Embed(source = '../sounds/Waves.mp3')]
 		private const BGM1:Class;
 		public var bgm1:Sfx = new Sfx(BGM1);
+		private var _bg:Background;
 		
 		private var _playerShip:PlayerShip;
 		private var _enemy:Enemy;
@@ -28,8 +31,11 @@ package
 		
 		public function GameWorld() 
 		{
-			// Loading bullet graphics
+			// Loading graphics
 			new GraphicAssets();
+			
+			FP.screen.color = 0x151733;
+			_bg = new Background(0, 0);
 			
 			// Initializing rest...
 			_puzzle = new Puzzle(4, 3, 3);
@@ -37,7 +43,8 @@ package
 			_playerShip = new PlayerShip(_puzzle);
 			_enemy = new Enemy(0, this);
 			
-			// Adding the sprites for puzzle nodes
+			// Adding the entities in the correct order
+			add(_bg);
 			for each (var a:PuzzleNode in _puzzle.nodes) {
 				add(a);
 			}
@@ -56,14 +63,12 @@ package
 			if (_playerShip.bul_onscreen.length > 0) {
 				for (var a:int = 0; a < _playerShip.bul_onscreen.length; a++) {
 					var bul:Bullet = _playerShip.bul_onscreen[a];
-					trace(bul.y);
 					if (bul.collideWith(_enemy, bul.x, bul.y) || bul.y < 0) {
 						if (bul.y >= 0)
 							_enemy.decreaseLives(bul.DAMAGE);
 						remove(bul);
 						_playerShip.bul_onscreen.splice(a, 1);
 						playerPool.deactivate(bul);
-						trace("Bullet deactivated");
 					}
 				}
 			}
@@ -105,7 +110,7 @@ package
 			var vec:Vector.<Point> = new Vector.<Point>();
 			
 			var edge_dist:Number = -_playerShip.y - 20;
-			trace(_playerShip);
+			//trace(_playerShip);
 			for (i = 0; i > edge_dist; i -= distanceBetweenPoints)
 			{
 				vec.push(new Point(0, i));
