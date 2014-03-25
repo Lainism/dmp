@@ -18,8 +18,10 @@ package
 	{
 		[Embed(source = '../sounds/Waves.mp3')]
 		private const BGM1:Class;
-		public var bgm1:Sfx = new Sfx(BGM1);
+		private var bgm1:Sfx = new Sfx(BGM1);
 		private var _bg:Background;
+		private var _sidebar:Sidebar;
+		
 		
 		private var _playerShip:PlayerShip;
 		private var _enemy:Enemy;
@@ -35,7 +37,6 @@ package
 			// Loading graphics
 			new GraphicAssets();
 			
-			FP.screen.color = 0x151733;
 			_bg = new Background(0, 0);
 			
 			// Initializing rest...
@@ -47,6 +48,8 @@ package
 			_enemy.add_pattern(_pattern);
 			
 			
+			_sidebar = new Sidebar(_playerShip.getLives());
+			
 			// Adding the entities in the correct order
 			add(_bg);
 			for each (var a:PuzzleNode in _puzzle.nodes) {
@@ -54,6 +57,7 @@ package
 			}
 			add(_playerShip);
 			bgm1.loop();
+			add(_sidebar);
 		}
 		
 		override public function update():void
@@ -68,8 +72,10 @@ package
 				for (var a:int = 0; a < _playerShip.bul_onscreen.length; a++) {
 					var bul:Bullet = _playerShip.bul_onscreen[a];
 					if (bul.collideWith(_enemy, bul.x, bul.y) || bul.y < 0) {
-						if (bul.y >= 0)
+						if (bul.y >= 0) {
 							_enemy.decreaseLives(bul.DAMAGE);
+							_sidebar.addScore();
+						}
 						remove(bul);
 						_playerShip.bul_onscreen.splice(a, 1);
 						playerPool.deactivate(bul);
@@ -91,6 +97,7 @@ package
 			for each (var Ebullet:EnemyBullet in _enemyBulletList) {
 				if (Ebullet.collideWith(_playerShip, Ebullet.x, Ebullet.y)) {
 					_playerShip.decreaseLives(Ebullet.DAMAGE);
+					_sidebar.changeLives(_playerShip.getLives());
 					remove(Ebullet);
 					Ebullet.destroy();
 				}

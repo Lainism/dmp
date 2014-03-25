@@ -46,6 +46,10 @@ package
 			type = "Player";
 		}
 		
+		public function getLives():int {
+			return lives;
+		}
+		
 		override public function update():void
 		{
 			//Game controls
