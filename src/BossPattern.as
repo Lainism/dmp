@@ -9,14 +9,18 @@ package
 	 */
 	public class BossPattern 
 	{
-		private var pool:BulletPool;
+		public var pool:BulletPool;
+		
 		private var _enemy:Enemy;
 		private var _world:World;
+		
+		public var onScreen:Vector.<EnemyBullet>;
 		
 		public function BossPattern(enemy:Enemy, world:World) 
 		{
 			_enemy = enemy;
 			_world = world;
+			onScreen = new Vector.<EnemyBullet>();
 			pool = new BulletPool(EnemyBullet, 500);
 			var pool_arr:Array = pool.get_pool();
 			for each (var bul:EnemyBullet in pool_arr) 
@@ -34,6 +38,7 @@ package
 				bullet.yPos = bullet.y = _enemy.y + (r * Math.sin(i));
 				bullet._pathToFollow = generateBulletPath(3, i);
 				_world.add(bullet);
+				onScreen.push(bullet);
 			}
 		}
 		
@@ -43,7 +48,7 @@ package
 			
 			var vec:Vector.<Point> = new Vector.<Point>();
 			
-			for (i = 0; i < 490; i += distanceBetweenPoints)
+			for (i = 0; i < 600; i += distanceBetweenPoints)
 			{
 				vec.push(new Point(i*Math.cos(dir), i*Math.sin(dir)));
 			}

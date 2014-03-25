@@ -28,8 +28,6 @@ package
 		private var _puzzle:Puzzle;
 		private var _pattern:BossPattern;
 		
-		private var _enemyBulletList:Vector.<EnemyBullet>;
-		
 		public var playerPool:BulletPool;
 		
 		public function GameWorld() 
@@ -82,24 +80,20 @@ package
 					}
 				}
 			}
-			/*
-			for each (var bullet:PlayerBullet in _bulletList) {
-				if (bullet.collideWith(_enemy, bullet.x, bullet.y)) {
-					_enemy.decreaseLives(bullet.DAMAGE);
-					remove(bullet);
-					bullet.destroy();
-				}
-			}*/
 				
-			_enemyBulletList = new Vector.<EnemyBullet>();
-			getType("EnemyBullet", _enemyBulletList);
-			
-			for each (var Ebullet:EnemyBullet in _enemyBulletList) {
-				if (Ebullet.collideWith(_playerShip, Ebullet.x, Ebullet.y)) {
-					_playerShip.decreaseLives(Ebullet.DAMAGE);
-					_sidebar.changeLives(_playerShip.getLives());
-					remove(Ebullet);
-					Ebullet.destroy();
+			if (_pattern.onScreen.length > 0) {
+				for (var c:int = 0; c < _pattern.onScreen.length; c++) {
+					var ebul:Bullet = _pattern.onScreen[c];
+					if (ebul.collideWith(_playerShip, ebul.x, ebul.y) || !(ebul.x > 0 && ebul.x < 500 && ebul.y > 0 && ebul.y < 600))
+					{
+						if (ebul.collideWith(_playerShip, ebul.x, ebul.y))
+						{
+							_playerShip.decreaseLives(ebul.DAMAGE);
+						}
+						remove(ebul);
+						_pattern.onScreen.splice(c, 1);
+						_pattern.pool.deactivate(ebul);
+					}
 				}
 			}
 		}

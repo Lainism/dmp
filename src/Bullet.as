@@ -23,14 +23,6 @@ package
 			super();
 		}
 		
-		/*public function init():void 
-		{
-			graphic = GraphicAssets.Pbullet_graph1;
-			mask = new Pixelmask(GraphicAssets.Pbullet_graph1, -8.5, -8.5);
-			_pathToFollow = GameWorld(world).generatePlayerBulletPath(3);
-			
-		}*/
-		
 		override public function update():void
         {
 

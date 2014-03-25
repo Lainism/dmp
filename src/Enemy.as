@@ -85,16 +85,10 @@ package
 					_currentPoint = 0;
                 }
 				
-				if (_timeElapsed > 5)
-				{	
-					_timeElapsed = 0;
-					//world.add(new EnemyBullet(GameWorld(world).generateEnemyBulletPath(3), x, y));
-				}
-				
 				if (_patternStart == 0)
 				{
 					_pattern.run();
-					_patternStart = 500;
+					_patternStart = 100;
 				}
             }
 			_timeElapsed += 7 * FP.elapsed;

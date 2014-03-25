@@ -24,15 +24,6 @@ package
 			
 			super();
 			this.DAMAGE = 1;
-			/*
-			mask = new Pixelmask(IMAGE, -12.5, -12.5);
-			
-			_pathToFollow = pathToFollow;
-			
-            _xPos = xPos;
-            _yPos = yPos;
-			
-			*/
 			
 		}
 			
@@ -44,18 +35,14 @@ package
 		
 		override public function update():void
         {
-            
-			x = xPos + _pathToFollow[0].x;
-            y = yPos + _pathToFollow[0].y;
-             
+            if (_pathToFollow.length > 0) 
+			{
+				x = xPos + _pathToFollow[0].x;
+				y = yPos + _pathToFollow[0].y;
+            }
+				
             _pathToFollow.shift();
              
-            if (_pathToFollow.length == 0)
-            {
-                world.remove(this);
-                 
-                destroy();
-            }
         }
 		
 		
