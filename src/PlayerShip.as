@@ -81,6 +81,10 @@ package
 				bull._pathToFollow = GameWorld(world).generatePlayerBulletPath(3);
 				world.add(bull);
 				bul_onscreen.push(bull);
+<<<<<<< HEAD
+=======
+				//trace("Fired!");
+>>>>>>> de442b4552e89c2ebdee1df67655c42245ec5eff
 			}
 			
 			else if (Input.check(Key.S) || Input.check(Key.DOWN))

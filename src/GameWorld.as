@@ -1,11 +1,13 @@
 package  
 {
 	import EnemyBullet;
+	import net.flashpunk.graphics.Backdrop;
 	import net.flashpunk.World;
 	import flash.geom.Point;
     import net.flashpunk.Entity;
 	import flash.display.DisplayObject;
 	import net.flashpunk.Sfx;
+	import net.flashpunk.FP;
 
 	
 	/**
@@ -17,6 +19,7 @@ package
 		[Embed(source = '../sounds/Waves.mp3')]
 		private const BGM1:Class;
 		public var bgm1:Sfx = new Sfx(BGM1);
+		private var _bg:Background;
 		
 		private var _playerShip:PlayerShip;
 		private var _enemy:Enemy;
@@ -29,8 +32,11 @@ package
 		
 		public function GameWorld() 
 		{
-			// Loading bullet graphics
+			// Loading graphics
 			new GraphicAssets();
+			
+			FP.screen.color = 0x151733;
+			_bg = new Background(0, 0);
 			
 			// Initializing rest...
 			_puzzle = new Puzzle(4, 3, 3);
@@ -41,7 +47,8 @@ package
 			_enemy.add_pattern(_pattern);
 			
 			
-			// Adding the sprites for puzzle nodes
+			// Adding the entities in the correct order
+			add(_bg);
 			for each (var a:PuzzleNode in _puzzle.nodes) {
 				add(a);
 			}
@@ -107,7 +114,7 @@ package
 			var vec:Vector.<Point> = new Vector.<Point>();
 			
 			var edge_dist:Number = -_playerShip.y - 20;
-			trace(_playerShip);
+			//trace(_playerShip);
 			for (i = 0; i > edge_dist; i -= distanceBetweenPoints)
 			{
 				vec.push(new Point(0, i));
