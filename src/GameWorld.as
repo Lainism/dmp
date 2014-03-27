@@ -20,7 +20,7 @@ package
 		private const BGM1:Class;
 		private var bgm1:Sfx = new Sfx(BGM1);
 		private var _bg:Background;
-		private var _sidebar:Sidebar;
+		public var _sidebar:Sidebar;
 		
 		
 		private var _playerShip:PlayerShip;
@@ -48,6 +48,7 @@ package
 			
 			_sidebar = new Sidebar(_playerShip.getLives());
 			
+			
 			// Adding the entities in the correct order
 			add(_bg);
 			for each (var a:PuzzleNode in _puzzle.nodes) {
@@ -56,16 +57,17 @@ package
 			add(_playerShip);
 			bgm1.loop();
 			add(_sidebar);
+			this.bringToFront(_sidebar);
 		}
 		
 		override public function update():void
 		{
+			this.bringToFront(_sidebar);
 			super.update();
 			
 			if (_enemy)
 				_enemy.update();
 			
-				
 			if (_playerShip.bul_onscreen.length > 0) {
 				for (var a:int = 0; a < _playerShip.bul_onscreen.length; a++) {
 					var bul:Bullet = _playerShip.bul_onscreen[a];
@@ -84,7 +86,7 @@ package
 			if (_pattern.onScreen.length > 0) {
 				for (var c:int = 0; c < _pattern.onScreen.length; c++) {
 					var ebul:Bullet = _pattern.onScreen[c];
-					if (ebul.collideWith(_playerShip, ebul.x, ebul.y) || !(ebul.x > 0 && ebul.x < 500 && ebul.y > 0 && ebul.y < 600))
+					if (ebul.collideWith(_playerShip, ebul.x, ebul.y) || !(ebul.x > -30 && ebul.x < 530 && ebul.y > -30 && ebul.y < 630))
 					{
 						if (ebul.collideWith(_playerShip, ebul.x, ebul.y))
 						{
@@ -124,7 +126,7 @@ package
 			return vec;
 		}
 			
-		public function generateEnemyBulletPath(distanceBetweenPoints:Number):Vector.<Point>
+		/*public function generateEnemyBulletPath(distanceBetweenPoints:Number):Vector.<Point>
 		{
 			var i:Number;
 			
@@ -136,7 +138,7 @@ package
 			}
 			
 			return vec;
-		}
+		}*/
 	}
 
 }

@@ -43,7 +43,6 @@ package
 			
 			_timeElapsed = 0;
 			bul_onscreen = new Vector.<Bullet>();
-			type = "Player";
 		}
 		
 		public function getLives():int {

@@ -1,6 +1,7 @@
 package  
 {
 	import flash.geom.Point;
+	import net.flashpunk.tweens.misc.AngleTween;
 	import net.flashpunk.World;
 	
 	/**
@@ -25,13 +26,14 @@ package
 			var pool_arr:Array = pool.get_pool();
 			for each (var bul:EnemyBullet in pool_arr) 
 			{
-				bul.init_bul(GraphicAssets.Ebullet_graph1, GraphicAssets.Enemy_bullet1, -12.5, -12.5);
+				bul.init_bul(GraphicAssets.Ebullet_graph1, GraphicAssets.Enemy_bullet1, -12.5, -12.5, _world);
 			}
 		}
 		
 		public function run():void 
 		{
 			var r:Number = 20.0;
+			
 			for (var i:Number = 0.0; i <= 2 * Math.PI; i = i + 0.15) {
 				var bullet:Bullet = pool.activate();
 				bullet.xPos = bullet.x = _enemy.x + (r * Math.cos(i));
@@ -48,7 +50,7 @@ package
 			
 			var vec:Vector.<Point> = new Vector.<Point>();
 			
-			for (i = 0; i < 600; i += distanceBetweenPoints)
+			for (i = 0; i < 700; i += distanceBetweenPoints)
 			{
 				vec.push(new Point(i*Math.cos(dir), i*Math.sin(dir)));
 			}

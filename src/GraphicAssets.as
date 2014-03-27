@@ -31,6 +31,7 @@ package
 			//Enemy bullets
 			Ebullet_graph1 = new Image(Enemy_bullet1);
 			Ebullet_graph1.x = Ebullet_graph1.y = -12.5;
+			
 		}
 		
 	}

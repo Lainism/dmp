@@ -51,8 +51,6 @@ package
 			lives = 10;
 			
 			_timeElapsed = 0;
-			
-			type = "Enemy";
 		}
 		
 		override public function update():void
@@ -88,7 +86,7 @@ package
 				if (_patternStart == 0)
 				{
 					_pattern.run();
-					_patternStart = 100;
+					_patternStart = 50;
 				}
             }
 			_timeElapsed += 7 * FP.elapsed;
