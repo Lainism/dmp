@@ -14,18 +14,21 @@ package
 	[Embed(source = '../graphics/stars2.png')]
 	private const STARS:Class;
     private var backdrop:Backdrop;
+	public var pause:Boolean;
 	
 		public function Background(x:int = 0, y:int = 0) 
 		{
-			
-	    backdrop = new Backdrop(STARS, false, true);
-        graphic = backdrop;
+			backdrop = new Backdrop(STARS, false, true);
+			graphic = backdrop;
 
-        super(x, y, graphic);	
-		
+			super(x, y, graphic);	
+			pause = false;
 		}
 		
 		override public function update():void {
+			if (pause)
+				return;
+				
 			y += 50 * FP.elapsed;
 		}
 		

@@ -58,6 +58,22 @@ package
 			return vec;
 		}
 		
+		public function pauseGame():void
+		{
+			for each (var b:Bullet in onScreen)
+			{
+				b.pause = true;
+			}
+		}
+		
+		public function continueGame():void
+		{
+			for each (var b:Bullet in onScreen)
+			{
+				b.pause = false;
+			}
+		}
+		
 	}
 
 }

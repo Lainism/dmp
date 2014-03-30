@@ -137,8 +137,6 @@ package
 			}
 			
 			trace("puzzle completed!");
-			shuffle();
-			reset();
 			return true;
 		}
 		

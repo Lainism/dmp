@@ -17,14 +17,18 @@ package
         public var yPos:Number;
 		
 		public var DAMAGE:int;
+		public var pause:Boolean;
 		
 		public function Bullet() 
 		{
 			super();
+			pause = false;
 		}
 		
 		override public function update():void
         {
+			if (pause)
+				return;
 
             if (_pathToFollow.length > 0) {
 				x = xPos + _pathToFollow[0].x;

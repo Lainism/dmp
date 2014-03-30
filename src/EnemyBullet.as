@@ -43,6 +43,9 @@ package
 		
 		override public function update():void
         {
+			if (super.pause)
+				return;
+			
 			timmy++;
             if (_pathToFollow.length > 0) 
 			{

@@ -27,6 +27,7 @@ package
 		private var _enemy:Enemy;
 		private var _puzzle:Puzzle;
 		private var _pattern:BossPattern;
+		private var pause:Boolean;
 		
 		public var playerPool:BulletPool;
 		
@@ -40,11 +41,11 @@ package
 			// Initializing rest...
 			_puzzle = new Puzzle(4, 3, 3);
 			playerPool = new BulletPool(PlayerBullet, 20);
-			_playerShip = new PlayerShip(_puzzle);
+			_playerShip = new PlayerShip(_puzzle, this);
 			_enemy = new Enemy(0, 10, this);
 			_pattern = new BossPattern(_enemy, this);
 			_enemy.add_pattern(_pattern);
-			
+			pause = false;
 			
 			_sidebar = new Sidebar(_playerShip.getLives());
 			
@@ -61,9 +62,12 @@ package
 		}
 		
 		override public function update():void
-		{
+		{	
 			this.bringToFront(_sidebar);
 			super.update();
+			
+			if (pause)
+				return;
 			
 			if (_enemy)
 				_enemy.update();
@@ -124,6 +128,24 @@ package
 			}
 			 
 			return vec;
+		}
+		
+		public function pauseGame():void
+		{
+			pause = true;
+			_enemy.pause = true;
+			_bg.pause = true;
+			_playerShip.pauseGame();
+			_pattern.pauseGame();
+		}
+		
+		public function continueGame():void
+		{
+			pause = false;
+			_enemy.pause = false;
+			_bg.pause = false;
+			_playerShip.continueGame();
+			_pattern.pauseGame();
 		}
 			
 		/*public function generateEnemyBulletPath(distanceBetweenPoints:Number):Vector.<Point>
