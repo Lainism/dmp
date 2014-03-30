@@ -41,9 +41,13 @@ package
 			//w.addTween(angleTween, true);
 		}
 		
-		override public function update():void
+		/*override public function update():void
         {
-			if (_pathToFollow.length > 0) 
+			if (super.pause)
+				return;
+			
+			timmy++;
+            if (_pathToFollow.length > 0)
 			{
 				x = xPos + _pathToFollow[0].x;
 				y = yPos + _pathToFollow[0].y;
@@ -56,7 +60,7 @@ package
 			
             _pathToFollow.shift();
              
-        }
+        }*/
 		
 		
 	}

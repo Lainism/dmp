@@ -21,14 +21,17 @@ package
 		private const IMAGE:Class;
 		private var _timeElapsed:Number;
 		private var _puzzle:Puzzle;
-		//private var _playerWorld:World;
+		private var _playerWorld:GameWorld;
+		private var pause:Boolean;
+		private var timer:Number;
 		
 		public var bul_onscreen:Vector.<Bullet>;
 		private var lives:int;
 		
-		public function PlayerShip(puzzle:Puzzle) 
+		public function PlayerShip(puzzle:Puzzle, world:GameWorld) 
 		{
 			this._puzzle = puzzle;
+			this._playerWorld = world;
 			graphic = new Image(IMAGE);
 			
 			graphic.x = -28.5;
@@ -42,6 +45,7 @@ package
 			y = 500;
 			
 			_timeElapsed = 0;
+			timer = -1;
 			bul_onscreen = new Vector.<Bullet>();
 		}
 		
@@ -51,6 +55,26 @@ package
 		
 		override public function update():void
 		{
+			//Check puzzle and pause timers
+			if (timer >= 0) {
+				timer += 5 * FP.elapsed;
+				//trace(timer);
+				if (timer >= 20) {
+					timer = -1;
+					_playerWorld.continueGame();
+				} else if (timer >= 6 && !pause) {
+					_puzzle.shuffle();
+					_puzzle.reset();
+					
+					//Paused, so we can add some cool graphic here without disturbing the game
+					_playerWorld.pauseGame();
+				}
+			}
+			
+			if (pause) {
+				return;
+			}
+			
 			//Game controls
 			if (Input.check(Key.A) || Input.check(Key.LEFT))
 			{
@@ -58,8 +82,7 @@ package
 				if (x < 0) {
 					x = 0;
 				}
-			}
-			else if (Input.check(Key.D) || Input.check(Key.RIGHT))
+			} else if (Input.check(Key.D) || Input.check(Key.RIGHT))
 			{
 				x += 150 * FP.elapsed;
 				if (x > 500) {
@@ -73,8 +96,15 @@ package
 				if (y < 0) {
 					y = 0;
 				}
+			} else if (Input.check(Key.S) || Input.check(Key.DOWN))
+			{
+				y += 150 * FP.elapsed;
+				if (y > 600) {
+					y = 600;
+				}
 			}
-		
+			
+			//Shooting
 			if (Input.check(Key.SPACE) && _timeElapsed > 2)
 			{
 				_timeElapsed = 0;
@@ -86,19 +116,13 @@ package
 				bul_onscreen.push(bull);
 			}
 			
-			else if (Input.check(Key.S) || Input.check(Key.DOWN))
-			{
-				y += 150 * FP.elapsed;
-				if (y > 600) {
-					y = 600;
-				}
-			}
-			
+			//Reseting the puzzle
 			if (Input.pressed(Key.R))
 			{
 				_puzzle.reset();
 			}
 			
+			//Rotating the puzzle
 			if (Input.pressed(Key.ENTER))
 			{
 				if (x > 150 && y > 400 && x <= 225 && y <= 475) {
@@ -114,18 +138,40 @@ package
 				} else if (x > 300 && y > 475 && x <= 375 && y <= 550) {
 					_puzzle.rotate(5);
 				}
-				_puzzle.compareSolution();
+				if (_puzzle.compareSolution()) {
+					timer = 0;
+				}
 			}
 			
+			//Advance auto-shoot timer
 			_timeElapsed += 7 * FP.elapsed;
+		}
+		
+		public function pauseGame():void
+		{
+			for each (var b:Bullet in bul_onscreen)
+			{
+				b.pause = true;
+			}
+			pause = true;
+		}
+		
+		public function continueGame():void
+		{
+			for each (var b:Bullet in bul_onscreen)
+			{
+				b.pause = false;
+			}
+			pause = false;
 		}
 		
 		public function decreaseLives(damage:int):void
 		{
 			lives -= damage;
-			if (lives < 0) {
+			_playerWorld._sidebar.changeLives(lives);
+			/*if (lives < 0) {
 				trace("Game over");
-			}
+			}*/
 		}
 		
 	}

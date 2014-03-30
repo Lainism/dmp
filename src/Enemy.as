@@ -28,6 +28,7 @@ package
 		private var _pattern:BossPattern;
 		private var _patternStart:uint;
 		private var _timeElapsed:Number;
+		public var pause:Boolean;
 		
 		public function Enemy(timeToAct:uint, startPattern:uint, worldToBeAdded:World) 
 		{
@@ -51,10 +52,14 @@ package
 			lives = 10;
 			
 			_timeElapsed = 0;
+			pause = false;
 		}
 		
 		override public function update():void
         {
+			if (pause)
+				return;
+			
 			if (_patternStart > 0)
 			{
 				_patternStart--;

@@ -20,9 +20,12 @@ public class PlayerBullet extends Bullet
 			this.DAMAGE = 1;
         }
 		
-         
+        /* 
         override public function update():void
         {
+			if (super.pause) 
+				return;
+				
 			if (_pathToFollow.length > 0)
 			{
 				x = xPos + _pathToFollow[0].x;
@@ -30,7 +33,7 @@ public class PlayerBullet extends Bullet
 				 
 				_pathToFollow.shift();
 			}
-        }
+        }*/
          
     }
  
