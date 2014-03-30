@@ -41,11 +41,7 @@ package
 			// Initializing rest...
 			_puzzle = new Puzzle(4, 3, 3);
 			playerPool = new BulletPool(PlayerBullet, 20);
-<<<<<<< HEAD
 			_playerShip = new PlayerShip(_puzzle, this);
-=======
-			_playerShip = new PlayerShip(_puzzle);
->>>>>>> 2105f67808214a72de001c1b1e19e5f8a9e6cc07
 			_enemy = new Enemy(5, 10, this);
 			_pattern = new BossPattern(_enemy, this);
 			_enemy.add_pattern(_pattern);
@@ -133,7 +129,6 @@ package
 			 
 			return vec;
 		}
-<<<<<<< HEAD
 		
 		public function pauseGame():void
 		{
@@ -152,8 +147,6 @@ package
 			_playerShip.continueGame();
 			_pattern.pauseGame();
 		}
-=======
->>>>>>> 2105f67808214a72de001c1b1e19e5f8a9e6cc07
 			
 	}
 

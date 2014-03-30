@@ -25,7 +25,7 @@ package
 			pause = false;
 		}
 		
-		/*override public function update():void
+		override public function update():void
         {
 			if (pause)
 				return;
@@ -37,7 +37,7 @@ package
 				_pathToFollow.shift();
 			} 
             
-        }*/
+        }
 		
 		public function destroy():void
         {
