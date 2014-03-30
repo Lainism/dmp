@@ -43,11 +43,15 @@ package
 		
 		override public function update():void
         {
+<<<<<<< HEAD
 			if (super.pause)
 				return;
 			
 			timmy++;
             if (_pathToFollow.length > 0)
+=======
+			if (_pathToFollow.length > 0) 
+>>>>>>> 2105f67808214a72de001c1b1e19e5f8a9e6cc07
 			{
 				x = xPos + _pathToFollow[0].x;
 				y = yPos + _pathToFollow[0].y;

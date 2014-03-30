@@ -66,6 +66,7 @@ package
 			return vec;
 		}
 		
+<<<<<<< HEAD
 		public function pauseGame():void
 		{
 			for each (var b:Bullet in onScreen)
@@ -82,6 +83,8 @@ package
 			}
 		}
 		
+=======
+>>>>>>> 2105f67808214a72de001c1b1e19e5f8a9e6cc07
 		private function generateWaveBulletPath(distanceBetweenPoints:Number, dir:Number):Vector.<Point>
 		{
 			var i:Number;
