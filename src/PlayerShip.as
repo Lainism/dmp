@@ -40,7 +40,7 @@ package
 			lives = 5;
 			
 			mask = new Pixelmask(IMAGE, -28.5, -31.5);
-			this.setHitbox(15, 15, 0, 0);
+			this.setHitbox(10, 10, 0, 0);
 			x = 250;
 			y = 500;
 			

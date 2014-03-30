@@ -30,15 +30,23 @@ package
 			}
 		}
 		
-		public function run():void 
+		public function run(timer:Number):void 
 		{
 			var r:Number = 20.0;
-			
-			for (var i:Number = 0.0; i <= 2 * Math.PI; i = i + 0.15) {
+			if (timer < -1) {
+				for (var i:Number = 0.0; i <= 2 * Math.PI; i = i + 0.15) {
+					var bullet:Bullet = pool.activate();
+					bullet.xPos = bullet.x = _enemy.x + (r * Math.cos(i));
+					bullet.yPos = bullet.y = _enemy.y + (r * Math.sin(i));
+					bullet._pathToFollow = generateBulletPath(3, i);
+					_world.add(bullet);
+					onScreen.push(bullet);
+				}
+			} else if (timer > 0 && timer < 200) {
 				var bullet:Bullet = pool.activate();
-				bullet.xPos = bullet.x = _enemy.x + (r * Math.cos(i));
-				bullet.yPos = bullet.y = _enemy.y + (r * Math.sin(i));
-				bullet._pathToFollow = generateBulletPath(3, i);
+				bullet.xPos = bullet.x = _enemy.x;
+				bullet.yPos = bullet.y = _enemy.y + 10;
+				bullet._pathToFollow = generateWaveBulletPath(3, Math.PI/2);
 				_world.add(bullet);
 				onScreen.push(bullet);
 			}
@@ -74,6 +82,21 @@ package
 			}
 		}
 		
+		private function generateWaveBulletPath(distanceBetweenPoints:Number, dir:Number):Vector.<Point>
+		{
+			var i:Number;
+			
+			var vec:Vector.<Point> = new Vector.<Point>();
+			
+			for (i = 0; i < 700; i += distanceBetweenPoints)
+			{
+				vec.push(new Point(Math.cos(dir)*50, i));
+				//trace(Math.sin((dir) * 25));
+				dir += 0.1;
+			}
+			
+			return vec;
+		}
 	}
 
 }
