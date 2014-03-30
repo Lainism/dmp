@@ -43,12 +43,14 @@ package
 					onScreen.push(bullet);
 				}
 			} else if (timer > 0 && timer < 200) {
-				var bullet:Bullet = pool.activate();
-				bullet.xPos = bullet.x = _enemy.x;
-				bullet.yPos = bullet.y = _enemy.y + 10;
-				bullet._pathToFollow = generateWaveBulletPath(3, Math.PI/2);
-				_world.add(bullet);
-				onScreen.push(bullet);
+				for (var j:int = 0; j < 8; j++) {
+					var bullet:Bullet = pool.activate();
+					bullet.xPos = bullet.x = 150;
+					bullet.yPos = bullet.y = 150 + j * 50;
+					bullet._pathToFollow = generateWaveBulletPath(3, Math.PI/2 + j*0.5);
+					_world.add(bullet);
+					onScreen.push(bullet);
+				}
 			}
 		}
 		
