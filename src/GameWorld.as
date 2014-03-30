@@ -41,7 +41,7 @@ package
 			_puzzle = new Puzzle(4, 3, 3);
 			playerPool = new BulletPool(PlayerBullet, 20);
 			_playerShip = new PlayerShip(_puzzle);
-			_enemy = new Enemy(0, 10, this);
+			_enemy = new Enemy(5, 10, this);
 			_pattern = new BossPattern(_enemy, this);
 			_enemy.add_pattern(_pattern);
 			
@@ -126,19 +126,6 @@ package
 			return vec;
 		}
 			
-		/*public function generateEnemyBulletPath(distanceBetweenPoints:Number):Vector.<Point>
-		{
-			var i:Number;
-			
-			var vec:Vector.<Point> = new Vector.<Point>();
-			
-			for (i = 0; i < 490; i += distanceBetweenPoints)
-			{
-				vec.push(new Point(0, i));
-			}
-			
-			return vec;
-		}*/
 	}
 
 }

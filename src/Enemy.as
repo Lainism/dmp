@@ -85,7 +85,7 @@ package
 				
 				if (_patternStart == 0)
 				{
-					_pattern.run();
+					_pattern.run(_timeElapsed);
 					_patternStart = 50;
 				}
             }

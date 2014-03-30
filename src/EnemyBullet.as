@@ -29,8 +29,8 @@ package
 			super();
 			timmy = 0;
 			this.DAMAGE = 1;
-			angleTween = new AngleTween();
-			angleTween.tween(0, 3600, 30); //fromAngle, toAngle, duration, ease = null
+			//angleTween = new AngleTween();
+			//angleTween.tween(0, 3600, 30); //fromAngle, toAngle, duration, ease = null
 			
 		}
 			
@@ -38,13 +38,12 @@ package
 		{
 			graphic = img;
 			mask = new Pixelmask(source, mask_x, mask_y);
-			w.addTween(angleTween, true);
+			//w.addTween(angleTween, true);
 		}
 		
 		override public function update():void
         {
-			timmy++;
-            if (_pathToFollow.length > 0) 
+			if (_pathToFollow.length > 0) 
 			{
 				x = xPos + _pathToFollow[0].x;
 				y = yPos + _pathToFollow[0].y;
@@ -52,9 +51,9 @@ package
 			
 			
 			
-			GraphicAssets.Ebullet_graph1.angle = angleTween.angle;
-			this.graphic = GraphicAssets.Ebullet_graph1;
- 
+			//GraphicAssets.Ebullet_graph1.angle = angleTween.angle;
+			//this.graphic = GraphicAssets.Ebullet_graph1;
+			
             _pathToFollow.shift();
              
         }

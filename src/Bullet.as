@@ -23,7 +23,7 @@ package
 			super();
 		}
 		
-		override public function update():void
+		/*override public function update():void
         {
 
             if (_pathToFollow.length > 0) {
@@ -33,7 +33,7 @@ package
 				_pathToFollow.shift();
 			} 
             
-        }
+        }*/
 		
 		public function destroy():void
         {
