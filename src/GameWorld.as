@@ -145,7 +145,7 @@ package
 			_enemy.pause = false;
 			_bg.pause = false;
 			_playerShip.continueGame();
-			_pattern.pauseGame();
+			_pattern.continueGame();
 		}
 			
 	}
