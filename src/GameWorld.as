@@ -21,6 +21,7 @@ package
 		private var bgm1:Sfx = new Sfx(BGM1);
 		private var _bg:Background;
 		public var _sidebar:Sidebar;
+		public var _combo:ComboGraphic;
 		
 		
 		private var _playerShip:PlayerShip;
@@ -42,6 +43,10 @@ package
 			_puzzle = new Puzzle(4, 3, 3);
 			playerPool = new BulletPool(PlayerBullet, 20);
 			_playerShip = new PlayerShip(_puzzle, this);
+			
+			//Change this according to which character the player is using!
+			_combo = new ComboGraphic("emo");
+			
 			_enemy = new Enemy(5, 10, this);
 			_pattern = new BossPattern(_enemy, this);
 			_enemy.add_pattern(_pattern);
@@ -58,6 +63,7 @@ package
 			add(_playerShip);
 			bgm1.loop();
 			add(_sidebar);
+			add(_combo);
 			this.bringToFront(_sidebar);
 		}
 		

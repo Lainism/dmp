@@ -68,6 +68,7 @@ package
 					
 					//Paused, so we can add some cool graphic here without disturbing the game
 					_playerWorld.pauseGame();
+					_playerWorld._combo.entryAnimation(5);
 				}
 			}
 			
