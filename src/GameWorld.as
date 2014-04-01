@@ -83,7 +83,7 @@ package
 					var bul:Bullet = _playerShip.bul_onscreen[a];
 					if (bul.collideWith(_enemy, bul.x, bul.y) || bul.y < 0) {
 						if (bul.y >= 0) {
-							_enemy.decreaseLives(bul.DAMAGE);
+							_enemy.decreaseLives(bul.damage);
 							_sidebar.addScore();
 						}
 						remove(bul);
@@ -100,7 +100,7 @@ package
 					{
 						if (ebul.collideWith(_playerShip, ebul.x, ebul.y))
 						{
-							_playerShip.decreaseLives(ebul.DAMAGE);
+							_playerShip.decreaseLives(ebul.damage);
 						}
 						remove(ebul);
 						_pattern.onScreen.splice(c, 1);

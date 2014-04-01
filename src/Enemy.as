@@ -14,7 +14,7 @@ package
 	 */
 	public class Enemy extends Entity 
 	{
-		[Embed(source = '../graphics/msf.png')]
+		[Embed(source = '../graphics/esf.png')]
         private const IMAGE:Class;
          
         private var _timeToAct:uint;

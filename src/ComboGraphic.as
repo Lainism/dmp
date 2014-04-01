@@ -21,6 +21,7 @@ package
 		private var sprites:Graphiclist;
 		
 		private var path:Vector.<Point>;
+		private var exiting:Boolean;
 		
 		public function ComboGraphic(playerCharacter:String)
 		{
@@ -40,13 +41,14 @@ package
 			msg2.x = -250;
 			msg2.y = 50;
 			
-			msg3 = new Text("1 hit!");
+			msg3 = new Text("1 hit(s)!");
 			msg3.size = 20;
 			msg3.x = -250;
 			msg3.y = 100;
 			
 			sprites = new Graphiclist(currentImage, msg1, msg2, msg3);
 			sprites.visible = false;
+			exiting = false;
 			graphic = sprites;
 			
 			path = new Vector.<Point>();
@@ -62,7 +64,8 @@ package
 			 
 			for (i = -Math.PI; i*0.01 < Math.PI / 2; i += distanceBetweenPoints)
 			{
-				vec.push(new Point((Math.cos(i*0.01 + Math.PI / 2)+1)*200+50, yPos));
+				vec.push(new Point((Math.cos(i * 0.01 + Math.PI / 2) + 1) * 200 + 50, yPos));
+				//trace((Math.cos(i * 0.01 + Math.PI / 2) + 1) * 200 + 50);
 			}
 		 
 			path = vec;
@@ -75,21 +78,25 @@ package
 			 
 			var vec:Vector.<Point> = new Vector.<Point>();
 			 
-			var yPos:Number = 400;
+			var yPos:Number = 200;
 			 
-			for (i = -Math.PI / 2; i*0.01 < Math.PI; i += distanceBetweenPoints)
+			for (i = -Math.PI; i*0.01 < Math.PI / 2; i += distanceBetweenPoints)
 			{
-				vec.push(new Point((Math.sin(i*0.01 + Math.PI / 2)+1)*200+50, yPos));
+				vec.push(new Point((Math.cos(i * 0.01 + Math.PI / 2) + 1) * 200 + 250, yPos));
 			}
 		 
 			path = vec;
-			sprites.visible = false;
+			exiting = true;
 		}
 		
 		override public function update():void
 		{
 			if (path.length > 0)
 			{
+				if (path.length == 1 && exiting) {
+					sprites.visible = false;
+					exiting = false;
+				}
 				var tmp:Point = path.pop();
 				//trace(tmp.x);
 				x = tmp.x;
@@ -97,6 +104,11 @@ package
 				//currentImage.x = tmp.x;
 				//currentImage.y = tmp.y;
 			}
+		}
+		
+		public function comboAmount(amount:Number):void
+		{
+			msg3.text = amount + " hit(s)!";
 		}
 	}
 

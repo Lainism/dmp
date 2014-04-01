@@ -22,13 +22,12 @@ package
 		private var speed:Number;
 		private var accel:Number;
 		public var angleTween:AngleTween;
-		private var timmy:int;
+		//private var timmy:int;
 		
-		public function EnemyBullet() {
+		public function EnemyBullet(damage:int = 1) {
 			
-			super();
-			timmy = 0;
-			this.DAMAGE = 1;
+			super(damage);
+			//timmy = 0;
 			//angleTween = new AngleTween();
 			//angleTween.tween(0, 3600, 30); //fromAngle, toAngle, duration, ease = null
 			
