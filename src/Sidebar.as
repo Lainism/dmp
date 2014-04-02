@@ -66,9 +66,9 @@ package
 			livesc.text = "Lives: " +  lives;
 		}
 		
-		public function addScore(amount:Number = 10):void
+		public function addScore(amount:int = 0):void
 		{
-			score += amount;
+			score += 10 + amount * 10;
 			scorec.text = "Score: " + score;
 		}
 		

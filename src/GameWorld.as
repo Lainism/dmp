@@ -69,6 +69,7 @@ package
 		
 		override public function update():void
 		{	
+			this.bringToFront(_combo);
 			this.bringToFront(_sidebar);
 			super.update();
 			
@@ -84,7 +85,7 @@ package
 					if (bul.collideWith(_enemy, bul.x, bul.y) || bul.y < 0) {
 						if (bul.y >= 0) {
 							_enemy.decreaseLives(bul.damage);
-							_sidebar.addScore();
+							_sidebar.addScore(_playerShip.getSolved());
 						}
 						remove(bul);
 						_playerShip.bul_onscreen.splice(a, 1);

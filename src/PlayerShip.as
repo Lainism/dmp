@@ -80,6 +80,10 @@ package
 			return lives;
 		}
 		
+		public function getSolved():int {
+			return solvedPuzzles;
+		}
+		
 		override public function update():void
 		{
 			//Check puzzle and pause timers
@@ -94,7 +98,7 @@ package
 					timer = 5;
 					solvedPuzzles++;
 					comboPuzzles++;
-					bulletDamage += solvedPuzzles * comboPuzzles * bulletDamage;
+					bulletDamage += comboPuzzles * bulletDamage;
 					_playerWorld._combo.comboAmount(comboPuzzles);
 					_playerWorld._sidebar.changeBulletDamage(bulletDamage);
 					_playerWorld._sidebar.combobar.visible = true;
@@ -167,9 +171,14 @@ package
 			
 			//Reseting the puzzle
 			if (Input.pressed(Key.R))
+				_puzzle.reset();
+			
+			if (Input.pressed(Key.N))
 			{
+				_puzzle.shuffle();
 				_puzzle.reset();
 			}
+			
 			
 			//Rotating the puzzle
 			if (Input.pressed(Key.ENTER))
