@@ -78,8 +78,8 @@ package
                     _added = true;
                 }
 				
-                x = _pathToFollow[_currentPoint].x;
-                y = _pathToFollow[_currentPoint].y;
+                x = _pathToFollow[0].x;
+                y = _pathToFollow[0].y;
                  
                 _currentPoint++;
                  
@@ -91,7 +91,7 @@ package
 				if (_patternStart == 0)
 				{
 					_pattern.run(_timeElapsed);
-					_patternStart = 50;
+					_patternStart = 5;
 				}
             }
 			_timeElapsed += 7 * FP.elapsed;

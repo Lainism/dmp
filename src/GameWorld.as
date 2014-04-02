@@ -56,7 +56,7 @@ package
 				add(a);
 			}
 			add(_playerShip);
-			bgm1.loop();
+			//bgm1.loop();
 			add(_sidebar);
 			this.bringToFront(_sidebar);
 		}
