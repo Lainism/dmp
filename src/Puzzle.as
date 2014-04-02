@@ -119,10 +119,6 @@ package
 		
 		public function compareSolution():Boolean
 		{
-			if (counter != solution.length) {
-				return false;
-			}
-			
 			/*for (var i:Number = 0; i < moves; i++) {
 				if (answer[i] != solution[moves - i]) {
 					return false;
@@ -131,7 +127,8 @@ package
 			for (var i:uint = 0; i < nodes.length; i++) {
 				if (nodes[i].return_color() != solved[i])
 				{
-					reset();
+					if (counter >= 3)
+						reset();
 					return false;
 				}
 			}

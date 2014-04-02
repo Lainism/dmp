@@ -2,6 +2,7 @@ package
 {
 	import EnemyBullet;
 	import net.flashpunk.Entity;
+	import net.flashpunk.graphics.Graphiclist;
 	import net.flashpunk.graphics.Image;
 	import net.flashpunk.FP;
 	import net.flashpunk.Mask;
@@ -17,25 +18,44 @@ package
 	 */
 	public class PlayerShip extends Entity 
 	{
-		[Embed(source = "../graphics/msb.png")]
+		[Embed(source = "../graphics/esb.png")]
 		private const IMAGE:Class;
+		[Embed(source = "../graphics/circle.png")]
+		private const CIRCLE:Class;
+		private var playerSprite:Image;
+		private var modeSprite:Image;
+		private var sprites:Graphiclist;
+		
 		private var _timeElapsed:Number;
 		private var _puzzle:Puzzle;
 		private var _playerWorld:GameWorld;
 		private var pause:Boolean;
+		private var invincible:Boolean;
 		private var timer:Number;
 		
 		public var bul_onscreen:Vector.<Bullet>;
 		private var lives:int;
+		private var bulletDamage:int;
+		private var solvedPuzzles:int;
+		private var comboPuzzles:int;
+		private var solved:Boolean;
 		
 		public function PlayerShip(puzzle:Puzzle, world:GameWorld) 
 		{
 			this._puzzle = puzzle;
 			this._playerWorld = world;
-			graphic = new Image(IMAGE);
 			
-			graphic.x = -28.5;
-			graphic.y = -31.5;
+			playerSprite = new Image(IMAGE);
+			playerSprite.x = -28.5;
+			playerSprite.y = -31.5;
+			
+			modeSprite = new Image(CIRCLE);
+			modeSprite.x = -60;
+			modeSprite.y = -60;
+			modeSprite.visible = false;
+			
+			sprites = new Graphiclist(playerSprite, modeSprite);
+			graphic = sprites;
 			
 			lives = 5;
 			
@@ -44,8 +64,15 @@ package
 			x = 250;
 			y = 500;
 			
+			invincible = false;
 			_timeElapsed = 0;
 			timer = -1;
+			
+			bulletDamage = 1;
+			solvedPuzzles = 0;
+			comboPuzzles = 0;
+			solved = false;
+			
 			bul_onscreen = new Vector.<Bullet>();
 		}
 		
@@ -59,15 +86,36 @@ package
 			if (timer >= 0) {
 				timer += 5 * FP.elapsed;
 				//trace(timer);
-				if (timer >= 20) {
-					timer = -1;
-					_playerWorld.continueGame();
-				} else if (timer >= 6 && !pause) {
+				if (timer >= 5 && !pause && solved) {
 					_puzzle.shuffle();
 					_puzzle.reset();
+					invincible = true;
+					modeSprite.visible = true;
+					timer = 5;
+					solvedPuzzles++;
+					comboPuzzles++;
+					bulletDamage += solvedPuzzles * comboPuzzles * bulletDamage;
+					_playerWorld._combo.comboAmount(comboPuzzles);
+					_playerWorld._sidebar.changeBulletDamage(bulletDamage);
+					_playerWorld._sidebar.combobar.visible = true;
 					
 					//Paused, so we can add some cool graphic here without disturbing the game
 					_playerWorld.pauseGame();
+					_playerWorld._combo.entryAnimation(5);
+					
+					solved = false;
+				} else if (timer >= 40) {
+					timer = -1;
+					invincible = false;
+					comboPuzzles = 0;
+					modeSprite.visible = false;
+					_playerWorld._sidebar.combobar.visible = false;
+				} else if (timer >= 20) {
+					_playerWorld.continueGame();
+					_playerWorld._sidebar.decrease = true;
+				} else if (timer >= 10) {
+					_playerWorld._combo.exitAnimation(5);
+					//_playerWorld._sidebar.startCountdown();
 				}
 			}
 			
@@ -109,6 +157,7 @@ package
 			{
 				_timeElapsed = 0;
 				var bull:Bullet = GameWorld(world).playerPool.activate();
+				bull.damage = bulletDamage;
 				bull.xPos = bull.x = this.x;
 				bull.yPos = bull.y = this.y;
 				bull._pathToFollow = GameWorld(world).generatePlayerBulletPath(3);
@@ -140,6 +189,7 @@ package
 				}
 				if (_puzzle.compareSolution()) {
 					timer = 0;
+					solved = true;
 				}
 			}
 			
@@ -167,6 +217,9 @@ package
 		
 		public function decreaseLives(damage:int):void
 		{
+			if (invincible)
+				return;
+				
 			lives -= damage;
 			_playerWorld._sidebar.changeLives(lives);
 			/*if (lives < 0) {

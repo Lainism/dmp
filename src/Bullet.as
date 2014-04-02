@@ -16,12 +16,13 @@ package
         public var xPos:Number;
         public var yPos:Number;
 		
-		public var DAMAGE:int;
+		public var damage:int;
 		public var pause:Boolean;
 		
-		public function Bullet() 
+		public function Bullet(damage:int) 
 		{
 			super();
+			this.damage = damage;
 			pause = false;
 		}
 		

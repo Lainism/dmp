@@ -12,12 +12,11 @@ package
 public class PlayerBullet extends Bullet
     {
 		 
-        public function PlayerBullet()
+        public function PlayerBullet(damage:int = 1)
         {
-			super()
+			super(damage)
             graphic = GraphicAssets.Pbullet_graph1;
 			mask = new Pixelmask(GraphicAssets.Player_bullet1, -8.5, -8.5);
-			this.DAMAGE = 1;
         }
 		
         /* 
