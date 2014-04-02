@@ -118,6 +118,10 @@ package
             graphic = null;
         }
 		
+		public function getLives():int {
+			return lives;
+		}
+		
 		public function decreaseLives(damage:int):void
 		{
 			lives -= damage;

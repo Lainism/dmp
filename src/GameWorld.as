@@ -2,13 +2,14 @@ package
 {
 	import EnemyBullet;
 	import net.flashpunk.graphics.Backdrop;
+	import net.flashpunk.graphics.Image;
 	import net.flashpunk.World;
 	import flash.geom.Point;
     import net.flashpunk.Entity;
 	import flash.display.DisplayObject;
 	import net.flashpunk.Sfx;
 	import net.flashpunk.FP;
-
+	import flash.system.fscommand;
 	
 	/**
 	 * ...
@@ -19,6 +20,20 @@ package
 		[Embed(source = '../sounds/Waves.mp3')]
 		private const BGM1:Class;
 		private var bgm1:Sfx = new Sfx(BGM1);
+		
+		[Embed(source = '../graphics/menu/gameover.png')]
+		private const GAMEOVER:Class;
+		[Embed(source = '../graphics/menu/gamewon.png')]
+		private const GAMEWON:Class;
+		[Embed(source = '../graphics/menu/menu.png')]
+		private const MENU:Class;
+		[Embed(source = '../graphics/menu/quit.png')]
+		private const QUIT:Class;
+		private var menuButton:Button;
+		private var quitButton:Button;
+		private var gameOverScreen:Image;
+		private var gameWonScreen:Image;
+		
 		private var _bg:Background;
 		public var _sidebar:Sidebar;
 		public var _combo:ComboGraphic;
@@ -29,6 +44,7 @@ package
 		private var _puzzle:Puzzle;
 		private var _pattern:BossPattern;
 		private var pause:Boolean;
+		private var ended:Boolean;
 		
 		public var playerPool:BulletPool;
 		
@@ -44,6 +60,11 @@ package
 			playerPool = new BulletPool(PlayerBullet, 20);
 			_playerShip = new PlayerShip(_puzzle, this);
 			
+			menuButton = new Button(goMenu, null, 150, 350);
+			menuButton.setSpritemap(MENU, 250, 36);
+			gameOverScreen = new Image(GAMEOVER);
+			gameWonScreen = new Image(GAMEWON);
+			
 			//Change this according to which character the player is using!
 			_combo = new ComboGraphic("emo");
 			
@@ -51,6 +72,7 @@ package
 			_pattern = new BossPattern(_enemy, this);
 			_enemy.add_pattern(_pattern);
 			pause = false;
+			ended = false;
 			
 			_sidebar = new Sidebar(_playerShip.getLives());
 			
@@ -61,7 +83,7 @@ package
 				add(a);
 			}
 			add(_playerShip);
-			//bgm1.loop();
+			bgm1.loop();
 			add(_sidebar);
 			add(_combo);
 			this.bringToFront(_sidebar);
@@ -109,6 +131,21 @@ package
 					}
 				}
 			}
+			
+			if (_enemy.getLives() < 0) {
+				pauseGame();
+				ended = true;
+				addGraphic(gameWonScreen);
+				add(menuButton);
+			}
+			
+			if (_playerShip.getLives() < 0) {
+				pauseGame();
+				ended = true;
+				addGraphic(gameOverScreen);
+				add(menuButton);
+			}
+			
 		}
 		
 		override public function remove(e:Entity):Entity
@@ -153,6 +190,32 @@ package
 			_bg.pause = false;
 			_playerShip.continueGame();
 			_pattern.continueGame();
+		}
+		
+		public function quit():void
+		{
+			if (!ended)
+				return;
+			
+			fscommand("quit");
+		}
+		
+		public function goMenu():void
+		{
+			if (!ended)
+				return;
+			
+			FP.world = new MainMenu();
+			
+			destroy();
+		}
+		
+		public function destroy():void
+		{
+			removeAll();
+			
+			quitButton = null;
+			menuButton = null;
 		}
 			
 	}
