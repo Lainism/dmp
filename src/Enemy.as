@@ -91,7 +91,9 @@ package
 				if (_patternStart == 0)
 				{
 					_pattern.run(_timeElapsed);
-					_patternStart = 5;
+					_patternStart = 100;
+					if (_timeElapsed > 700)
+						_timeElapsed = 0;
 				}
             }
 			_timeElapsed += 7 * FP.elapsed;

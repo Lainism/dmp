@@ -11,19 +11,25 @@ package
 	public class BossPattern 
 	{
 		public var pool:BulletPool;
+		public var pool_arr:Array;
 		
-		private var _enemy:Enemy;
-		private var _world:World;
+		public var _enemy:Enemy;
+		public var _world:World;
+		public var _player:PlayerShip;
 		
 		public var onScreen:Vector.<EnemyBullet>;
 		
-		public function BossPattern(enemy:Enemy, world:World) 
+		public var FULLANGLE:Number = 2 * Math.PI;
+		
+		public function BossPattern(enemy:Enemy, player:PlayerShip, world:World) 
 		{
 			_enemy = enemy;
+			_player = player;
 			_world = world;
 			onScreen = new Vector.<EnemyBullet>();
 			pool = new BulletPool(EnemyBullet, 2000);
-			var pool_arr:Array = pool.get_pool();
+			pool_arr = pool.get_pool();
+			
 			for each (var bul:EnemyBullet in pool_arr) 
 			{
 				bul.init_bul(GraphicAssets.Ebullet_graph1, GraphicAssets.Enemy_bullet1, -12.5, -12.5, _world);
@@ -32,37 +38,10 @@ package
 		
 		public function run(timer:Number):void 
 		{
-			var r:Number = 20.0;
-			if (timer < -1) {
-				for (var i:Number = 0.0; i <= 2 * Math.PI; i = i + 0.15) {
-					var bullet:Bullet = pool.activate();
-					bullet.xPos = bullet.x = _enemy.x + (r * Math.cos(i));
-					bullet.yPos = bullet.y = _enemy.y + (r * Math.sin(i));
-					bullet._pathToFollow = generateBulletPath(3, i);
-					_world.add(bullet);
-					onScreen.push(bullet);
-				}
-			} else if (timer > 150 && timer < -1) {
-				for (var i:Number = 0.0; i <= 2 * Math.PI; i = i + 0.35) {
-					var bullet:Bullet = pool.activate();
-					bullet.xPos = bullet.x = _enemy.x + (r * Math.cos(i)) + i;
-					bullet.yPos = bullet.y = _enemy.y + (r * Math.sin(i)) + i;
-					bullet._pathToFollow = generateWaveBulletPath(3, i);
-					_world.add(bullet);
-					onScreen.push(bullet);
-				
-				}
-			} else if (timer < 300) {
-					var bullet:Bullet = pool.activate();
-					bullet.xPos = bullet.x = _enemy.x;
-					bullet.yPos = bullet.y = _enemy.y + 10;
-					bullet._pathToFollow = polarRose(3, Math.PI);
-					_world.add(bullet);
-					onScreen.push(bullet);
-			}
+			return;
 		}
 		
-		private function generateBulletPath(distanceBetweenPoints:Number, dir:Number):Vector.<Point>
+		public function generateBulletPath(distanceBetweenPoints:Number, dir:Number):Vector.<Point>
 		{
 			var i:Number;
 			
@@ -76,23 +55,24 @@ package
 			return vec;
 		}
 		
-		public function pauseGame():void
+		public function generateBulletPathWithRotation(distanceBetweenPoints:Number, dir:Number):Vector.<Point>
 		{
-			for each (var b:Bullet in onScreen)
+			var i:Number;
+			var angle:Number = 0;
+			
+			var vec:Vector.<Point> = new Vector.<Point>();
+			
+			for (i = 0; i < 700; i += distanceBetweenPoints)
 			{
-				b.pause = true;
+				vec.push(new Point(i * Math.cos(dir) + Math.cos(angle) * 10, i * Math.sin(dir) + Math.sin(angle) * 10));
+				angle += 0.4;
 			}
+			
+			return vec;
 		}
 		
-		public function continueGame():void
-		{
-			for each (var b:Bullet in onScreen)
-			{
-				b.pause = false;
-			}
-		}
 		
-		private function generateWaveBulletPath(distanceBetweenPoints:Number, dir:Number):Vector.<Point>
+		public function generateWaveBulletPath(distanceBetweenPoints:Number, dir:Number):Vector.<Point>
 		{
 			var i:Number;
 			
@@ -101,8 +81,22 @@ package
 			for (i = 0; i < 700; i += distanceBetweenPoints)
 			{
 				vec.push(new Point(Math.cos(dir/100)*50, Math.sin(dir)*i + 100));
-				//trace(Math.sin((dir) * 25));
 				dir += 0.1;
+			}
+			
+			return vec;
+		}
+		
+		public function generateHomingBulletPath(distanceBetweenPoints:Number):Vector.<Point> 
+		{
+			
+			var i:Number;
+			var vec:Vector.<Point> = new Vector.<Point>();
+			var deltaX:Number = _player.x - _enemy.x;
+			var deltaY:Number = _player.y - _enemy.y;
+			
+			for (i = 0; i < 600; i += distanceBetweenPoints) {
+				vec.push(new Point(i*(deltaX/200), i*(deltaY/200))); 
 			}
 			
 			return vec;
@@ -136,6 +130,27 @@ package
 			}
 			
 			return vec;
+		}
+		
+		public function pauseGame():void
+		{
+			for each (var b:Bullet in onScreen)
+			{
+				b.pause = true;
+			}
+		}
+		
+		public function continueGame():void
+		{
+			for each (var b:Bullet in onScreen)
+			{
+				b.pause = false;
+			}
+		}
+		
+		public function randomRange(minNum:Number, maxNum:Number):Number
+		{
+			return (Math.floor(Math.random() * (maxNum - minNum + 1)) + minNum);
 		}
 	}
 

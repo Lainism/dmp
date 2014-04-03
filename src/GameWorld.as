@@ -69,7 +69,7 @@ package
 			_combo = new ComboGraphic("emo");
 			
 			_enemy = new Enemy(5, 10, this);
-			_pattern = new BossPattern(_enemy, this);
+			_pattern = new Pattern2(_enemy, _playerShip, this);
 			_enemy.add_pattern(_pattern);
 			pause = false;
 			ended = false;
