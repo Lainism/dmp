@@ -17,19 +17,52 @@ package
 		{
 			var bullet:Bullet;
 			var i:Number = 0.0;
-			var r:Number = 20.0;
-			var dir:Number = 0.0;
+			var r:Number = 10.0;
+			var angle:Number = 0.0;
+			var rand:Number = randomRange(5, 35);
 			
-			if (timer < 150) {
-				for (i = 0; i <= 5; i++) {
-					for (var j:int = 0; j < 3; j++) {
-						bullet = pool.activate();
-						bullet.xPos = bullet.x = _enemy.x + (r * Math.cos((i/5)*FULLANGLE))
-						bullet.yPos = bullet.y = _enemy.y + (r * Math.sin((i/5)*FULLANGLE));
-						bullet._pathToFollow = generateBulletPath(3, (j / 3) * FULLANGLE);
-						_world.add(bullet);
-						onScreen.push(bullet);
-					}
+			if (timer > 150) {
+				for (i = 0; i <= rand; i++)
+				{
+					if (!randomRange( -3, 3))
+						continue;
+					bullet = pool.activate();
+					bullet.xPos = bullet.x = i * 20;
+					bullet.yPos = bullet.y = 0;
+					bullet._pathToFollow = generateBulletPath(3, Math.PI / 2);
+					_world.add(bullet);
+					onScreen.push(bullet);
+				}
+				for (var j:Number = 0; j <= rand - 5; j++) 
+				{
+					if (!randomRange( -1, 2))
+						continue;
+					bullet = pool.activate();
+					bullet.xPos = bullet.x = 0;
+					bullet.yPos = bullet.y = j * 25;
+					bullet._pathToFollow = generateBulletPath(3, 0);
+					_world.add(bullet);
+					onScreen.push(bullet);
+				}
+			} else if (timer < -2 && timer < 350) {
+				for (i = 0; i < FULLANGLE; i += 0.15) 
+				{
+					bullet = pool.activate();
+					bullet.xPos = bullet.x = _enemy.x + (r * (6 * Math.cos(i) - Math.cos(6*i)));
+					bullet.yPos = bullet.y = _enemy.y + (r * (6 * Math.sin(i) - Math.sin(6*i)));
+					bullet._pathToFollow = generateHomingBulletPath(3);
+					_world.add(bullet);
+					onScreen.push(bullet);
+				}
+			} else if (timer < 400 && timer < 650) {
+				for (i = 0.0; i <= FULLANGLE; i = i + 0.15)
+				{
+					bullet = pool.activate();
+					bullet.xPos = bullet.x = _enemy.x + (r * Math.cos(i));
+					bullet.yPos = bullet.y = _enemy.y + (r * Math.sin(i));
+					bullet._pathToFollow = polarRose(3, i);
+					_world.add(bullet);
+					onScreen.push(bullet);
 				}
 			}
 		}
