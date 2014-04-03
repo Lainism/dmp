@@ -26,6 +26,15 @@ package
 		private const START:Class;
 		[Embed(source = '../graphics/menu/back.png')]
 		private const BACK:Class;
+		[Embed(source = '../graphics/menu/selection.png')]
+		private const SQUARE:Class;
+		[Embed(source = '../graphics/menu/yourcharacter.png')]
+		private const CHARACTER:Class;
+		[Embed(source = '../graphics/menu/youropponent.png')]
+		private const OPPONENT:Class;
+		
+		private var yourCharacter:Image;
+		private var yourOpponent:Image;
 		
 		private var emoButton:Button;
 		private var meganeButton:Button;
@@ -42,6 +51,8 @@ package
 		private var startButton:Button;
 		private var backButton:Button;
 		
+		private var selection:Image;
+		private var selection2:Image;
 		private var currentCharacter:String;
 		private var currentOpponent:String;
 		
@@ -49,17 +60,33 @@ package
 		{
 			addGraphic(new Image(BG));
 			
-			emoButton = new Button(selectCharacter, "emo", 270, 250);
-			meganeButton = new Button(selectCharacter, "megane", 270, 300);
-			iloButton = new Button(selectCharacter, "ilo", 270, 350);
-			tsunButton = new Button(selectCharacter, "tsun", 270, 400);
-			bossButton = new Button(selectCharacter, "boss", 270, 450);
+			selection = new Image(SQUARE);
+			selection.x = -100;
+			selection.y = -100;
 			
-			emoButton2 = new Button(selectOpponent, "emo", 470, 250);
-			meganeButton2 = new Button(selectOpponent, "megane", 470, 300);
-			iloButton2 = new Button(selectOpponent, "ilo", 470, 350);
-			tsunButton2 = new Button(selectOpponent, "tsun", 470, 400);
-			bossButton2 = new Button(selectOpponent, "boss", 470, 450);
+			selection2 = new Image(SQUARE);
+			selection2.x = -100;
+			selection2.y = -100;
+			
+			yourCharacter = new Image(CHARACTER);
+			yourCharacter.x = 90;
+			yourCharacter.y = 220;
+			
+			yourOpponent = new Image(OPPONENT);
+			yourOpponent.x = 490;
+			yourOpponent.y = 220;
+			
+			emoButton = new Button(selectCharacter, "emo", 70, 300);
+			meganeButton = new Button(selectCharacter, "megane", 270, 300);
+			iloButton = new Button(selectCharacter, "ilo", 120, 400);
+			tsunButton = new Button(selectCharacter, "tsun", 220, 400);
+			bossButton = new Button(selectCharacter, "boss", 170, 300);
+			
+			emoButton2 = new Button(selectOpponent, "emo", 470, 300);
+			meganeButton2 = new Button(selectOpponent, "megane", 670, 300);
+			iloButton2 = new Button(selectOpponent, "ilo", 520, 400);
+			tsunButton2 = new Button(selectOpponent, "tsun", 620, 400);
+			bossButton2 = new Button(selectOpponent, "boss", 570, 300);
 			
 			startButton = new Button(startGame, null, 650, 550);
 			backButton = new Button(returnMenu, null, 50, 550);
@@ -94,6 +121,11 @@ package
 			add(startButton);
 			add(backButton);
 			
+			addGraphic(selection);
+			addGraphic(selection2);
+			addGraphic(yourCharacter);
+			addGraphic(yourOpponent);
+			
 			currentCharacter = "";
 			currentOpponent = "";
 		}
@@ -118,11 +150,45 @@ package
 		public function selectCharacter(name:String):void
 		{
 			currentCharacter = name;
+			
+			if (name == "emo") {
+				selection.x = 68;
+				selection.y = 298;
+			} else if (name == "megane") {
+				selection.x = 268;
+				selection.y = 298;
+			} else if (name == "ilo") {
+				selection.x = 118;
+				selection.y = 398;
+			} else if (name == "tsun") {
+				selection.x = 218;
+				selection.y = 398;
+			} else if (name == "boss") {
+				selection.x = 168;
+				selection.y = 298;
+			}
 		}
 		
 		public function selectOpponent(name:String):void
 		{
 			currentOpponent = name;
+			
+			if (name == "emo") {
+				selection2.x = 468;
+				selection2.y = 298;
+			} else if (name == "megane") {
+				selection2.x = 668;
+				selection2.y = 298;
+			} else if (name == "ilo") {
+				selection2.x = 518;
+				selection2.y = 398;
+			} else if (name == "tsun") {
+				selection2.x = 618;
+				selection2.y = 398;
+			} else if (name == "boss") {
+				selection2.x = 568;
+				selection2.y = 298;
+			}
 		}
 		
 		public function destroy():void
