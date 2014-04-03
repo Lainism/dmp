@@ -12,7 +12,7 @@ package
 	{
 		
 		// Graphics and variables for player bullets
-		[Embed(source = '../graphics/br1.png')]
+		[Embed(source = '../graphics/br2.png')]
 		public static var Player_bullet1:Class;
 		public static var Pbullet_graph1:Image;
 		
