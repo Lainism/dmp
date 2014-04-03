@@ -101,14 +101,14 @@ package
 					bulletDamage += comboPuzzles * bulletDamage;
 					_playerWorld._combo.comboAmount(comboPuzzles);
 					_playerWorld._sidebar.changeBulletDamage(bulletDamage);
-					_playerWorld._sidebar.combobar.visible = true;
+					_playerWorld._sidebar.showCombobar();
 					
 					//Paused, so we can add some cool graphic here without disturbing the game
 					_playerWorld.pauseGame();
 					_playerWorld._combo.entryAnimation(5);
 					
 					solved = false;
-				} else if (timer >= 40) {
+				} else if (timer >= 50) {
 					timer = -1;
 					invincible = false;
 					comboPuzzles = 0;

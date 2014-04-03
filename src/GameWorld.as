@@ -214,6 +214,7 @@ package
 		{
 			removeAll();
 			
+			bgm1.stop();
 			quitButton = null;
 			menuButton = null;
 		}

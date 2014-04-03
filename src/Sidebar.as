@@ -61,6 +61,13 @@ package
 			y = 0;
 		}
 		
+		public function showCombobar():void
+		{
+			combobar.y = 0;
+			combobar.visible = true;
+			decrease = false;
+		}
+		
 		public function changeLives(lives:int):void
 		{
 			livesc.text = "Lives: " +  lives;
@@ -68,7 +75,7 @@ package
 		
 		public function addScore(amount:int = 0):void
 		{
-			score += 10 + amount * 10;
+			score += 10 + amount * 20;
 			scorec.text = "Score: " + score;
 		}
 		
@@ -84,7 +91,7 @@ package
 				//Height of the screen is 600 pix
 				//In PlayerShip timer is 5 * FP.elapsed
 				//600 / combotime * 5 * FP.elapsed
-				combobar.y += 600 / 20 * 5 * FP.elapsed;
+				combobar.y += 600 / 30 * 5 * FP.elapsed;
 			}
 		}
 	}
