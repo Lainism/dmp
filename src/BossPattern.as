@@ -5,7 +5,7 @@ package
 	import net.flashpunk.World;
 	
 	/**
-	 * A bullet pattern for the main boss.
+	 * An overclass for bullet patterns
 	 * @author A.V.
 	 */
 	public class BossPattern 
@@ -36,9 +36,10 @@ package
 			}
 		}
 		
-		public function run(timer:Number):void 
+		public function run(timer:Number):uint 
 		{
-			return;
+			// An overclass dummy, actual patterns are implemented in the subclasses
+			return 1;
 		}
 		
 		public function generateBulletPath(distanceBetweenPoints:Number, dir:Number):Vector.<Point>
