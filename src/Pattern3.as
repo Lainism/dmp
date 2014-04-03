@@ -13,7 +13,7 @@ package
 			super(enemy, player, world);
 		}
 		
-		override public function run(timer:Number):void
+		override public function run(timer:Number):uint
 		{
 			var bullet:Bullet;
 			var i:Number = 0.0;
@@ -27,6 +27,8 @@ package
 			} else if (timer > 400 && timer < 650) {
 				
 			}
+			
+			return 100;
 		}
 		
 	}

@@ -13,7 +13,7 @@ package
 			super(enemy, player, world);
 		}
 		
-		override public function run(timer:Number):void
+		override public function run(timer:Number):uint
 		{
 			var bullet:Bullet;
 			var i:Number = 0.0;
@@ -65,6 +65,8 @@ package
 					onScreen.push(bullet);
 				}
 			}
+			
+			return 100;
 		}
 	}
 

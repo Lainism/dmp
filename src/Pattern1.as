@@ -14,7 +14,7 @@ package
 			
 		}
 		
-		override public function run(timer:Number):void
+		override public function run(timer:Number):uint
 		{
 			var bullet:Bullet;
 			var i:Number = 0.0;
@@ -51,6 +51,8 @@ package
 					dir += 0.15;
 				}
 			}
+			
+			return 100;
 		}
 		
 	}

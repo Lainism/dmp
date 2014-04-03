@@ -90,8 +90,7 @@ package
 				
 				if (_patternStart == 0)
 				{
-					_pattern.run(_timeElapsed);
-					_patternStart = 100;
+					_patternStart = _pattern.run(_timeElapsed);
 					if (_timeElapsed > 700)
 						_timeElapsed = 0;
 				}

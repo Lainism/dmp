@@ -18,9 +18,25 @@ package
 		
 		
 		// Graphics and variables for enemy bullets
-		[Embed(source = '/../graphics/ebull5.png')]	
+		[Embed(source = '/../graphics/ebull2.png')]	
 		public static var Enemy_bullet1:Class;
 		public static var Ebullet_graph1:Image;
+		
+		[Embed(source = '/../graphics/ebull2.png')]	
+		public static var Enemy_bullet2:Class;
+		public static var Ebullet_graph2:Image;
+		
+		[Embed(source = '/../graphics/ebull3.png')]	
+		public static var Enemy_bullet3:Class;
+		public static var Ebullet_graph3:Image;
+		
+		[Embed(source = '/../graphics/ebull4.png')]	
+		public static var Enemy_bullet4:Class;
+		public static var Ebullet_graph4:Image;
+		
+		[Embed(source = '/../graphics/ebull5.png')]	
+		public static var Enemy_bullet5:Class;
+		public static var Ebullet_graph5:Image;
 		
 		public function GraphicAssets() 
 		{
