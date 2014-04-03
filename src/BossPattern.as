@@ -49,7 +49,7 @@ package
 			
 			var vec:Vector.<Point> = new Vector.<Point>();
 			
-			for (i = 0; i < 700; i += distanceBetweenPoints)
+			for (i = 0; i < 750; i += distanceBetweenPoints)
 			{
 				vec.push(new Point(i*Math.cos(dir), i*Math.sin(dir)));
 			}
@@ -82,7 +82,7 @@ package
 			
 			for (i = 0; i < 700; i += distanceBetweenPoints)
 			{
-				vec.push(new Point(Math.cos(dir/100)*50 + i*Math.cos(dir), Math.sin(dir)*50 + i*Math.sin(dir)));
+				vec.push(new Point(Math.cos(i)*50 + i*Math.cos(dir), Math.sin(i)*50 + i*Math.sin(dir)));
 				dir += 0.1;
 			}
 			
