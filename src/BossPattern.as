@@ -43,11 +43,16 @@ package
 			return 1;
 		}
 		
-		protected function generateBulletPath(distanceBetweenPoints:Number, dir:Number):Vector.<Point>
+		protected function generateBulletPath(distanceBetweenPoints:Number, dir:Number, stall:int):Vector.<Point>
 		{
 			var i:Number;
-			
+			var j:int;
 			var vec:Vector.<Point> = new Vector.<Point>();
+			
+			for (j = 0; j < stall; j++) 
+			{
+				vec.push(new Point(0, 0));
+			}
 			
 			for (i = 0; i < 750; i += distanceBetweenPoints)
 			{
@@ -64,10 +69,10 @@ package
 			
 			var vec:Vector.<Point> = new Vector.<Point>();
 			
-			for (i = 0; i < 35; i += distanceBetweenPoints)
+			for (i = 0; i < 700; i += distanceBetweenPoints)
 			{
-				vec.push(new Point( Math.cos(i) * 50,  Math.sin(i) * 50 ));
-				angle += 0.05;
+				vec.push(new Point( Math.cos(angle) * 100 + i * Math.cos(dir),  Math.sin(angle) * 100 + i * Math.sin(dir)));
+				angle += 0.02;
 			}
 			
 			return vec;
@@ -89,13 +94,18 @@ package
 			return vec;
 		}
 		
-		protected function generateHomingBulletPath(distanceBetweenPoints:Number):Vector.<Point> 
+		protected function generateHomingBulletPath(distanceBetweenPoints:Number, stall:int):Vector.<Point> 
 		{
 			
 			var i:Number;
+			var j:int;
 			var vec:Vector.<Point> = new Vector.<Point>();
 			var deltaX:Number = _player.x - _enemy.x;
 			var deltaY:Number = _player.y - _enemy.y;
+			
+			for (j = 0; j < stall; j++) {
+				vec.push(new Point(0, 0));
+			}
 			
 			for (i = 0; i < 700; i += distanceBetweenPoints) {
 				vec.push(new Point(i*(deltaX/200), i*(deltaY/200))); 
@@ -126,9 +136,9 @@ package
 			
 			var vec:Vector.<Point> = new Vector.<Point>();
 			
-			for (i = 0; i < 700; i += distanceBetweenPoints)
+			for (i = 0; i < 100; i += 0.03)
 			{
-				vec.push(new Point(150 * Math.cos(5 * i) * Math.sin(i), 150 * Math.cos(5*i)*Math.cos(i)));
+				vec.push(new Point(150 * Math.cos(4 * i) * Math.sin(i), 150 * Math.cos(3*i)*Math.cos(i)));
 			}
 			
 			return vec;

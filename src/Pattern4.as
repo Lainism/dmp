@@ -40,7 +40,7 @@ package
 					bullet = pool.activate();
 					bullet.xPos = bullet.x = 500 - j * 10;
 					bullet.yPos = bullet.y = 600 - j * 20;
-					bullet._pathToFollow = generateBulletPath(3, randomRange(0, 1000));
+					bullet._pathToFollow = generateBulletPath(3, randomRange(0, 1000), 0);
 					_world.add(bullet);
 					onScreen.push(bullet);
 				}
@@ -51,7 +51,7 @@ package
 					bullet = pool.activate();
 					bullet.xPos = bullet.x = k * 5;
 					bullet.yPos = bullet.y = k * 25;
-					bullet._pathToFollow = generateBulletPath(3, randomRange(0, 1000));
+					bullet._pathToFollow = generateBulletPath(3, randomRange(0, 1000), 0);
 					_world.add(bullet);
 					onScreen.push(bullet);
 				}
@@ -62,7 +62,7 @@ package
 					bullet = pool.activate();
 					bullet.xPos = bullet.x = _enemy.x + (r * ((2/3) * Math.cos(i) + (1/3) * Math.cos(2*i)));
 					bullet.yPos = bullet.y = _enemy.y + (r * ((2/3) * Math.sin(i) - (1/3) * Math.sin(2*i)));
-					bullet._pathToFollow = generateBulletPath(3, randomRange(0, 555));
+					bullet._pathToFollow = generateBulletPath(3, randomRange(0, 555), 0);
 					_world.add(bullet);
 					onScreen.push(bullet);
 				}
@@ -73,7 +73,7 @@ package
 					bullet = pool.activate();
 					bullet.xPos = bullet.x = _enemy.x + (r * ((2/3) * Math.cos(i) + (1/3) * Math.cos(2*i)));
 					bullet.yPos = bullet.y = _enemy.y + (r * ((2/3) * Math.sin(i) - (1/3) * Math.sin(2*i)));
-					bullet._pathToFollow = generateHomingBulletPath(3);
+					bullet._pathToFollow = generateHomingBulletPath(3, 0);
 					_world.add(bullet);
 					onScreen.push(bullet);
 				}
