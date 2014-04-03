@@ -18,7 +18,7 @@ package
 		
 		
 		// Graphics and variables for enemy bullets
-		[Embed(source = '/../graphics/Dummy_ammus.png')]	
+		[Embed(source = '/../graphics/ebull5.png')]	
 		public static var Enemy_bullet1:Class;
 		public static var Ebullet_graph1:Image;
 		

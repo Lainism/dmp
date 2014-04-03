@@ -64,7 +64,7 @@ package
 			
 			for (i = 0; i < 700; i += distanceBetweenPoints)
 			{
-				vec.push(new Point(i * Math.cos(dir) + Math.cos(angle) * 10, i * Math.sin(dir) + Math.sin(angle) * 10));
+				vec.push(new Point(i * Math.cos(dir) + Math.cos(angle) * 50, i * Math.sin(dir) + Math.sin(angle) * i * 100));
 				angle += 0.4;
 			}
 			
@@ -118,13 +118,13 @@ package
 			return vec;
 		}
 		
-		private function polarRose(distanceBetweenPoints:Number, dir:Number):Vector.<Point>
+		public function polarRose(distanceBetweenPoints:Number, dir:Number):Vector.<Point>
 		{
 			var i:Number;
-			var h:Number = 3.0;
+			
 			var vec:Vector.<Point> = new Vector.<Point>();
 			
-			for (i = 0; i < 700; i += distanceBetweenPoints / 100)
+			for (i = 0; i < 700; i += distanceBetweenPoints)
 			{
 				vec.push(new Point(150 * Math.cos(5 * i) * Math.sin(i), 150 * Math.cos(5*i)*Math.cos(i)));
 			}

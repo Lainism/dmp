@@ -11,7 +11,7 @@ package
 	 */
 	public class ComboGraphic extends Entity
 	{
-		[Embed(source = '../graphics/esc.png')]
+		[Embed(source = '../graphics/tsunc.png')]
 		private const EMO:Class;
 		private var currentImage:Image;
 		private var msg1:Text;
