@@ -26,7 +26,7 @@ package
 			//FP.world = _gameWorld;
 			FP.world = new MainMenu();
 			
-			//FP.console.enable();
+			FP.console.enable();
 		}
 	}
 	

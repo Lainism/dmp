@@ -91,7 +91,7 @@ package
 				if (_patternStart == 0)
 				{
 					_patternStart = _pattern.run(_timeElapsed);
-					if (_timeElapsed > 700)
+					if (_timeElapsed > 675)
 						_timeElapsed = 0;
 				}
             }

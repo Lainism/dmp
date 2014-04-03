@@ -11,15 +11,16 @@ package
 	public class BossPattern 
 	{
 		public var pool:BulletPool;
-		public var pool_arr:Array;
+		protected var pool_arr:Array;
 		
-		public var _enemy:Enemy;
-		public var _world:World;
-		public var _player:PlayerShip;
+		protected var _enemy:Enemy;
+		protected var _world:World;
+		protected var _player:PlayerShip;
 		
 		public var onScreen:Vector.<EnemyBullet>;
 		
-		public var FULLANGLE:Number = 2 * Math.PI;
+		protected const FULLANGLE:Number = 2 * Math.PI;
+		//protected const QUARTERANGLE:Number = Math.PI / 2;
 		
 		public function BossPattern(enemy:Enemy, player:PlayerShip, world:World) 
 		{
@@ -42,7 +43,7 @@ package
 			return 1;
 		}
 		
-		public function generateBulletPath(distanceBetweenPoints:Number, dir:Number):Vector.<Point>
+		protected function generateBulletPath(distanceBetweenPoints:Number, dir:Number):Vector.<Point>
 		{
 			var i:Number;
 			
@@ -56,24 +57,24 @@ package
 			return vec;
 		}
 		
-		public function generateBulletPathWithRotation(distanceBetweenPoints:Number, dir:Number):Vector.<Point>
+		protected function generateBulletPathWithRotation(distanceBetweenPoints:Number, dir:Number):Vector.<Point>
 		{
 			var i:Number;
 			var angle:Number = 0;
 			
 			var vec:Vector.<Point> = new Vector.<Point>();
 			
-			for (i = 0; i < 700; i += distanceBetweenPoints)
+			for (i = 0; i < 35; i += distanceBetweenPoints)
 			{
-				vec.push(new Point(i * Math.cos(dir) + Math.cos(angle) * 50, i * Math.sin(dir) + Math.sin(angle) * i * 100));
-				angle += 0.4;
+				vec.push(new Point( Math.cos(i) * 50,  Math.sin(i) * 50 ));
+				angle += 0.05;
 			}
 			
 			return vec;
 		}
 		
 		
-		public function generateWaveBulletPath(distanceBetweenPoints:Number, dir:Number):Vector.<Point>
+		protected function generateWaveBulletPath(distanceBetweenPoints:Number, dir:Number):Vector.<Point>
 		{
 			var i:Number;
 			
@@ -81,14 +82,14 @@ package
 			
 			for (i = 0; i < 700; i += distanceBetweenPoints)
 			{
-				vec.push(new Point(Math.cos(dir/100)*50, Math.sin(dir)*i + 100));
+				vec.push(new Point(Math.cos(dir/100)*50 + i*Math.cos(dir), Math.sin(dir)*50 + i*Math.sin(dir)));
 				dir += 0.1;
 			}
 			
 			return vec;
 		}
 		
-		public function generateHomingBulletPath(distanceBetweenPoints:Number):Vector.<Point> 
+		protected function generateHomingBulletPath(distanceBetweenPoints:Number):Vector.<Point> 
 		{
 			
 			var i:Number;
@@ -96,30 +97,30 @@ package
 			var deltaX:Number = _player.x - _enemy.x;
 			var deltaY:Number = _player.y - _enemy.y;
 			
-			for (i = 0; i < 600; i += distanceBetweenPoints) {
+			for (i = 0; i < 700; i += distanceBetweenPoints) {
 				vec.push(new Point(i*(deltaX/200), i*(deltaY/200))); 
 			}
 			
 			return vec;
 		}
 		
-		private function FermatSpiral(distanceBetweenPoints:Number, dir:Number):Vector.<Point>
+		protected function ArchimedeanSpiral(distanceBetweenPoints:Number, angle:Number):Vector.<Point>
 		{
 			var i:Number;
+			var a:Number = 10.0;
+			var b:Number = 15.0;
 			
 			var vec:Vector.<Point> = new Vector.<Point>();
 			
-			for (i = 0; i < 700; i += 0.2)
+			for (i = angle; i < 100 + angle; i += 0.15)
 			{
-				vec.push(new Point(distanceBetweenPoints * 15 * Math.sqrt(i) * Math.cos(i), distanceBetweenPoints * 15 * Math.sqrt(i) * Math.sin(i)));
-				//trace(Math.sin((dir) * 25));
-				
+				vec.push(new Point(a * Math.cos(i) * Math.pow(i, 2), a * Math.sin(i) * Math.pow(i, 2)));
 			}
 			
 			return vec;
 		}
 		
-		public function polarRose(distanceBetweenPoints:Number, dir:Number):Vector.<Point>
+		protected function polarRose(distanceBetweenPoints:Number, dir:Number):Vector.<Point>
 		{
 			var i:Number;
 			

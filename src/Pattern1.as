@@ -20,6 +20,7 @@ package
 			var i:Number = 0.0;
 			var r:Number = 20.0;
 			var dir:Number = 0.0;
+			static var x:Number = 0.0;
 			
 			if (timer < 150) {
 				for (i = 0.0; i <= FULLANGLE; i = i + 0.15) {

@@ -21,7 +21,7 @@ package
 			var angle:Number = 0.0;
 			var rand:Number = randomRange(5, 35);
 			
-			if (timer > 150) {
+			if (timer < 150) {
 				for (i = 0; i <= rand; i++)
 				{
 					if (!randomRange( -3, 3))
@@ -44,7 +44,7 @@ package
 					_world.add(bullet);
 					onScreen.push(bullet);
 				}
-			} else if (timer < -2 && timer < 350) {
+			} else if (timer > 200 && timer < 350) {
 				for (i = 0; i < FULLANGLE; i += 0.15) 
 				{
 					bullet = pool.activate();
@@ -54,15 +54,16 @@ package
 					_world.add(bullet);
 					onScreen.push(bullet);
 				}
-			} else if (timer < 400 && timer < 650) {
-				for (i = 0.0; i <= FULLANGLE; i = i + 0.15)
-				{
+				return 75;
+			} else if (timer > 400 && timer < 650) {
+				for (i = 0; i < 12; i += 0.1) {
 					bullet = pool.activate();
-					bullet.xPos = bullet.x = _enemy.x + (r * Math.cos(i));
-					bullet.yPos = bullet.y = _enemy.y + (r * Math.sin(i));
-					bullet._pathToFollow = polarRose(3, i);
+					bullet.xPos = bullet.x = _enemy.x + 150 * Math.cos(3.5 * i) * Math.sin(i);
+					bullet.yPos = bullet.y = _enemy.y + 150 * Math.cos(2 * i) * Math.cos(i);
+					bullet._pathToFollow = generateBulletPath(2, angle);
 					_world.add(bullet);
 					onScreen.push(bullet);
+					angle += 0.2;
 				}
 			}
 			
