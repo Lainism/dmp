@@ -70,23 +70,23 @@ package
 			
 			yourCharacter = new Image(CHARACTER);
 			yourCharacter.x = 90;
-			yourCharacter.y = 220;
+			yourCharacter.y = 250;
 			
 			yourOpponent = new Image(OPPONENT);
 			yourOpponent.x = 490;
-			yourOpponent.y = 220;
+			yourOpponent.y = 250;
 			
-			emoButton = new Button(selectCharacter, "emo", 70, 300);
-			meganeButton = new Button(selectCharacter, "megane", 270, 300);
-			iloButton = new Button(selectCharacter, "ilo", 120, 400);
-			tsunButton = new Button(selectCharacter, "tsun", 220, 400);
-			bossButton = new Button(selectCharacter, "boss", 170, 300);
+			emoButton = new Button(selectCharacter, "emo", 70, 320);
+			meganeButton = new Button(selectCharacter, "megane", 270, 320);
+			iloButton = new Button(selectCharacter, "ilo", 120, 420);
+			tsunButton = new Button(selectCharacter, "tsun", 220, 420);
+			bossButton = new Button(selectCharacter, "boss", 170, 320);
 			
-			emoButton2 = new Button(selectOpponent, "emo", 470, 300);
-			meganeButton2 = new Button(selectOpponent, "megane", 670, 300);
+			emoButton2 = new Button(selectOpponent, "emo", 470, 320);
+			meganeButton2 = new Button(selectOpponent, "megane", 670, 320);
 			iloButton2 = new Button(selectOpponent, "ilo", 520, 400);
-			tsunButton2 = new Button(selectOpponent, "tsun", 620, 400);
-			bossButton2 = new Button(selectOpponent, "boss", 570, 300);
+			tsunButton2 = new Button(selectOpponent, "tsun", 620, 420);
+			bossButton2 = new Button(selectOpponent, "boss", 570, 320);
 			
 			startButton = new Button(startGame, null, 650, 550);
 			backButton = new Button(returnMenu, null, 50, 550);
@@ -153,19 +153,19 @@ package
 			
 			if (name == "emo") {
 				selection.x = 68;
-				selection.y = 298;
+				selection.y = 318;
 			} else if (name == "megane") {
 				selection.x = 268;
-				selection.y = 298;
+				selection.y = 218;
 			} else if (name == "ilo") {
 				selection.x = 118;
-				selection.y = 398;
+				selection.y = 418;
 			} else if (name == "tsun") {
 				selection.x = 218;
-				selection.y = 398;
+				selection.y = 418;
 			} else if (name == "boss") {
 				selection.x = 168;
-				selection.y = 298;
+				selection.y = 318;
 			}
 		}
 		
