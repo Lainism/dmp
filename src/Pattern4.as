@@ -1,5 +1,6 @@
 package  
 {
+	import flash.geom.Point;
 	import net.flashpunk.World;
 	/**
 	 * ...
@@ -11,6 +12,7 @@ package
 		public function Pattern4(enemy:Enemy, player:PlayerShip, world:World) 
 		{
 			super(enemy, player, world);
+			generateEnemyPath(1, enemy);
 		}
 		
 		override public function run(timer:Number):uint
@@ -29,7 +31,7 @@ package
 					bullet = pool.activate();
 					bullet.xPos = bullet.x = i * 20;
 					bullet.yPos = bullet.y = i * 5;
-					bullet._pathToFollow = generateBulletPath(3, randomRange(0,1000));
+					bullet._pathToFollow = generateBulletPath(3, randomRange(0,1000), 0);
 					_world.add(bullet);
 					onScreen.push(bullet);
 				}
@@ -81,6 +83,22 @@ package
 			}
 			
 			return 100;
+		}
+		
+		private function generateEnemyPath(distanceBetweenPoints:Number, enemy:Enemy):void
+		{
+			var i:Number;
+			 
+			var vec:Vector.<Point> = new Vector.<Point>();
+			 
+			var yPos:Number = 125;
+			 
+			for (i = 0; i*0.01 < 2*Math.PI; i += distanceBetweenPoints)
+			{
+				vec.push(new Point((Math.cos(i*0.01 + Math.PI / 2)+1)*200+50, yPos));
+			}
+		 
+			enemy._pathToFollow = vec;
 		}
 	}
 

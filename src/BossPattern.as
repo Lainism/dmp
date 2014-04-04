@@ -28,7 +28,7 @@ package
 			_player = player;
 			_world = world;
 			onScreen = new Vector.<EnemyBullet>();
-			pool = new BulletPool(EnemyBullet, 2000);
+			pool = new BulletPool(EnemyBullet, 1000);
 			pool_arr = pool.get_pool();
 			
 			for each (var bul:EnemyBullet in pool_arr) 
@@ -85,10 +85,10 @@ package
 			
 			var vec:Vector.<Point> = new Vector.<Point>();
 			
-			for (i = 0; i < 700; i += distanceBetweenPoints)
+			for (i = 0; i < 25; i += distanceBetweenPoints)
 			{
-				vec.push(new Point(Math.cos(i)*50 + i*Math.cos(dir), Math.sin(i)*50 + i*Math.sin(dir)));
-				dir += 0.1;
+				vec.push(new Point(Math.cos(i)*150 + 20*i*Math.cos(dir), Math.sin(i)*175 + 20*i*Math.sin(dir)));
+				dir += 0.025;
 			}
 			
 			return vec;
@@ -113,37 +113,7 @@ package
 			
 			return vec;
 		}
-		
-		protected function ArchimedeanSpiral(distanceBetweenPoints:Number, angle:Number):Vector.<Point>
-		{
-			var i:Number;
-			var a:Number = 10.0;
-			var b:Number = 15.0;
-			
-			var vec:Vector.<Point> = new Vector.<Point>();
-			
-			for (i = angle; i < 100 + angle; i += 0.15)
-			{
-				vec.push(new Point(a * Math.cos(i) * Math.pow(i, 2), a * Math.sin(i) * Math.pow(i, 2)));
-			}
-			
-			return vec;
-		}
-		
-		protected function polarRose(distanceBetweenPoints:Number, dir:Number):Vector.<Point>
-		{
-			var i:Number;
-			
-			var vec:Vector.<Point> = new Vector.<Point>();
-			
-			for (i = 0; i < 100; i += 0.03)
-			{
-				vec.push(new Point(150 * Math.cos(4 * i) * Math.sin(i), 150 * Math.cos(3*i)*Math.cos(i)));
-			}
-			
-			return vec;
-		}
-		
+	
 		public function pauseGame():void
 		{
 			for each (var b:Bullet in onScreen)
