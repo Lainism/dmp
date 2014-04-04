@@ -19,7 +19,15 @@ package
 	{
 		[Embed(source = '../sounds/Waves.mp3')]
 		private const BGM1:Class;
-		private var bgm1:Sfx = new Sfx(BGM1);
+		[Embed(source = '../sounds/orchestra4.mp3')]
+		private const BGM2:Class;
+		[Embed(source = '../sounds/NovusInitium.mp3')]
+		private const BGM3:Class;
+		[Embed(source = '../sounds/Abyssal.mp3')]
+		private const BGM4:Class;
+		[Embed(source = '../sounds/anotherpiece.mp3')]
+		private const BGM5:Class;
+		private var bgm:Sfx;
 		
 		[Embed(source = '../graphics/menu/gameover.png')]
 		private const GAMEOVER:Class;
@@ -68,14 +76,19 @@ package
 			_enemy = new Enemy(opponentName, 5, 10, this);
 			if (opponentName == "emo") {
 				_pattern = new Pattern1(_enemy, _playerShip, this);
+				bgm = new Sfx(BGM1);
 			} else if (opponentName == "megane") {
 				_pattern = new Pattern2(_enemy, _playerShip, this);
+				bgm = new Sfx(BGM2);
 			} else if (opponentName == "ilo") {
 				_pattern = new Pattern3(_enemy, _playerShip, this);
+				bgm = new Sfx(BGM3);
 			} else if (opponentName == "tsun") {
 				_pattern = new Pattern4(_enemy, _playerShip, this);
+				bgm = new Sfx(BGM4);
 			} else if (opponentName == "boss") {
 				_pattern = new Pattern5(_enemy, _playerShip, this);
+				bgm = new Sfx(BGM5);
 			}
 			
 			_enemy.add_pattern(_pattern);
@@ -91,7 +104,7 @@ package
 				add(a);
 			}
 			add(_playerShip);
-			bgm1.loop();
+			bgm.loop();
 			add(_sidebar);
 			add(_combo);
 			this.bringToFront(_sidebar);
@@ -220,7 +233,7 @@ package
 		{
 			removeAll();
 			
-			bgm1.stop();
+			bgm.stop();
 			quitButton = null;
 			menuButton = null;
 		}

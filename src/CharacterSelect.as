@@ -84,7 +84,7 @@ package
 			
 			emoButton2 = new Button(selectOpponent, "emo", 470, 320);
 			meganeButton2 = new Button(selectOpponent, "megane", 670, 320);
-			iloButton2 = new Button(selectOpponent, "ilo", 520, 400);
+			iloButton2 = new Button(selectOpponent, "ilo", 520, 420);
 			tsunButton2 = new Button(selectOpponent, "tsun", 620, 420);
 			bossButton2 = new Button(selectOpponent, "boss", 570, 320);
 			
@@ -156,7 +156,7 @@ package
 				selection.y = 318;
 			} else if (name == "megane") {
 				selection.x = 268;
-				selection.y = 218;
+				selection.y = 318;
 			} else if (name == "ilo") {
 				selection.x = 118;
 				selection.y = 418;
@@ -175,19 +175,19 @@ package
 			
 			if (name == "emo") {
 				selection2.x = 468;
-				selection2.y = 298;
+				selection2.y = 318;
 			} else if (name == "megane") {
 				selection2.x = 668;
-				selection2.y = 298;
+				selection2.y = 318;
 			} else if (name == "ilo") {
 				selection2.x = 518;
-				selection2.y = 398;
+				selection2.y = 418;
 			} else if (name == "tsun") {
 				selection2.x = 618;
-				selection2.y = 398;
+				selection2.y = 418;
 			} else if (name == "boss") {
 				selection2.x = 568;
-				selection2.y = 298;
+				selection2.y = 318;
 			}
 		}
 		
