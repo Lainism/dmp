@@ -19,7 +19,7 @@ package
 		private const ILO:Class;
 		[Embed(source = '../graphics/tsunc.png')]
 		private const TSUN:Class;
-		[Embed(source = '../graphics/tsunc.png')]
+		[Embed(source = '../graphics/bsc.png')]
 		private const BOSS:Class;
 		private var currentImage:Image;
 		private var msg1:Text;
