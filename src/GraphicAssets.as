@@ -12,13 +12,13 @@ package
 	{
 		
 		// Graphics and variables for player bullets
-		[Embed(source = '../graphics/br2.png')]
+		[Embed(source = '../graphics/br1.png')]
 		public static var Player_bullet1:Class;
 		public static var Pbullet_graph1:Image;
 		
 		
 		// Graphics and variables for enemy bullets
-		[Embed(source = '/../graphics/ebull2.png')]	
+		[Embed(source = '/../graphics/ebull1.png')]	
 		public static var Enemy_bullet1:Class;
 		public static var Ebullet_graph1:Image;
 		
@@ -46,7 +46,19 @@ package
 			
 			//Enemy bullets
 			Ebullet_graph1 = new Image(Enemy_bullet1);
-			Ebullet_graph1.x = Ebullet_graph1.y = -12.5;
+			Ebullet_graph1.x = Ebullet_graph1.y = -8.5;
+			
+			Ebullet_graph2 = new Image(Enemy_bullet2);
+			Ebullet_graph2.x = Ebullet_graph2.y = -8.5;
+			
+			Ebullet_graph3 = new Image(Enemy_bullet3);
+			Ebullet_graph3.x = Ebullet_graph3.y = -8.5;
+			
+			Ebullet_graph4 = new Image(Enemy_bullet4);
+			Ebullet_graph4.x = Ebullet_graph4.y = -8.5;
+			
+			Ebullet_graph5 = new Image(Enemy_bullet5);
+			Ebullet_graph5.x = Ebullet_graph5.y = -8.5;
 			
 		}
 		

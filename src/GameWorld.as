@@ -69,7 +69,7 @@ package
 			_combo = new ComboGraphic("emo");
 			
 			_enemy = new Enemy(5, 10, this);
-			_pattern = new Pattern3(_enemy, _playerShip, this);
+			_pattern = new Pattern4(_enemy, _playerShip, this);
 			_enemy.add_pattern(_pattern);
 			pause = false;
 			ended = false;
@@ -150,10 +150,6 @@ package
 		
 		override public function remove(e:Entity):Entity
 		{
-			if (e is Enemy)
-			{
-				_enemy = new Enemy(0, 10, this);
-			}
 			 
 			return super.remove(e);
 		}

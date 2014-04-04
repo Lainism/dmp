@@ -12,7 +12,11 @@ package
 		public function Pattern2(enemy:Enemy, player:PlayerShip, world:World) 
 		{
 			super(enemy, player, world);
-			generateEnemyPath(1, enemy);
+			generateEnemyPath(enemy);
+			for each (var bul:EnemyBullet in pool_arr) 
+			{
+				bul.init_bul(GraphicAssets.Ebullet_graph2, GraphicAssets.Enemy_bullet2, -8.5, -8.5, _world);
+			}
 		}
 		
 		override public function run(timer:Number):uint
@@ -72,13 +76,13 @@ package
 			return 100;
 		}
 		
-		private function generateEnemyPath(distanceBetweenPoints:Number, enemy:Enemy):void
+		private function generateEnemyPath(enemy:Enemy):void
 		{
 			var i:Number;
 			 
 			var vec:Vector.<Point> = new Vector.<Point>();
 			
-			for (i = 0; i < 2*FULLANGLE; i += 0.007)
+			for (i = 0; i < 2*FULLANGLE; i += 0.008)
 			{
 				vec.push(new Point(150 * Math.cos(1.5 * i) * Math.sin(i) + 250, 150 * Math.cos(1.5 * i) * Math.cos(i) + 195));
 			}
