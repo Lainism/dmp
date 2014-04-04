@@ -18,7 +18,7 @@ package
         private const IMAGE:Class;
          
         private var _timeToAct:uint;
-        private var _pathToFollow:Vector.<Point>;
+        public var _pathToFollow:Vector.<Point>;
          
         private var _currentPoint:uint;
          
@@ -42,8 +42,6 @@ package
             _timeToAct = timeToAct;
              
 			_patternStart = startPattern;
-			
-            _pathToFollow = generateEnemyPath(1);
              
             _currentPoint = 0;
              
@@ -78,8 +76,8 @@ package
                     _added = true;
                 }
 				
-                x = _pathToFollow[0].x;
-                y = _pathToFollow[0].y;
+                x = _pathToFollow[_currentPoint].x;
+                y = _pathToFollow[_currentPoint].y;
                  
                 _currentPoint++;
                  
@@ -98,22 +96,6 @@ package
 			_timeElapsed += 7 * FP.elapsed;
         }
 		
-		private function generateEnemyPath(distanceBetweenPoints:Number):Vector.<Point>
-		{
-			var i:Number;
-			 
-			var vec:Vector.<Point> = new Vector.<Point>();
-			 
-			var yPos:Number = 125;
-			 
-			for (i = 0; i*0.01 < 2*Math.PI; i += distanceBetweenPoints)
-			{
-				vec.push(new Point((Math.cos(i*0.01 + Math.PI / 2)+1)*200+50, yPos));
-			}
-		 
-			return vec;
-		}
-         
         public function destroy():void
         {
             graphic = null;

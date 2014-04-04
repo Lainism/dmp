@@ -1,5 +1,6 @@
 package  
 {
+	import flash.geom.Point;
 	import net.flashpunk.World;
 	/**
 	 * ...
@@ -14,6 +15,7 @@ package
 		public function Pattern3(enemy:Enemy, player:PlayerShip, world:World) 
 		{
 			super(enemy, player, world);
+			generateEnemyPath(1, enemy);
 		}
 		
 		override public function run(timer:Number):uint
@@ -23,16 +25,16 @@ package
 			var r:Number = 50.0;
 			var p:Number = 20.0;
 			
-			if (timer < 150) {
-				for (i= 0.0; i <= FULLANGLE; i = i + 0.35) {
+			if (timer > 5 && timer < 125) {
+				for (i= 0.0; i <= FULLANGLE; i = i + 0.5) {
 					bullet = pool.activate();
-					bullet.xPos = bullet.x = _enemy.x + 15 * Math.sqrt(i) * Math.cos(i);
-					bullet.yPos = bullet.y = _enemy.y + 15 * Math.sqrt(i) * Math.sin(i);
-					bullet._pathToFollow = generateWaveBulletPath(0.5, randomRange(0, 500), 0);
+					bullet.xPos = bullet.x = 250;
+					bullet.yPos = bullet.y = 290;
+					bullet._pathToFollow = generateWaveBulletPath(0.025, i);
 					_world.add(bullet);
 					onScreen.push(bullet);
 				}
-			} else if (timer > 200 && timer < 350) {
+			} else if (timer > 225 && timer < 375) {
 				bullet = pool.activate();
 				bullet.xPos = bullet.x = _enemy.x + (r * Math.cos(angle));
 				bullet.yPos = bullet.y = _enemy.y + (r * Math.sin(angle));
@@ -43,7 +45,7 @@ package
 				if (angle > FULLANGLE || angle < -FULLANGLE)
 					dir *= -1;
 				return 2;
-			} else if (timer > 400 && timer < 650) {
+			} else if (timer > 400 && timer < 670) {
 				bullet = pool.activate();
 				bullet.xPos = bullet.x = _enemy.x + (p * angle * Math.cos(angle));
 				bullet.yPos = bullet.y = _enemy.y + (p * angle * Math.sin(angle));
@@ -59,6 +61,18 @@ package
 			return 100;
 		}
 		
+		private function generateEnemyPath(distanceBetweenPoints:Number, enemy:Enemy):void
+		{
+			var i:Number;
+			var vec:Vector.<Point> = new Vector.<Point>();
+			 
+			for (i = 0; i < 2 * FULLANGLE; i += 0.007)
+			{
+				vec.push(new Point(150 * Math.cos(2 * i) * Math.sin(3 * i) + 250, 150 * Math.cos(4 * i) + 175));
+			}
+		 
+			enemy._pathToFollow = vec;
+		}
 	}
 
 }
