@@ -18,8 +18,16 @@ package
 	 */
 	public class PlayerShip extends Entity 
 	{
-		[Embed(source = "../graphics/esb.png")]
-		private const IMAGE:Class;
+		[Embed(source = '../graphics/esb.png')]
+		private const EMO:Class;
+		[Embed(source = '../graphics/msb.png')]
+		private const MEGANE:Class;
+		[Embed(source = '../graphics/ilob.png')]
+		private const ILO:Class;
+		[Embed(source = '../graphics/tsunb.png')]
+		private const TSUN:Class;
+		[Embed(source = '../graphics/bsb.png')]
+		private const BOSS:Class;
 		[Embed(source = "../graphics/circle.png")]
 		private const CIRCLE:Class;
 		private var playerSprite:Image;
@@ -40,12 +48,31 @@ package
 		private var comboPuzzles:int;
 		private var solved:Boolean;
 		
-		public function PlayerShip(puzzle:Puzzle, world:GameWorld) 
+		public function PlayerShip(name:String, puzzle:Puzzle, world:GameWorld) 
 		{
 			this._puzzle = puzzle;
 			this._playerWorld = world;
 			
-			playerSprite = new Image(IMAGE);
+			var sprite:Class;
+			
+			if (name == "emo") {
+				sprite = EMO;
+				world._combo = new ComboGraphic("emo");
+			} else if (name == "megane") {
+				sprite = MEGANE;
+				world._combo = new ComboGraphic("megane");
+			} else if (name == "ilo") {
+				sprite = ILO;
+				world._combo = new ComboGraphic("ilo");
+			} else if (name == "tsun") {
+				sprite = TSUN;
+				world._combo = new ComboGraphic("tsun");
+			} else if (name == "boss") {
+				sprite = BOSS;
+				world._combo = new ComboGraphic("boss");
+			}
+			
+			playerSprite = new Image(sprite);
 			playerSprite.x = -28.5;
 			playerSprite.y = -31.5;
 			
@@ -57,9 +84,9 @@ package
 			sprites = new Graphiclist(playerSprite, modeSprite);
 			graphic = sprites;
 			
-			lives = 5;
+			lives = 99999;
 			
-			mask = new Pixelmask(IMAGE, -28.5, -31.5);
+			mask = new Pixelmask(sprite, -28.5, -31.5);
 			this.setHitbox(10, 10, 0, 0);
 			x = 250;
 			y = 500;

@@ -15,7 +15,15 @@ package
 	public class Enemy extends Entity 
 	{
 		[Embed(source = '../graphics/esf.png')]
-        private const IMAGE:Class;
+		private const EMO:Class;
+		[Embed(source = '../graphics/msf.png')]
+		private const MEGANE:Class;
+		[Embed(source = '../graphics/ilof.png')]
+		private const ILO:Class;
+		[Embed(source = '../graphics/tsunf.png')]
+		private const TSUN:Class;
+		[Embed(source = '../graphics/bsf.png')]
+		private const BOSS:Class;
          
         private var _timeToAct:uint;
         public var _pathToFollow:Vector.<Point>;
@@ -30,14 +38,27 @@ package
 		private var _timeElapsed:Number;
 		public var pause:Boolean;
 		
-		public function Enemy(timeToAct:uint, startPattern:uint, worldToBeAdded:World) 
+		public function Enemy(name:String, timeToAct:uint, startPattern:uint, worldToBeAdded:World) 
 		{
-			graphic = new Image(IMAGE);
+			var sprite:Class;
+			if (name == "emo") {
+				sprite = EMO;
+			} else if (name == "megane") {
+				sprite = MEGANE;
+			} else if (name == "ilo") {
+				sprite = ILO;
+			} else if (name == "tsun") {
+				sprite = TSUN;
+			} else if (name == "boss") {
+				sprite = BOSS;
+			}
+			
+			graphic = new Image(sprite);
              
 			graphic.x = -28.5;
 			graphic.y = -31.5;
             
-			mask = new Pixelmask(IMAGE, -28.5, -31.5);
+			mask = new Pixelmask(sprite, -28.5, -31.5);
 			
             _timeToAct = timeToAct;
              

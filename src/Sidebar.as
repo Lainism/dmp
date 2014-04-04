@@ -81,7 +81,7 @@ package
 		
 		public function changeBulletDamage(amount:Number):void
 		{
-			bullet.text = "Bullet damage: " + amount;
+			bullet.text = "Power: " + amount;
 		}
 		
 		override public function update():void
