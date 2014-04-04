@@ -64,9 +64,6 @@ package
 			menuButton.setSpritemap(MENU, 250, 36);
 			gameOverScreen = new Image(GAMEOVER);
 			gameWonScreen = new Image(GAMEWON);
-			
-			//Change this according to which character the player is using!
-			_combo = new ComboGraphic("emo");
 
 			_enemy = new Enemy(opponentName, 5, 10, this);
 			if (opponentName == "emo") {
@@ -103,20 +100,6 @@ package
 		override public function update():void
 		{	
 			this.bringToFront(_sidebar);
-			
-			if (_enemy.getLives() < 0) {
-				pauseGame();
-				ended = true;
-				addGraphic(gameWonScreen);
-				add(menuButton);
-				return;
-			} else if (_playerShip.getLives() < 0) {
-				pauseGame();
-				ended = true;
-				addGraphic(gameOverScreen);
-				add(menuButton);
-				return;
-			}
 			
 			this.bringToFront(_combo);
 			super.update();
@@ -158,6 +141,20 @@ package
 				}
 			}
 			
+			if (_enemy.getLives() < 0) {
+				pauseGame();
+				ended = true;
+				addGraphic(gameWonScreen);
+				add(menuButton);
+				return;
+			} else if (_playerShip.getLives() < 0) {
+				pauseGame();
+				ended = true;
+				addGraphic(gameOverScreen);
+				add(menuButton);
+				return;
+			}
+			
 		}
 		
 		override public function remove(e:Entity):Entity
@@ -186,6 +183,7 @@ package
 			pause = true;
 			_enemy.pause = true;
 			_bg.pause = true;
+			_sidebar.pause = true;
 			_playerShip.pauseGame();
 			_pattern.pauseGame();
 		}
@@ -195,6 +193,7 @@ package
 			pause = false;
 			_enemy.pause = false;
 			_bg.pause = false;
+			_sidebar.pause = false;
 			_playerShip.continueGame();
 			_pattern.continueGame();
 		}

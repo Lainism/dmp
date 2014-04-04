@@ -84,7 +84,7 @@ package
 			sprites = new Graphiclist(playerSprite, modeSprite);
 			graphic = sprites;
 			
-			lives = 5;
+			lives = 9999;
 			
 			mask = new Pixelmask(sprite, -28.5, -31.5);
 			this.setHitbox(10, 10, 0, 0);

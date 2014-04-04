@@ -25,6 +25,7 @@ package
 		private var livesc:Text;
 		private var bullet:Text;
 		public var decrease:Boolean;
+		public var pause:Boolean;
 		
 		public function Sidebar(lives:int) 
 		{
@@ -59,6 +60,8 @@ package
 			
 			x = 500;
 			y = 0;
+			
+			pause = false;
 		}
 		
 		public function showCombobar():void
@@ -86,6 +89,9 @@ package
 		
 		override public function update():void
 		{
+			if (pause)
+				return;
+				
 			if (decrease && combobar.visible)
 			{
 				//Height of the screen is 600 pix
