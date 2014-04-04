@@ -15,7 +15,7 @@ package
 		private const EMO:Class;
 		[Embed(source = '../graphics/msc.png')]
 		private const MEGANE:Class;
-		[Embed(source = '../graphics/tsunc.png')]
+		[Embed(source = '../graphics/iloc.png')]
 		private const ILO:Class;
 		[Embed(source = '../graphics/tsunc.png')]
 		private const TSUN:Class;

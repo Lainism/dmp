@@ -99,9 +99,9 @@ package
 		
 		override public function update():void
 		{	
-			this.bringToFront(_sidebar);
+			bringToFront(_sidebar);
 			
-			this.bringToFront(_combo);
+			bringToFront(_combo);
 			super.update();
 			
 			if (pause)

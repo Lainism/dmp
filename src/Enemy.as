@@ -68,7 +68,7 @@ package
              
             _myWorld = worldToBeAdded;
             _added = false;
-			lives = 10;
+			lives = 1000;
 			
 			_timeElapsed = 0;
 			pause = false;
