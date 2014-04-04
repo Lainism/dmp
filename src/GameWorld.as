@@ -65,6 +65,9 @@ package
 			gameOverScreen = new Image(GAMEOVER);
 			gameWonScreen = new Image(GAMEWON);
 			
+			//Change this according to which character the player is using!
+			_combo = new ComboGraphic("emo");
+
 			_enemy = new Enemy(opponentName, 5, 10, this);
 			if (opponentName == "emo") {
 				_pattern = new Pattern1(_enemy, _playerShip, this);
@@ -77,6 +80,7 @@ package
 			} else if (opponentName == "boss") {
 				_pattern = new Pattern5(_enemy, _playerShip, this);
 			}
+			
 			_enemy.add_pattern(_pattern);
 			pause = false;
 			ended = false;
@@ -158,11 +162,6 @@ package
 		
 		override public function remove(e:Entity):Entity
 		{
-			/*if (e is Enemy)
-			{
-				_enemy = new Enemy(0, 10, this);
-			}*/
-			 
 			return super.remove(e);
 		}
 		

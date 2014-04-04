@@ -15,7 +15,7 @@ package
 		public function Main():void 
 		{
 			//when the bar is added, will be 800x600
-			super(800, 600, 30, false);
+			super(800, 600, 35, false);
 			
 			
 			//_gameWorld = new GameWorld();

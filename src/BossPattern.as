@@ -20,7 +20,6 @@ package
 		public var onScreen:Vector.<EnemyBullet>;
 		
 		protected const FULLANGLE:Number = 2 * Math.PI;
-		//protected const QUARTERANGLE:Number = Math.PI / 2;
 		
 		public function BossPattern(enemy:Enemy, player:PlayerShip, world:World) 
 		{
@@ -28,13 +27,8 @@ package
 			_player = player;
 			_world = world;
 			onScreen = new Vector.<EnemyBullet>();
-			pool = new BulletPool(EnemyBullet, 1000);
+			pool = new BulletPool(EnemyBullet, 750);
 			pool_arr = pool.get_pool();
-			
-			for each (var bul:EnemyBullet in pool_arr) 
-			{
-				bul.init_bul(GraphicAssets.Ebullet_graph1, GraphicAssets.Enemy_bullet1, -12.5, -12.5, _world);
-			}
 		}
 		
 		public function run(timer:Number):uint 
