@@ -11,8 +11,16 @@ package
 	 */
 	public class ComboGraphic extends Entity
 	{
-		[Embed(source = '../graphics/tsunc.png')]
+		[Embed(source = '../graphics/esc.png')]
 		private const EMO:Class;
+		[Embed(source = '../graphics/msc.png')]
+		private const MEGANE:Class;
+		[Embed(source = '../graphics/tsunc.png')]
+		private const ILO:Class;
+		[Embed(source = '../graphics/tsunc.png')]
+		private const TSUN:Class;
+		[Embed(source = '../graphics/tsunc.png')]
+		private const BOSS:Class;
 		private var currentImage:Image;
 		private var msg1:Text;
 		private var msg2:Text;
@@ -23,28 +31,37 @@ package
 		private var path:Vector.<Point>;
 		private var exiting:Boolean;
 		
-		public function ComboGraphic(playerCharacter:String)
+		public function ComboGraphic(name:String)
 		{
-			if (playerCharacter == "emo")
-				 currentImage = new Image(EMO);
+			if (name == "emo") {
+				currentImage = new Image(EMO);
+			} else if (name == "megane") {
+				currentImage = new Image(MEGANE);
+			} else if (name == "ilo") {
+				currentImage = new Image(ILO);
+			} else if (name == "tsun") {
+				currentImage = new Image(TSUN);
+			} else if (name == "boss") {
+				currentImage = new Image(BOSS);
+			}
 			
 			currentImage.x = -215;
 			currentImage.y = -190;
 			
 			msg1 = new Text("CORRECT");
 			msg1.size = 50;
-			msg1.x = -250;
-			msg1.y = 0;
+			msg1.x = -150;
+			msg1.y = 100;
 			
-			msg2 = new Text("Bullet damage increased!");
+			msg2 = new Text("Power up!");
 			msg2.size = 40;
-			msg2.x = -250;
-			msg2.y = 50;
+			msg2.x = -100;
+			msg2.y = 150;
 			
 			msg3 = new Text("1 hit(s)!");
-			msg3.size = 20;
-			msg3.x = -250;
-			msg3.y = 100;
+			msg3.size = 40;
+			msg3.x = -100;
+			msg3.y = 200;
 			
 			sprites = new Graphiclist(currentImage, msg1, msg2, msg3);
 			sprites.visible = false;

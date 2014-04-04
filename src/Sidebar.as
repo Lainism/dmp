@@ -49,7 +49,7 @@ package
 			livesc.y = 60;
 			
 			//bullet damage
-			bullet = new Text("Bullet damage: 1");
+			bullet = new Text("Power: 1");
 			bullet.size = 30;
 			bullet.x = 30
 			bullet.y = 550;
@@ -81,7 +81,7 @@ package
 		
 		public function changeBulletDamage(amount:Number):void
 		{
-			bullet.text = "Bullet damage: " + amount;
+			bullet.text = "Power: " + amount;
 		}
 		
 		override public function update():void

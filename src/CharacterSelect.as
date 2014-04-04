@@ -135,7 +135,7 @@ package
 			if (currentCharacter == "" || currentOpponent == "")
 				return;
 			
-			FP.world = new GameWorld();
+			FP.world = new GameWorld(currentCharacter, currentOpponent);
      
 			destroy();
 		}

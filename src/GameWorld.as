@@ -48,7 +48,7 @@ package
 		
 		public var playerPool:BulletPool;
 		
-		public function GameWorld() 
+		public function GameWorld(playerName:String, opponentName:String) 
 		{
 			// Loading graphics
 			new GraphicAssets();
@@ -58,18 +58,33 @@ package
 			// Initializing rest...
 			_puzzle = new Puzzle(4, 3, 3);
 			playerPool = new BulletPool(PlayerBullet, 20);
-			_playerShip = new PlayerShip(_puzzle, this);
+			_playerShip = new PlayerShip(playerName, _puzzle, this);
 			
 			menuButton = new Button(goMenu, null, 150, 350);
 			menuButton.setSpritemap(MENU, 250, 36);
 			gameOverScreen = new Image(GAMEOVER);
 			gameWonScreen = new Image(GAMEWON);
 			
+<<<<<<< HEAD
 			//Change this according to which character the player is using!
 			_combo = new ComboGraphic("emo");
 			
 			_enemy = new Enemy(5, 10, this);
 			_pattern = new Pattern4(_enemy, _playerShip, this);
+=======
+			_enemy = new Enemy(opponentName, 5, 10, this);
+			if (opponentName == "emo") {
+				_pattern = new Pattern1(_enemy, _playerShip, this);
+			} else if (opponentName == "megane") {
+				_pattern = new Pattern2(_enemy, _playerShip, this);
+			} else if (opponentName == "ilo") {
+				_pattern = new Pattern3(_enemy, _playerShip, this);
+			} else if (opponentName == "tsun") {
+				_pattern = new Pattern4(_enemy, _playerShip, this);
+			} else if (opponentName == "boss") {
+				_pattern = new Pattern5(_enemy, _playerShip, this);
+			}
+>>>>>>> 245f308a1408a9917de2462de513306b7c5d2d6b
 			_enemy.add_pattern(_pattern);
 			pause = false;
 			ended = false;
@@ -91,8 +106,23 @@ package
 		
 		override public function update():void
 		{	
-			this.bringToFront(_combo);
 			this.bringToFront(_sidebar);
+			
+			if (_enemy.getLives() < 0) {
+				pauseGame();
+				ended = true;
+				addGraphic(gameWonScreen);
+				add(menuButton);
+				return;
+			} else if (_playerShip.getLives() < 0) {
+				pauseGame();
+				ended = true;
+				addGraphic(gameOverScreen);
+				add(menuButton);
+				return;
+			}
+			
+			this.bringToFront(_combo);
 			super.update();
 			
 			if (pause)
@@ -132,24 +162,17 @@ package
 				}
 			}
 			
-			if (_enemy.getLives() < 0) {
-				pauseGame();
-				ended = true;
-				addGraphic(gameWonScreen);
-				add(menuButton);
-			}
-			
-			if (_playerShip.getLives() < 0) {
-				pauseGame();
-				ended = true;
-				addGraphic(gameOverScreen);
-				add(menuButton);
-			}
-			
 		}
 		
 		override public function remove(e:Entity):Entity
 		{
+<<<<<<< HEAD
+=======
+			/*if (e is Enemy)
+			{
+				_enemy = new Enemy(0, 10, this);
+			}*/
+>>>>>>> 245f308a1408a9917de2462de513306b7c5d2d6b
 			 
 			return super.remove(e);
 		}

@@ -63,7 +63,9 @@ package
 			add(characterButton);
 			add(instructionsButton);
 			add(creditsButton);
-			add(quitButton);
+			
+			//No need for this when the game is embedded.
+			//add(quitButton);
 			
 			addGraphic(fullInstructions);
 			addGraphic(fullCredits);
