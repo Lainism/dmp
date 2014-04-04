@@ -33,17 +33,17 @@ package
 			
 			msg1 = new Text("CORRECT");
 			msg1.size = 50;
-			msg1.x = -250;
+			msg1.x = -150;
 			msg1.y = 0;
 			
-			msg2 = new Text("Bullet damage increased!");
+			msg2 = new Text("Power up!");
 			msg2.size = 40;
-			msg2.x = -250;
+			msg2.x = -100;
 			msg2.y = 50;
 			
 			msg3 = new Text("1 hit(s)!");
-			msg3.size = 20;
-			msg3.x = -250;
+			msg3.size = 40;
+			msg3.x = -100;
 			msg3.y = 100;
 			
 			sprites = new Graphiclist(currentImage, msg1, msg2, msg3);

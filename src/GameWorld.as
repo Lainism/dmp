@@ -137,9 +137,7 @@ package
 				ended = true;
 				addGraphic(gameWonScreen);
 				add(menuButton);
-			}
-			
-			if (_playerShip.getLives() < 0) {
+			} else if (_playerShip.getLives() < 0) {
 				pauseGame();
 				ended = true;
 				addGraphic(gameOverScreen);
