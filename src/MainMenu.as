@@ -6,7 +6,7 @@ package
 	import flash.system.fscommand;
 	
 	/**
-	 * ...
+	 * The menu the game first opens at
 	 * @author Minttu Mäkinen
 	 */
 	public class MainMenu extends World
@@ -37,8 +37,9 @@ package
 		private var fullInstructions:Image;
 		private var fullCredits:Image;
 		
-		public function MainMenu() 
-		{
+		public function MainMenu() {
+			/* Initializing the buttons and the graphics */
+			
 			fullInstructions = new Image(FULLINSTRUCTIONS);
 			fullInstructions.visible = false;
 			
@@ -72,18 +73,19 @@ package
 			add(backButton);
 		}
 		
-		public function selectCharacters():void
-		{
+		public function selectCharacters():void {
+			/* Moving on to the character selection screen */
+			
 			if (backButton.visible)
 				return;
 				
 			FP.world = new CharacterSelect();
-     
 			destroy();
 		}
 		
-		public function showInstructions():void
-		{
+		public function showInstructions():void {
+			/* Showing the instructions */
+			
 			if (backButton.visible)
 				return;
 				
@@ -91,8 +93,9 @@ package
 			backButton.visible = true;
 		}
 		
-		public function showCredits():void
-		{
+		public function showCredits():void {
+			/* Showing the credits */
+			
 			if (backButton.visible)
 				return;
 			
@@ -100,25 +103,27 @@ package
 			backButton.visible = true;
 		}
 		
-		public function goBack():void
-		{
+		public function goBack():void {
+			/* Hiding the extra screens */
+			
 			fullInstructions.visible = false;
 			fullCredits.visible = false;
 			backButton.visible = false;
 		}
 		
-		public function quit():void
-		{
+		public function quit():void {
+			/* Quits the game */
+			
 			if (backButton.visible)
 				return;
 				
 			fscommand("quit");
 		}
 		
-		public function destroy():void
-		{
-			removeAll();
+		public function destroy():void {
+			/* Destroys all the main menu elements and buttons */
 			
+			removeAll();
 			characterButton = null;
 			instructionsButton = null;
 			creditsButton = null;

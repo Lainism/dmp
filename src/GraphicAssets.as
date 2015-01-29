@@ -40,11 +40,11 @@ package
 		
 		public function GraphicAssets() 
 		{
-			//Player bullets
+			// Player bullets
 			Pbullet_graph1 = new Image(Player_bullet1);
 			Pbullet_graph1.x = Pbullet_graph1.y = -8.5;
 			
-			//Enemy bullets
+			// Enemy bullets
 			Ebullet_graph1 = new Image(Enemy_bullet1);
 			Ebullet_graph1.x = Ebullet_graph1.y = -8.5;
 			

@@ -5,7 +5,7 @@ package
 	import net.flashpunk.Entity;
 	
 	/**
-	 * ...
+	 * The scrolling background behind the characters
 	 * @author Minttu Mäkinen
 	 */
 	public class Background extends Entity
@@ -16,8 +16,8 @@ package
     private var backdrop:Backdrop;
 	public var pause:Boolean;
 	
-		public function Background(x:int = 0, y:int = 0) 
-		{
+		public function Background(x:int = 0, y:int = 0) {
+			/* Initializing */
 			backdrop = new Backdrop(STARS, false, true);
 			graphic = backdrop;
 
@@ -26,9 +26,9 @@ package
 		}
 		
 		override public function update():void {
+			/* Performing the scrolling */
 			if (pause)
 				return;
-				
 			y += 50 * FP.elapsed;
 		}
 		

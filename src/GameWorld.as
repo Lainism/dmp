@@ -12,7 +12,7 @@ package
 	import flash.system.fscommand;
 	
 	/**
-	 * ...
+	 * The world where the battle happens
 	 * @author Minttu Mäkinen
 	 */
 	public class GameWorld extends World
@@ -56,23 +56,26 @@ package
 		
 		public var playerPool:BulletPool;
 		
-		public function GameWorld(playerName:String, opponentName:String) 
-		{
+		public function GameWorld(playerName:String, opponentName:String) {
+			/* This function initializes the world related variables */
+			
 			// Loading graphics
 			new GraphicAssets();
 			
 			_bg = new Background(0, 0);
 			
-			// Initializing rest...
-			_puzzle = new Puzzle(4, 3, 3);
-			playerPool = new BulletPool(PlayerBullet, 20);
-			_playerShip = new PlayerShip(playerName, _puzzle, this);
-			
+			// Initializing the UI...
 			menuButton = new Button(goMenu, null, 150, 350);
 			menuButton.setSpritemap(MENU, 250, 36);
 			gameOverScreen = new Image(GAMEOVER);
 			gameWonScreen = new Image(GAMEWON);
+			
+			// Initializing the entities...
+			_puzzle = new Puzzle(4, 3, 3);
+			playerPool = new BulletPool(PlayerBullet, 20);
+			_playerShip = new PlayerShip(playerName, _puzzle, this);
 
+			// Initializing the enemy...
 			_enemy = new Enemy(opponentName, 5, 10, this);
 			if (opponentName == "emo") {
 				_pattern = new Pattern1(_enemy, _playerShip, this);
@@ -110,10 +113,11 @@ package
 			this.bringToFront(_sidebar);
 		}
 		
-		override public function update():void
-		{	
-			bringToFront(_sidebar);
+		override public function update():void {
+			/* This function updates the state of the world each turn */
 			
+			// Making sure the graphics are in the right order
+			bringToFront(_sidebar);
 			bringToFront(_combo);
 			super.update();
 			
@@ -123,6 +127,7 @@ package
 			if (_enemy)
 				_enemy.update();
 			
+			// Player bullet collision detecting
 			if (_playerShip.bul_onscreen.length > 0) {
 				for (var a:int = 0; a < _playerShip.bul_onscreen.length; a++) {
 					var bul:Bullet = _playerShip.bul_onscreen[a];
@@ -137,7 +142,8 @@ package
 					}
 				}
 			}
-				
+			
+			// Enemy bullet collision detecting
 			if (_pattern.onScreen.length > 0) {
 				for (var c:int = 0; c < _pattern.onScreen.length; c++) {
 					var ebul:Bullet = _pattern.onScreen[c];
@@ -154,6 +160,7 @@ package
 				}
 			}
 			
+			// Check the game end condition
 			if (_enemy.getLives() < 0) {
 				pauseGame();
 				ended = true;
@@ -170,29 +177,28 @@ package
 			
 		}
 		
-		override public function remove(e:Entity):Entity
-		{
+		override public function remove(e:Entity):Entity {
+			/* Deleting entities */
 			return super.remove(e);
 		}
 		
-		public function generatePlayerBulletPath(distanceBetweenPoints:Number):Vector.<Point>
-		{
-			var i:Number;
-			 
-			var vec:Vector.<Point> = new Vector.<Point>();
+		public function generatePlayerBulletPath(distanceBetweenPoints:Number):Vector.<Point> {
+			/* Creating a vector for the player bullets to follow */
 			
+			var i:Number;
+			var vec:Vector.<Point> = new Vector.<Point>();
 			var edge_dist:Number = -_playerShip.y - 20;
 			//trace(_playerShip);
-			for (i = 0; i > edge_dist; i -= distanceBetweenPoints)
-			{
+			
+			for (i = 0; i > edge_dist; i -= distanceBetweenPoints) {
 				vec.push(new Point(0, i));
 			}
 			 
 			return vec;
 		}
 		
-		public function pauseGame():void
-		{
+		public function pauseGame():void {
+			/* Pauses the game */
 			pause = true;
 			_enemy.pause = true;
 			_bg.pause = true;
@@ -201,8 +207,8 @@ package
 			_pattern.pauseGame();
 		}
 		
-		public function continueGame():void
-		{
+		public function continueGame():void {
+			/* Continues the game */
 			pause = false;
 			_enemy.pause = false;
 			_bg.pause = false;
@@ -211,28 +217,24 @@ package
 			_pattern.continueGame();
 		}
 		
-		public function quit():void
-		{
+		public function quit():void {
+			/* Closing the window */
 			if (!ended)
 				return;
-			
 			fscommand("quit");
 		}
 		
-		public function goMenu():void
-		{
+		public function goMenu():void {
+			/* Returning to the main menu */
 			if (!ended)
 				return;
-			
 			FP.world = new MainMenu();
-			
 			destroy();
 		}
 		
-		public function destroy():void
-		{
+		public function destroy():void {
+			/* Ending the game */
 			removeAll();
-			
 			bgm.stop();
 			quitButton = null;
 			menuButton = null;

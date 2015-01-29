@@ -2,7 +2,7 @@ package
 {
 	import flash.geom.Point;
 	/**
-	 * ...
+	 * The puzzle that consists of sevaral nodes
 	 * @author Minttu Mäkinen
 	 */
 	public class Puzzle 
@@ -15,14 +15,17 @@ package
 		public var nodes:Array;
 		private var counter:int;
 		
-		public function Puzzle(width:uint, height:uint, moves:uint) 
-		{
+		public function Puzzle(width:uint, height:uint, moves:uint) {
+			/* Initializing the puzzle */
+			
 			this.width = width;
 			this.height = height;
 			this.moves = moves;
 			this.solved = new Array(0, 0, 0, 0, 1, 1, 1, 1, 2, 2, 2, 2);
 			this.shuffle();
 			this.nodes = new Array();
+			
+			// Placing the puzzle nodes on the world
 			for (var i:uint = 0; i < width * height; i++) {
 				if (i < width) {
 					nodes.push(new PuzzleNode(0, 150+(i%width)*75, 400));
@@ -35,8 +38,8 @@ package
 			this.reset();
 		}
 		
-		public function shuffle():void
-		{
+		public function shuffle():void {
+			// Shuffling a new random computer generated puzzle
 			this.solution = new Array();
 			var size:Number = (width - 1) * (height - 1);
 			for (var i:Number = 0; i < moves; i++) {
@@ -44,9 +47,8 @@ package
 			}
 		}
 		
-		public function rotate(rotation:Number):void
-		{
-			//trace("---");
+		public function rotate(rotation:Number):void {
+			/* Rotating the puzzle nodes around each other */
 			
 			var nx:uint = 187.5 + 75 * (rotation % (width - 1));
 			var ny:uint = 437.5 + 75 * int(rotation / (width - 1));
@@ -56,74 +58,28 @@ package
 			var topright:int = int(rotation + rotation / (width - 1) + 1);
 			var bottomleft:int = int(width + (rotation + rotation / (width - 1)));
 			var bottomright:int = int(width + (rotation + rotation / (width - 1) + 1));
-			/*
-			trace(topleft);
-			trace(topright);
-			trace(bottomleft);
-			trace(bottomright);
 			
-			trace(nodes[topleft].currentColor); 		
-			trace(nodes[topright].currentColor);
-			trace(nodes[bottomleft].currentColor);
-			trace(nodes[bottomright].currentColor);
-			*/
-			
+			// Starting the animation for the rotation
 			nodes[topleft].rotate(nx, ny, 3*j);
 			nodes[topright].rotate(nx, ny, j);
 			nodes[bottomleft].rotate(nx, ny, 5*j);
 			nodes[bottomright].rotate(nx, ny, 7*j);
 			
+			// Switctching the colors in the nodelist
 			var tmp_color:int = nodes[topright].return_color();
 			nodes[topright].change_color(nodes[topleft].return_color());
 			nodes[topleft].change_color(nodes[bottomleft].return_color());
 			nodes[bottomleft].change_color(nodes[bottomright].return_color());
 			nodes[bottomright].change_color(tmp_color);
 			
-			/*
-			var tmp1:PuzzleNode = nodes[topleft];
-			var tmp2:PuzzleNode = nodes[topright];
-			var tmp3:PuzzleNode = nodes[bottomleft];
-			var tmp4:PuzzleNode = nodes[bottomright];
-
-			/*trace("!!!")
-			trace(nodes[topleft].x);
-			trace(nodes[topleft].y);
-			trace(nodes[topright].x);
-			trace(nodes[topright].y);
-			trace(nodes[bottomright].x);
-			trace(nodes[bottomright].y);
-			trace(nodes[bottomleft].x);
-			trace(nodes[bottomleft].y);
-			
-			/*
-			nodes[topleft] = 		tmp3;
-			nodes[topright] = 		tmp1;
-			nodes[bottomleft] = 	tmp4;
-			nodes[bottomright] = 	tmp2;
-			/
-			
-			trace("!!!")
-			trace(nodes[topleft].x);
-			trace(nodes[topleft].y);
-			trace(nodes[topright].x);
-			trace(nodes[topright].y);
-			trace(nodes[bottomright].x);
-			trace(nodes[bottomright].y);
-			trace(nodes[bottomleft].x);
-			trace(nodes[bottomleft].y);
-			*/
-			
 			counter++;
 			
 		}
 		
-		public function compareSolution():Boolean
-		{
-			/*for (var i:Number = 0; i < moves; i++) {
-				if (answer[i] != solution[moves - i]) {
-					return false;
-				}
-			}*/
+		public function compareSolution():Boolean {
+			/* Finding out if the solution is correct */
+			
+			// Comparing the order of the nodes to the solution
 			for (var i:uint = 0; i < nodes.length; i++) {
 				if (nodes[i].return_color() != solved[i])
 				{
@@ -137,12 +93,12 @@ package
 			return true;
 		}
 		
-		public function reset():void
-		{
+		public function reset():void {
+			/* Resets the puzzle to the previous shuffle */
 			trace("reset");
 			this.counter = 0;
 			
-			//initialize all nodes to default places
+			// Initialize all nodes to default places
 			for (var i:int = 0; i < nodes.length; i++) {
 				if (i < width) {
 					nodes[i].change_color(0);
@@ -153,9 +109,9 @@ package
 				}
 			}
 			
+			// Rotate nodes without animation
 			var rotation:int, topleft:int, topright:int, bottomleft:int, bottomright:int, tmp_color:int;
 			
-			//rotate nodes without animation
 			for (var j:int = 0; j < solution.length; j++) {
 				rotation = solution[j];
 				topleft = int(rotation + rotation / (width - 1));
@@ -171,8 +127,8 @@ package
 			}
 		}
 		
-		private function randomRange(minNum:Number, maxNum:Number):Number
-		{
+		private function randomRange(minNum:Number, maxNum:Number):Number {
+			/* A helper function to give a random within the given range */
 			return (Math.floor(Math.random() * (maxNum - minNum + 1)) + minNum);
 		}
 		

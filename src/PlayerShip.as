@@ -13,7 +13,7 @@ package
 	import net.flashpunk.World;
 	
 	/**
-	 * ...
+	 * The ship the player is controlling
 	 * @author Minttu Mäkinen
 	 */
 	public class PlayerShip extends Entity 
@@ -48,13 +48,15 @@ package
 		private var comboPuzzles:int;
 		private var solved:Boolean;
 		
-		public function PlayerShip(name:String, puzzle:Puzzle, world:GameWorld) 
-		{
+		public function PlayerShip(name:String, puzzle:Puzzle, world:GameWorld) {
+			/* This function initializes the player character information */
+			
 			this._puzzle = puzzle;
 			this._playerWorld = world;
+			lives = 5;
 			
+			// Selecting which sprite to use
 			var sprite:Class;
-			
 			if (name == "emo") {
 				sprite = EMO;
 				world._combo = new ComboGraphic("emo");
@@ -72,6 +74,7 @@ package
 				world._combo = new ComboGraphic("boss");
 			}
 			
+			// Location of the player and the location of the sprite
 			playerSprite = new Image(sprite);
 			playerSprite.x = -28.5;
 			playerSprite.y = -31.5;
@@ -84,13 +87,13 @@ package
 			sprites = new Graphiclist(playerSprite, modeSprite);
 			graphic = sprites;
 			
-			lives = 5;
-			
+			// Setting the hitbox
 			mask = new Pixelmask(sprite, -28.5, -31.5);
 			this.setHitbox(10, 10, 0, 0);
 			x = 250;
 			y = 500;
 			
+			// Statistics
 			invincible = false;
 			_timeElapsed = 0;
 			timer = -1;
@@ -104,20 +107,24 @@ package
 		}
 		
 		public function getLives():int {
+			/* Returns the amount of lives left */
 			return lives;
 		}
 		
 		public function getSolved():int {
+			/* Returns the amount of solved puzzles */
 			return solvedPuzzles;
 		}
 		
-		override public function update():void
-		{
-			//Check puzzle and pause timers
+		override public function update():void {
+			/* This function updates the state of the player each turn */
+			
+			// Check puzzle and pause timers
 			if (timer >= 0) {
 				timer += 5 * FP.elapsed;
 				//trace(timer);
 				if (timer >= 5 && !pause && solved) {
+					// If puzzle is solved reset the puzzle and add invincibility
 					_puzzle.shuffle();
 					_puzzle.reset();
 					invincible = true;
@@ -130,21 +137,24 @@ package
 					_playerWorld._sidebar.changeBulletDamage(bulletDamage);
 					_playerWorld._sidebar.showCombobar();
 					
-					//Paused, so we can add some cool graphic here without disturbing the game
+					// Paused, so we can add some cool graphic here without disturbing the game
 					_playerWorld.pauseGame();
 					_playerWorld._combo.entryAnimation(5);
 					
 					solved = false;
 				} else if (timer >= 50) {
+					// End invincibility
 					timer = -1;
 					invincible = false;
 					comboPuzzles = 0;
 					modeSprite.visible = false;
 					_playerWorld._sidebar.combobar.visible = false;
 				} else if (timer >= 20) {
+					// When the puzzle solving graphic is over...
 					_playerWorld.continueGame();
 					_playerWorld._sidebar.decrease = true;
 				} else if (timer >= 10) {
+					// Start sliding the graphic off-screen
 					_playerWorld._combo.exitAnimation(5);
 					//_playerWorld._sidebar.startCountdown();
 				}
@@ -155,35 +165,31 @@ package
 			}
 			
 			//Game controls
-			if (Input.check(Key.A) || Input.check(Key.LEFT))
-			{
+			if (Input.check(Key.A) || Input.check(Key.LEFT)) {
 				x -= 150 * FP.elapsed;
 				if (x < 0) {
 					x = 0;
 				}
-			} else if (Input.check(Key.D) || Input.check(Key.RIGHT))
-			{
+			} else if (Input.check(Key.D) || Input.check(Key.RIGHT)) {
 				x += 150 * FP.elapsed;
 				if (x > 500) {
 					x = 500;
 				}
 			}
 			 
-			if (Input.check(Key.W) || Input.check(Key.UP))
-			{
+			if (Input.check(Key.W) || Input.check(Key.UP)) {
 				y -= 150 * FP.elapsed;
 				if (y < 0) {
 					y = 0;
 				}
-			} else if (Input.check(Key.S) || Input.check(Key.DOWN))
-			{
+			} else if (Input.check(Key.S) || Input.check(Key.DOWN)) {
 				y += 150 * FP.elapsed;
 				if (y > 600) {
 					y = 600;
 				}
 			}
 			
-			//Shooting
+			// Shooting
 			if (Input.check(Key.SPACE) && _timeElapsed > 2)
 			{
 				_timeElapsed = 0;
@@ -196,7 +202,7 @@ package
 				bul_onscreen.push(bull);
 			}
 			
-			//Reseting the puzzle
+			// Reseting the puzzle
 			if (Input.pressed(Key.R))
 				_puzzle.reset();
 			
@@ -207,7 +213,7 @@ package
 			}
 			
 			
-			//Rotating the puzzle
+			// Rotating the puzzle
 			if (Input.pressed(Key.ENTER))
 			{
 				if (x > 150 && y > 400 && x <= 225 && y <= 475) {
@@ -229,12 +235,13 @@ package
 				}
 			}
 			
-			//Advance auto-shoot timer
+			// Advance auto-shoot timer
 			_timeElapsed += 7 * FP.elapsed;
 		}
 		
-		public function pauseGame():void
-		{
+		public function pauseGame():void {
+			/* Sets the game in a pause mode */
+			
 			for each (var b:Bullet in bul_onscreen)
 			{
 				b.pause = true;
@@ -242,8 +249,9 @@ package
 			pause = true;
 		}
 		
-		public function continueGame():void
-		{
+		public function continueGame():void {
+			/* Starts the game again after a pause */
+			
 			for each (var b:Bullet in bul_onscreen)
 			{
 				b.pause = false;
@@ -251,16 +259,14 @@ package
 			pause = false;
 		}
 		
-		public function decreaseLives(damage:int):void
-		{
+		public function decreaseLives(damage:int):void {
+			/* Decreases lives when the player is not invincible */
+			
 			if (invincible)
 				return;
 				
 			lives -= damage;
 			_playerWorld._sidebar.changeLives(lives);
-			/*if (lives < 0) {
-				trace("Game over");
-			}*/
 		}
 		
 	}

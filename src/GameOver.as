@@ -18,32 +18,36 @@ package
 		private var menuButton:Button;
 		private var gameOverScreen:Image;
 		
-		public function GameOver(won:Boolean) 
-		{
+		public function GameOver(won:Boolean) {
+			/* Displays the game over box over the game */
+			
 			menuButton = new Button(goMenu, null, 270, 450);
 			menuButton.setSpritemap(MENU, 250, 36);
-			if (won)
+			if (won) {
 				gameOverScreen = new Image(GAMEWON);
-			else
+			} else {
 				gameOverScreen = new Image(GAMEOVER);
+			}
 			
+			add(menuButton);
 			addGraphic(gameOverScreen);
 		}
 		
-		public function goMenu():void
-		{
-			if (!ended)
+		public function goMenu():void {
+			/* Creates a new main menu */
+			
+			if (!ended) {
 				return;
+			}
 			
 			FP.world = new MainMenu();
-			
 			destroy();
 		}
 		
-		public function destroy():void
-		{
-			removeAll();
+		public function destroy():void {
+			/* Destroys all the game over elements and buttons */
 			
+			removeAll();
 			menuButton = null;
 		}
 	}

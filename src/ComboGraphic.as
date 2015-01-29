@@ -6,7 +6,7 @@ package
 	import net.flashpunk.graphics.Image;
 	import net.flashpunk.graphics.Text;
 	/**
-	 * ...
+	 * The graphic that shows up when you solve a puzzle
 	 * @author Minttu Mäkinen
 	 */
 	public class ComboGraphic extends Entity
@@ -31,8 +31,10 @@ package
 		private var path:Vector.<Point>;
 		private var exiting:Boolean;
 		
-		public function ComboGraphic(name:String)
-		{
+		public function ComboGraphic(name:String) {
+			/* Initializing the elements*/
+			
+			// Selecting the correct character
 			if (name == "emo") {
 				currentImage = new Image(EMO);
 			} else if (name == "megane") {
@@ -71,12 +73,11 @@ package
 			path = new Vector.<Point>();
 		}
 		
-		public function entryAnimation(distanceBetweenPoints:Number):void
-		{
+		public function entryAnimation(distanceBetweenPoints:Number):void {
+			/* Shows an animation of the image sliding on-screen */
+			
 			var i:Number;
-			 
 			var vec:Vector.<Point> = new Vector.<Point>();
-			 
 			var yPos:Number = 200;
 			 
 			for (i = -Math.PI; i*0.01 < Math.PI / 2; i += distanceBetweenPoints)
@@ -89,12 +90,11 @@ package
 			sprites.visible = true;
 		}
 		
-		public function exitAnimation(distanceBetweenPoints:Number):void
-		{
+		public function exitAnimation(distanceBetweenPoints:Number):void {
+			/* Shows an animation of the character sliding off-screen */
+			
 			var i:Number;
-			 
 			var vec:Vector.<Point> = new Vector.<Point>();
-			 
 			var yPos:Number = 200;
 			 
 			for (i = -Math.PI; i*0.01 < Math.PI / 2; i += distanceBetweenPoints)
@@ -106,8 +106,9 @@ package
 			exiting = true;
 		}
 		
-		override public function update():void
-		{
+		override public function update():void {
+			/* Updates the position of the graphic */
+			
 			if (path.length > 0)
 			{
 				if (path.length == 1 && exiting) {
@@ -115,16 +116,13 @@ package
 					exiting = false;
 				}
 				var tmp:Point = path.pop();
-				//trace(tmp.x);
 				x = tmp.x;
 				y = tmp.y;
-				//currentImage.x = tmp.x;
-				//currentImage.y = tmp.y;
 			}
 		}
 		
-		public function comboAmount(amount:Number):void
-		{
+		public function comboAmount(amount:Number):void {
+			/* Changes the text counter of the graphic */
 			msg3.text = amount + " hit(s)!";
 		}
 	}

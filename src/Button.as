@@ -1,3 +1,8 @@
+/**
+* This part of the code is the default button code that has been imported to
+* here from net folder for easier usage. Thus it is by no means written by us.
+*/
+
 package  
 {
 	import net.flashpunk.Entity;

@@ -5,7 +5,7 @@ package
 	import net.flashpunk.World;
 	
 	/**
-	 * ...
+	 * The screen where the player selects their character and the opponent
 	 * @author Minttu Mäkinen
 	 */
 	public class CharacterSelect extends World
@@ -56,8 +56,9 @@ package
 		private var currentCharacter:String;
 		private var currentOpponent:String;
 		
-		public function CharacterSelect() 
-		{
+		public function CharacterSelect() {
+			/* Initializing the menu elements */
+			
 			addGraphic(new Image(BG));
 			
 			selection = new Image(SQUARE);
@@ -130,25 +131,26 @@ package
 			currentOpponent = "";
 		}
 		
-		public function startGame():void
-		{
+		public function startGame():void {
+			/* Closes the menu and starts the game */
+			
 			if (currentCharacter == "" || currentOpponent == "")
 				return;
 			
 			FP.world = new GameWorld(currentCharacter, currentOpponent);
-     
 			destroy();
 		}
 		
-		public function returnMenu():void
-		{
+		public function returnMenu():void {
+			/* Creates a new main menu to replace the old destroyed one */
+			
 			FP.world = new MainMenu();
-     
 			destroy();
 		}
 		
-		public function selectCharacter(name:String):void
-		{
+		public function selectCharacter(name:String):void {
+			/* Selects the character and displays a square around them */
+			
 			currentCharacter = name;
 			
 			if (name == "emo") {
@@ -169,8 +171,9 @@ package
 			}
 		}
 		
-		public function selectOpponent(name:String):void
-		{
+		public function selectOpponent(name:String):void {
+			/* Selects the opponent and displays a square around them */
+			
 			currentOpponent = name;
 			
 			if (name == "emo") {
@@ -191,8 +194,9 @@ package
 			}
 		}
 		
-		public function destroy():void
-		{
+		public function destroy():void {
+			/* Destroys all the character select elements and buttons */
+			
 			removeAll();
 			
 			emoButton = null;

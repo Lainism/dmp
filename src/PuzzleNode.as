@@ -9,7 +9,7 @@ package
 	import net.flashpunk.utils.Key;
 	import net.flashpunk.graphics.Spritemap;
 	/**
-	 * ...
+	 * An invidual colored circle in a puzzle
 	 * @author Minttu Mäkinen
 	 */
 	public class PuzzleNode extends Entity
@@ -23,17 +23,15 @@ package
 		private var currentColor:int;
 		private var _pathToFollow:Vector.<Point>;
 		
-		public function PuzzleNode(color:uint, nx:uint, ny:uint) 
-		{
+		public function PuzzleNode(color:uint, nx:uint, ny:uint) {
+			/* Initializes an invidual puzzle node */
+			
+			// Selecting the color
 			if (color == 0) {
 				graphic = new Image(BLUE);
-			}
-			
-			if (color == 1) {
+			} else if (color == 1) {
 				graphic = new Image(RED);
-			}
-			
-			if (color == 2) {
+			} else if (color == 2) {
 				graphic = new Image(GREEN);
 			}
 			currentColor = color;
@@ -47,38 +45,22 @@ package
 			y = ny;
 		}
 		
-		public function rotate(nx:uint, ny:uint, j:Number):void
-		{
-			var vec:Vector.<Point> = new Vector.<Point>();
-			//var j:Number
-			var r:Number = 53.0330085;  
-			/*
-			if (nx < x && ny < y) {
-				j = Math.PI / 4;
-			} else if (nx >= x && ny < y) {
-				j = 3* Math.PI / 4;
-			} else if (nx > x && ny > y) {
-				j = - 3* Math.PI / 4;
-			} else {
-				j = - Math.PI / 4;
-			}
-			/
-			trace(j);
-			trace("~");
-			trace(x);
-			trace(y);
-			*/
+		public function rotate(nx:uint, ny:uint, j:Number):void {
+			/* Rotating the puzzle nodes around each other */
 			
-			for (var i:Number = j; i <= j + Math.PI / 2; i = i + 0.05)
-			{
+			var vec:Vector.<Point> = new Vector.<Point>();
+			var r:Number = 53.0330085;
+			
+			for (var i:Number = j; i <= j + Math.PI / 2; i = i + 0.05) {
 				//trace(ny - (r * Math.sin(i)));
 				vec.push(new Point( nx + (r * Math.cos(i)) , ny - (r * Math.sin(i)) ));
 			}
 			_pathToFollow = vec;
 		}
 		
-		override public function update():void
-		{
+		override public function update():void {
+			/* Updating the state of the node each turn (changing the location) */
+			
 			if (_pathToFollow.length > 0) {
 				var tmp:Point = _pathToFollow.pop();
 				x = int(tmp.x);
@@ -89,16 +71,13 @@ package
 		}
 		
 		public function change_color(color:int):void {
+			/* Makes the node change color */
 			
 			if (color == 0) {
 				graphic = new Image(BLUE);
-			}
-			
-			if (color == 1) {
+			} else if (color == 1) {
 				graphic = new Image(RED);
-			}
-			
-			if (color == 2) {
+			} else if (color == 2) {
 				graphic = new Image(GREEN);
 			}
 			
@@ -109,7 +88,7 @@ package
 		}
 		
 		public function return_color():int {
-			
+			/* Returns the color of the node */
 			return currentColor;
 		}
 	}

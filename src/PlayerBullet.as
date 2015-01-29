@@ -6,15 +6,15 @@ package
     import net.flashpunk.graphics.Image;
 	import net.flashpunk.masks.Pixelmask;
 	/**
-	 * Bullets shot by player
+	 * Bullets shot by the player
 	 * @author Minttu Mäkinen
 	 */
 public class PlayerBullet extends Bullet
     {
 		 
-        public function PlayerBullet(damage:int = 1)
-        {
-			super(damage)
+        public function PlayerBullet(damage:int = 1) {
+			/* Stores player bullet information */
+			super(damage);
             graphic = GraphicAssets.Pbullet_graph1;
 			mask = new Pixelmask(GraphicAssets.Player_bullet1, -8.5, -8.5);
         }
