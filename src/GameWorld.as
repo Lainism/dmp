@@ -27,6 +27,12 @@ package
 		private const BGM4:Class;
 		[Embed(source = '../sounds/anotherpiece.mp3')]
 		private const BGM5:Class;
+		[Embed(source = '../sounds/hit2.mp3')]
+		private const HIT1:Class;
+		[Embed(source = '../sounds/exp2.mp3')]
+		private const EXP1:Class;
+		private var playerHit:Sfx;
+		private var enemyHit:Sfx;
 		private var bgm:Sfx;
 		
 		[Embed(source = '../graphics/menu/gameover.png')]
@@ -93,12 +99,14 @@ package
 				_pattern = new Pattern5(_enemy, _playerShip, this);
 				bgm = new Sfx(BGM5);
 			}
+			enemyHit = new Sfx(HIT1);
+			playerHit = new Sfx(EXP1);
 			
 			_enemy.add_pattern(_pattern);
 			pause = false;
 			ended = false;
 			
-			_sidebar = new Sidebar(_playerShip.getLives());
+			_sidebar = new Sidebar(_playerShip.getLives(), _playerShip.getLimit());
 			
 			
 			// Adding the entities in the correct order
@@ -133,6 +141,7 @@ package
 					var bul:Bullet = _playerShip.bul_onscreen[a];
 					if (bul.collideWith(_enemy, bul.x, bul.y) || bul.y < 0) {
 						if (bul.y >= 0) {
+							enemyHit.play(0.2);
 							_enemy.decreaseLives(bul.damage);
 							_sidebar.addScore(_playerShip.getSolved());
 						}
@@ -147,10 +156,9 @@ package
 			if (_pattern.onScreen.length > 0) {
 				for (var c:int = 0; c < _pattern.onScreen.length; c++) {
 					var ebul:Bullet = _pattern.onScreen[c];
-					if (ebul.collideWith(_playerShip, ebul.x, ebul.y) || !(ebul.x > -30 && ebul.x < 530 && ebul.y > -30 && ebul.y < 630))
-					{
-						if (ebul.collideWith(_playerShip, ebul.x, ebul.y))
-						{
+					if (ebul.collideWith(_playerShip, ebul.x, ebul.y) || !(ebul.x > -30 && ebul.x < 530 && ebul.y > -30 && ebul.y < 630)) {
+						if (ebul.collideWith(_playerShip, ebul.x, ebul.y)) {
+							playerHit.play(0.5);
 							_playerShip.decreaseLives(ebul.damage);
 						}
 						remove(ebul);

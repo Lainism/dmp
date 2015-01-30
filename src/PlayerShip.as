@@ -8,6 +8,7 @@ package
 	import net.flashpunk.Mask;
 	import net.flashpunk.masks.Masklist;
 	import net.flashpunk.masks.Pixelmask;
+	import net.flashpunk.Sfx;
 	import net.flashpunk.utils.Input;
 	import net.flashpunk.utils.Key;
 	import net.flashpunk.World;
@@ -30,6 +31,12 @@ package
 		private const BOSS:Class;
 		[Embed(source = "../graphics/circle.png")]
 		private const CIRCLE:Class;
+		[Embed(source = '../sounds/shoot2.mp3')]
+		private const SHOOT1:Class;
+		[Embed(source = '../sounds/bells2.mp3')]
+		private const BELLS:Class;
+		private var shoot:Sfx;
+		private var puzzleChime:Sfx;
 		private var playerSprite:Image;
 		private var modeSprite:Image;
 		private var sprites:Graphiclist;
@@ -47,13 +54,16 @@ package
 		private var solvedPuzzles:int;
 		private var comboPuzzles:int;
 		private var solved:Boolean;
+		private var timeLimit:int;
 		
 		public function PlayerShip(name:String, puzzle:Puzzle, world:GameWorld) {
 			/* This function initializes the player character information */
 			
 			this._puzzle = puzzle;
 			this._playerWorld = world;
-			lives = 5;
+			lives = 100;
+			shoot = new Sfx(SHOOT1);
+			puzzleChime = new Sfx(BELLS);
 			
 			// Selecting which sprite to use
 			var sprite:Class;
@@ -97,6 +107,7 @@ package
 			invincible = false;
 			_timeElapsed = 0;
 			timer = -1;
+			timeLimit = 50;
 			
 			bulletDamage = 1;
 			solvedPuzzles = 0;
@@ -116,6 +127,11 @@ package
 			return solvedPuzzles;
 		}
 		
+		public function getLimit():int {
+			/* Returns the current time limit */
+			return timeLimit;
+		}
+		
 		override public function update():void {
 			/* This function updates the state of the player each turn */
 			
@@ -132,19 +148,27 @@ package
 					timer = 5;
 					solvedPuzzles++;
 					comboPuzzles++;
-					bulletDamage += comboPuzzles * bulletDamage;
+					bulletDamage += comboPuzzles * comboPuzzles;
 					_playerWorld._combo.comboAmount(comboPuzzles);
-					_playerWorld._sidebar.changeBulletDamage(bulletDamage);
+					_playerWorld._sidebar.changeBulletDamage(bulletDamage, timeLimit);
 					_playerWorld._sidebar.showCombobar();
+					
+					timeLimit -= 5;
+					if (timeLimit < 30) {
+						timeLimit = 30;
+					}
+					trace(timeLimit);
 					
 					// Paused, so we can add some cool graphic here without disturbing the game
 					_playerWorld.pauseGame();
 					_playerWorld._combo.entryAnimation(5);
+					puzzleChime.play(1.5);
 					
 					solved = false;
-				} else if (timer >= 50) {
+				} else if (timer >= timeLimit) {
 					// End invincibility
 					timer = -1;
+					timeLimit = 50;
 					invincible = false;
 					comboPuzzles = 0;
 					modeSprite.visible = false;
@@ -190,9 +214,10 @@ package
 			}
 			
 			// Shooting
-			if (Input.check(Key.SPACE) && _timeElapsed > 2)
-			{
+			if (Input.check(Key.SPACE) && _timeElapsed > 2) {
 				_timeElapsed = 0;
+				shoot.play(0.6);
+				
 				var bull:Bullet = GameWorld(world).playerPool.activate();
 				bull.damage = bulletDamage;
 				bull.xPos = bull.x = this.x;

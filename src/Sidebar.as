@@ -19,6 +19,8 @@ package
 		private const COMBO:Class;
 		private var sidebar:Graphiclist;
 		private var barbg:Backdrop;
+		private var limit:int;
+		private var power:Number;
 		public var combobar:Image;
 		private var scorec:Text;
 		private var score:Number = 0;
@@ -27,7 +29,7 @@ package
 		public var decrease:Boolean;
 		public var pause:Boolean;
 		
-		public function Sidebar(lives:int) {
+		public function Sidebar(lives:int, timeLimit:int) {
 			/* Initializing the sidebar */
 			
 			// Sidebar background
@@ -55,9 +57,11 @@ package
 			bullet.size = 30;
 			bullet.x = 30
 			bullet.y = 550;
+			power = 1;
 			
 			sidebar = new Graphiclist(barbg, scorec, livesc, bullet, combobar);
 			graphic = sidebar;
+			limit = timeLimit;
 			
 			x = 500;
 			y = 0;
@@ -79,13 +83,15 @@ package
 		
 		public function addScore(amount:int = 0):void {
 			/* Increasing the score and changing its text */
-			score += 10 + amount * 20;
+			score += 9 + power + amount;
 			scorec.text = "Score: " + score;
 		}
 		
-		public function changeBulletDamage(amount:Number):void {
-			/* Changing the text for bullet damage */
+		public function changeBulletDamage(amount:Number, newLimit:int):void {
+			/* Changing the text for bullet damage and time limit */
+			power = amount;
 			bullet.text = "Power: " + amount;
+			limit = newLimit;
 		}
 		
 		override public function update():void {
@@ -98,7 +104,8 @@ package
 				// Height of the screen is 600 pix
 				// In PlayerShip timer is 5 * FP.elapsed
 				// 600 / combotime * 5 * FP.elapsed
-				combobar.y += 600 / 30 * 5 * FP.elapsed;
+				trace(limit);
+				combobar.y += 600 / (limit - 20) * 5 * FP.elapsed;
 			}
 		}
 	}

@@ -45,14 +45,19 @@ package
 			var sprite:Class;
 			if (name == "emo") {
 				sprite = EMO;
+				lives = 1000;
 			} else if (name == "megane") {
 				sprite = MEGANE;
+				lives = 10000;
 			} else if (name == "ilo") {
 				sprite = ILO;
+				lives = 5000;
 			} else if (name == "tsun") {
 				sprite = TSUN;
+				lives = 5000;
 			} else if (name == "boss") {
 				sprite = BOSS;
+				lives = 10000;
 			}
 			
 			graphic = new Image(sprite);
@@ -70,7 +75,6 @@ package
             _added = false;
 			_timeElapsed = 0;
 			
-			lives = 1000;
 			pause = false;
 		}
 		

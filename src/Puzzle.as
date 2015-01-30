@@ -81,8 +81,7 @@ package
 			
 			// Comparing the order of the nodes to the solution
 			for (var i:uint = 0; i < nodes.length; i++) {
-				if (nodes[i].return_color() != solved[i])
-				{
+				if (nodes[i].return_color() != solved[i]) {
 					if (counter >= 3)
 						reset();
 					return false;
